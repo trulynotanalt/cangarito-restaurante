@@ -1,0 +1,1572 @@
+html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
+html.slow-scroll {
+            scroll-behavior: smooth;
+            scroll-snap-type: none;
+        }    
+body {
+
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    width: 100%;
+    height: 10000px;
+    
+}
+.erro_mensagem {
+    color: red; 
+    font-size: 16px; 
+    display: none; 
+}       
+.montserrat{
+  font-family: "Montserrat", sans-serif;
+}
+.merriweather{
+  font-family: "Merriweather", serif;
+
+}
+.xilosa{
+    font-family: 'Xilosa', sans-serif;
+}
+
+.slide-in-element {
+            opacity: 0; 
+            transform: translateX(-100%); 
+            transition: opacity 1s ease-out, transform 1s ease-out; 
+        }
+
+        .slide-in-element.visible {
+            opacity: 1; 
+            transform: translateX(0); 
+        }
+
+        
+        .contact-form.slide-in-element { 
+            opacity: 0;
+            transform: translateX(100%); 
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .contact-form.slide-in-element.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+header  {
+    background-color: #3B3B3B;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; 
+    top: 0;
+    z-index: 1000; 
+   
+}
+header nav{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+li{
+    text-align: center;
+    align-items: center;
+}
+#menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo {
+    height: 80px;
+  
+
+}
+
+#icone{
+    font-size: 64px;
+    color: #f5f5f5;
+}
+#carrinho{
+    font-size: 40px;
+    color: #f5f5f5;
+    padding-right: 40px;
+    justify-content: center;
+    
+}
+#userclaro{
+ align-items: center;
+    display: flex;
+    justify-content: center;
+}
+#userclaro:hover{
+ cursor: pointer;
+}
+.fa-regular fa-circle-user fa-2xl :hover{
+cursor: pointer;
+}
+.fa-regular fa-circle-user{
+width: 40px;
+height: 40px;
+}
+nav ul {
+    align-items: center;
+    text-align: center;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+   
+}
+
+nav a {
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 32px;
+    transition: color 0.3s ease;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #46CE3B;
+    
+}
+
+.secao1 {
+    position: relative;
+}
+
+.featured-image {
+    width: 100%;
+}
+
+.chamada {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    color: white;
+    font-size: 80px;
+    background-color: transparent;
+}
+
+
+.saboreie{
+   
+    font-family: 'Xilosa', sans-serif;
+    font-size: 80px;
+    color: #F3E3C4;
+    text-align: start;
+    
+}
+
+p {
+    font-size: 24px;
+}
+
+.btn {
+    margin-left: 5%;
+    background-color: none;
+    font-size: 40px;
+    padding: 20px 30px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 40px;
+    transition: border-color 0.4s ease;
+    border: solid 2px rgb(255, 255, 255);
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+}
+
+.btn:hover {
+    border-color: #d89c4a;
+   
+}
+.logo:hover{
+cursor: pointer;
+}
+.img2{
+    height: 70px;
+    width: 6%;
+    justify-content: right;
+    align-items: center;
+}
+.img2:hover{
+    cursor: pointer;
+}
+
+
+
+
+.container {
+    width: 100%;
+    background-color: #000000;
+   padding-bottom: 30px;
+}
+
+
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.history {
+    flex: 1;
+    background-color: #163A50;
+    padding: 20px;
+    border-radius: 8px;
+    height: 492px;
+    width: 503px;
+   margin-left: 45%;
+   margin-top: 5%;
+   
+}
+.nord1{
+    margin-left: 45%;
+    margin-top: 5%;
+    
+}
+.nord2{
+    height: 717px;
+    width: 600px;
+  
+}
+.detalhe1{
+    width: 543px;
+}
+
+.images {
+    flex: 1;
+margin-left: 5%;
+align-items: center;
+margin-bottom: 4%;
+position: relative;
+   align-content: center;
+
+}
+
+.images img {
+    position: relative;
+    margin-left: 20%;
+    border-radius: 8px;
+    max-width: 100%;
+}
+.nossa{
+    color: #F3E3C4;
+    font-size: 48px;
+   font-family: 'Xilosa', sans-serif;
+}
+.cangari{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    color: #B4B4B4;
+    font-size: 24px;
+}
+.desc{
+    color: #f5f5f5;
+    font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+    font-size: 24px;
+}
+
+.conheça{
+    font-family: 'Xilosa', sans-serif;
+    font-size: 48px;
+    color: #EFE7D8;
+  padding-top: 2%;
+  text-align: center;
+}
+.header3{
+    text-align: center;
+}
+.corpo{
+    display: flex;
+
+    align-items: flex-start;
+    padding: 20px;
+}
+
+
+
+
+.info{
+    background-color: color-mix(in srgb, #163A50 100%, #000000 20%);
+    border-radius: 8px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+.resta1 {
+  
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    text-align: center;
+    margin-left: 12%;
+}
+
+.resta1 img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+.resta1 p{
+    font-weight: 400;
+     font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+}
+.resta1 h2{
+    font-family: "Montserrat", sans-serif;
+    font-size: 32px;
+    color: #F3E3C4;
+    font-weight: 400;
+}
+
+.info h2 {
+    margin: 10px 0;
+}
+
+.butao {
+    background-color: #46CE3B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+ margin-left: auto;
+ margin-right: auto;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+   
+}
+
+.contact-form {
+    margin-top: 1%;
+    background-color: #3B3B3B;
+    padding: 20px;
+    height: 607px;
+    width: 20%;
+    margin-left: 15%;
+    padding-right: 2%;
+    border: solid 14px #EFE7D8;
+    border-top: transparent;
+    border-left: transparent;
+    
+   
+ 
+    
+    
+}
+
+.contact-form h3 {
+    color: #F3E3C4;
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    text-align: center;
+    font-size: 36px;
+}
+
+.contact-form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+.contact-form p{
+    color: #D89F46;
+    text-align: center;
+    font-size: 24px;
+     font-family: "Montserrat", sans-serif;
+     font-weight: 400;
+}
+
+.contact-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 3%;
+    border: 3px solid;
+    border-color: color-mix(in srgb, #EFE7D8 100%, #000000 20%);
+    border-radius: 4px;
+    color: #b1b2b2;
+    background-color: #EFE7D8;
+
+}
+.input{
+    content: #ffffff;
+    
+}
+.contact-form button {
+    background-color: #000000;
+    color: #f5f5f5;
+    border: none;
+    border-radius: 24px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 24px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+   
+}
+.cadastrar{
+    text-align: center;
+    
+  
+}
+.cadastrar :hover{
+    color: #d89c4a;
+    background-color: #1a1a1a;
+    transition: 0.5s;
+}
+.corpo2{
+    background: linear-gradient(to bottom, #2c2c2c, #050B0F);
+    color: white;
+    margin: 0;
+    padding: 0;
+    height: 2400px;
+}
+.venha{
+   
+    font-family: 'Xilosa', sans-serif;
+    font-size: 48px;
+    color: #F3E3C4;
+}
+.header2{
+    text-align: center;
+}
+
+.resta2 {
+  left: 10%;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    text-align: center;
+    margin-left: 12%;
+}
+
+.resta2 img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+.resta2 p{
+    
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+}
+.resta2 h2{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 32px;
+    color: #F3E3C4;
+}
+.resta2 button{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+   
+}
+
+.outro{
+    margin-left: 0.9%;
+}
+.butao{
+    font-size: 16px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+button img{
+    width: 40px;
+    height: 30px;
+    align-items: center;
+}
+button span{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.cuscuis{
+    width: 100%;
+    height: 162px;
+    align-items: end;
+    justify-content: end;
+    padding: 0px;
+    margin: 0px;
+}
+.cuscuis img{
+width: 100%;
+height: 162px;
+}
+.section4{
+    background-color: #2E3133;
+    height: 2418px;
+   
+}
+.header4{
+    text-align: center;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    
+}
+.titulo4{
+    padding-bottom: 15px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    color: #d89c4a;
+    font-size: 24px;
+}
+.Cardapio2{
+    font-family: 'Xilosa', sans-serif;
+    font-size: 64px;
+    color: #F3E3C4;
+}
+.itenscar{
+display: flex;
+margin-left: 10%;
+margin-top: 10%;
+width: fit-content;
+}
+.item_esquerda{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+   
+}
+.comida{
+    text-align: center;
+    margin-top: 12%;
+
+   
+}
+.comida img{
+    width: 80%;
+    height: 268px;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+.desc_comida{
+    background-color: #1A1A1A;
+    border-radius: 5px;
+    height: 256px;
+    margin-top: 5%;
+    padding-left: 5%;
+    width: 443px;
+}
+.nome_comida{
+    font-size: 32px;
+    color: #ffffff;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+}
+.preço{
+    font-size: 32px;
+    color: #D89F46;
+    font-family: "Merriweather", serif;
+    font-weight: 400;
+    
+}
+
+
+.carac_comida{
+    
+font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+font-size: 24px;
+color: #F3E3C4;
+}
+.item_direita{
+    
+     display: flex;
+    flex-direction: column;
+  margin-left: 40%;
+
+    
+}
+.comidas{
+    text-align: center;
+    margin-top: 12%;
+}
+.comidas img{
+    width: 380px;
+    height: 268px;
+   border-radius: 5px;
+   cursor: pointer;
+}
+.desc_comida2{
+    background-color: #1A1A1A;
+    border-radius: 5px;
+    height: 256px;
+    margin-top: 5%;
+    padding-left: 5%;
+    width: 443px;
+    
+}
+.cardapio_inteiro{
+    text-align: center;
+    text-decoration: none;
+    background-color: #000000;
+    padding: 10px 20px;
+    color: #ffffff;
+   border-radius: 40px;
+    font-size: 32px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    
+    
+}
+.cardapio_inteiro a{
+    margin-top: 10%;
+    text-decoration: none;
+    color: #9D4821;
+}
+.arroba{
+    width:fit-content;
+    height: 50px;
+    margin-left: 3%;
+    display: flex;
+    align-items: center;
+   
+}
+.cardapio_inteiro:hover{
+    cursor: pointer;
+    color: #D89F46;
+    background-color: #1A1A1A;
+    transition: 0.8s;
+}
+.ci{
+    margin-top: 5%;
+   text-align: center;
+}
+.secao5{
+    height: 1800px;
+    width: 100%;
+    background-color: #163A50;
+ 
+   
+}
+.secao6{
+    background-color: #2D2D2D;
+    width: 100%;
+    padding-top: 20px;
+
+    
+    height: 2450px;
+}
+.services{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #d89c4a;
+   
+}
+.canga{
+    font-size: 64px;
+    font-family: 'Xilosa', sans-serif;
+    color: #F3E3C4;
+}
+.secao7{
+    background-color: #1a1a1a;
+    width: 95%;
+    height: 2400px;
+    margin-left: auto;
+    margin-right: auto;
+   margin-top: 0.7%;
+   
+}
+.cangaforall{
+    margin-left: 3%;
+    padding-top: 40px;
+  
+}
+
+.servicos{
+margin-left: 15%;
+display: flex;
+
+}
+
+.sobre_os_serviços{
+    background-color: #3B3B3B;
+    border-radius: 5px;
+    width: 544px;
+    height: 425px;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    padding-right: 2%;
+}
+.nome_serviço{
+    font-size: 48px;
+    font-family: 'Xilosa', sans-serif;
+    color: #F3E3C4;
+    padding-left: 10%;
+    padding-top: 2%;
+}
+.desc_serviço{
+    font-size: 24px;
+     font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    color: #EFE7D8;
+    padding-left: 10%;
+    padding-top: 5%;
+   
+    height: 120px;
+}
+.chamada_serviço{
+    font-size: 28px;
+    color: #ffffff;
+     font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    background-color: #000000;
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 24px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25%;
+}
+.imagens_services{
+    margin-top: 10%;
+}
+.imagens_services img{
+width: 460px;
+height: 425px;
+}
+.imagens_services:hover{
+    cursor: pointer;
+}
+.sobre_os_serviços2{
+     background-color: #3B3B3B;
+    border-radius: 5px;
+    width: 544px;
+    height: 425px;
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    padding-right: 2%;
+}
+.imagens_services2{
+    margin-top: 4%;
+    
+}
+.imagens_services2 img{
+width: 460px;
+height: 425px;
+}
+
+.imagens_services2  :hover{
+    cursor: pointer;
+}
+.chamada_serviço2{
+     font-size: 28px;
+    color: #ffffff;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    background-color: #000000;
+    width: fit-content;
+    padding: 10px 20px;
+    border-radius: 24px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25%;
+}
+.chamada_serviço2:hover{
+    background-color: #1A1A1A;
+    color: #d89c4a;
+    transition: 0.8s;
+}
+.chamada_serviço:hover{
+    background-color: #1a1a1a;
+    color: #d89c4a;
+    transition: 0.8s; 
+}
+.rodape{
+    background-color: #3b3b3b;
+    width: 100%;
+    height: 476px;
+}
+#direitos{
+    font-size: 20px;
+     font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    color: #ffffff;
+}
+#dono{
+   font-size: 20px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    color: #46CE3B;  
+}
+.di{
+    padding-top: 4%;
+    text-align: center;
+   
+}
+#local{
+     font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    color: #ffffff;
+}
+@media (width: 390px) {
+  body {
+    width: 780px;
+    height: auto;
+    overflow-x: hidden;
+  }
+  .logo{
+    height: 60px;
+  }
+  header {
+    flex-direction: flex;
+    padding: 15px 10px;
+    align-items: center;
+    width: 844px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   
+    position: static;
+  }
+  nav ul {
+    flex-direction: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  nav a {
+    font-size: 20px;
+  }
+  .secao1 img{
+    width: 865px;
+  }
+  .chamada {
+    font-size: 48px;
+    top: 18%;
+    left: 10%;
+    text-align: center;
+    width: 100%;
+  }
+  .saboreie {
+    font-size: 48px;
+    text-align: center;
+    margin: 10px 15px;
+  }
+  p {
+    font-size: 20px;
+    margin: 0 15px;
+  }
+  .btn {
+    font-size: 26px;
+    padding: 12px 20px;
+    margin-left: 0;
+    align-self: center;
+  }
+    .detalhe1 {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    margin-top: 15px;
+  }
+  .history{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 269px;
+    margin-top: 15px;
+  }
+  .container{
+    width: 700px;
+    margin-left: 15%;
+    
+    
+  }
+  .content {
+    display: flex;
+    flex-direction: flex;
+    padding: 15px 10px;
+    align-items: center;
+    
+  }
+  .nord1{
+       width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    margin-top: 15px;
+    text-align: center;
+
+  }
+  .article1{
+    display: flex;
+    flex-direction: column;
+  }
+  .images{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+  }
+  .images img {
+    margin-bottom: 25px;
+  }
+.nord2{
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0px;
+}
+  .images img {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .nossa, .conheça, .canga {
+    font-size: 48px;
+    text-align: center;
+    margin: 10px 0;
+  }
+.header2{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.venha{
+     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8%;
+}
+  .contact-form {
+    width: 450px;
+    
+    margin-top: 10%;
+    height: 540px;
+    padding: 15px;
+    border-width: 10px ;
+  }
+  .corpo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    
+  }
+.contact-form input{
+    margin-top: 2%;
+    width: 280px;
+}
+  .corpo2{
+    width: 865px;
+    height: 2600px;
+  }
+  .resta1 {
+    width: 830px;
+    height: fit-content;
+    padding: 15px;
+  }
+  .outro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .resta2 {
+    width: 830px;
+    
+    height: fit-content;
+    padding: 15px;
+  }
+  .item_esquerda{
+    margin-left: 0px;
+  }
+  .item_direita {
+    margin-left: 0px;
+    
+  }
+  .comida img, .comidas img {
+    width: 100%;
+    height: auto;
+    margin-left: 11%;
+  }
+  .desc_comida, .desc_comida2 {
+    width: 100%;
+    padding-left: 15px;
+    height: auto;
+    padding-bottom: 30px;
+ margin-left: 10%;
+    
+  }
+  .itenscar {
+    flex-direction: column;
+    margin-left: 0;
+    width: 100%;
+  }
+  .section4{
+    height: 5400px;
+    margin-top: auto;
+    width: 865px;
+}
+  .cardapio_inteiro {
+    font-size: 26px;
+    padding: 10px 20px;
+    text-align: center;
+  }
+  .secao6{
+    height: 2200px;
+    width: 865px;
+  }
+  .secao7 {
+    height: 2400px;
+    margin-top: auto;
+    width: 865px;
+    
+  }
+.item_esquerda{
+    width: 720px;
+}
+.item_direita{
+    width: 720px;
+    
+}
+  .secao5{
+    padding-top: 10%;
+    width: 865px;
+  }
+.servicos{
+    margin-left: 1%;
+    margin-top: 4%;
+}
+.sobre_os_serviços{
+    height: 420px;
+    margin-left: 0px;
+}
+.desc_serviço{
+    font-size: 18px;
+}
+.sobre_os_serviços{
+    height: 425px ;
+}
+.sobre_os_serviços2{
+    height: 425px;
+    
+   
+    
+}
+
+.chamada_serviço{
+    width: fit-content;
+    font-size: 24px;
+}
+.chamada_serviço2{
+width: fit-content;
+    font-size: 24px;
+}
+  .rodape {
+    height: auto;
+    padding: 25px 15px;
+    width: 832px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (width: 430px) {
+  body {
+    width: 830px;
+    height: 13080px;
+    overflow-x: hidden;
+  }
+  .logo{
+    height: 60px;
+  }
+  header {
+    flex-direction: flex;
+    padding: 15px 10px;
+    align-items: center;
+    width: 955px;
+    padding: 10px;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: space-between;
+    position: static;   
+  }
+  nav ul {
+    flex-direction: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  nav a {
+    font-size: 24px;
+  }
+  .secao1 img{
+    width: 975px;
+  }
+  .chamada {
+    font-size: 48px;
+    top: 18%;
+    left: 10%;
+    text-align: center;
+    width: 100%;
+  }
+  .saboreie {
+    font-size: 48px;
+    text-align: center;
+    margin: 10px 15px;
+  }
+  p {
+    font-size: 20px;
+    margin: 0 15px;
+  }
+  .btn {
+    font-size: 26px;
+    padding: 12px 20px;
+    margin-left: 0;
+    align-self: center;
+  }
+  .history,  .detalhe1 {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    margin-top: 15px;
+  }
+  .container{
+    width: 700px;
+    margin-left: 22%;
+    
+    
+  }
+  .content {
+    display: flex;
+    flex-direction: flex;
+    padding: 15px 10px;
+    align-items: center;
+    
+  }
+  .nord1{
+       width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    margin-top: 15px;
+    text-align: center;
+
+  }
+  .article1{
+    display: flex;
+    flex-direction: column;
+  }
+  .images{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+  }
+  .images img {
+    margin-bottom: 25px;
+  }
+.nord2{
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0px;
+}
+  .images img {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .nossa, .conheça, .canga {
+    font-size: 48px;
+    text-align: center;
+    margin: 10px 0;
+  }
+.header2{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.venha{
+     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 12%;
+}
+  .contact-form {
+    width: 450px;
+    
+    margin-top: 10%;
+    height: 540px;
+    padding: 15px;
+    border-width: 10px ;
+    margin-left: 13.0%;
+  }
+  .corpo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    
+  }
+.contact-form input{
+    margin-top: 2%;
+    width: 280px;
+}
+  .corpo2{
+    width: 975px;
+    height: 2600px;
+  }
+  .resta1 {
+    width: 830px;
+    height: fit-content;
+    padding: 15px;
+  }
+  .outro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .resta2 {
+    width: 830px;
+    
+    height: fit-content;
+    padding: 15px;
+  }
+  .item_direita {
+    margin-left: 0px;
+    
+  }
+  .comida img, .comidas img {
+    width: 100%;
+    height: auto;
+    margin-left: 17.5%;
+  }
+  .desc_comida, .desc_comida2 {
+    width: 100%;
+    padding-left: 15px;
+    height: auto;
+    padding-bottom: 30px;
+ margin-left: 16%;
+    
+  }
+  .itenscar {
+    flex-direction: column;
+    margin-left: 0;
+    width: 100%;
+  }
+  .section4{
+    height: 5400px;
+    margin-top: auto;
+    width: 975px;
+}
+  .cardapio_inteiro {
+    font-size: 26px;
+    padding: 10px 20px;
+    text-align: center;
+  }
+  .secao6{
+    height: 2200px;
+    width: 905  px;
+  }
+  .secao7 {
+    height: 2400px;
+    margin-top: auto;
+    width: 975px;
+    
+  }
+.item_esquerda{
+    width: 720px;
+    margin-left: 0px;
+}
+.item_direita{
+    width: 720px;
+    
+}
+  .secao5{
+    padding-top: 10%;
+    width: 975px;
+  }
+.servicos{
+    margin-left: 1%;
+    margin-top: 4%;
+}
+.sobre_os_serviços{
+    height: 420px;
+    margin-left: 0px;
+}
+.desc_serviço{
+    font-size: 18px;
+}
+.sobre_os_serviços{
+    height: 425px ;
+}
+.sobre_os_serviços2{
+    height: 425px;
+    
+   
+    
+}
+
+.chamada_serviço{
+    width: fit-content;
+    font-size: 24px;
+}
+.chamada_serviço2{
+width: fit-content;
+    font-size: 24px;
+}
+  .rodape {
+    height: 320px;
+    margin-top: 5%;
+    padding: 25px 15px;
+    width: 945px;
+  }
+}
+
+
+
+
+
+
+
+
+@media (width: 820px) {
+    
+    body {
+        height: auto;
+         
+    }
+    
+    header {
+        display: flex;
+        flex-direction: row;
+        width: fit-content;
+        padding: 10px;
+        align-items: center;
+        justify-content: space-between;
+        position: static;
+    }
+    
+    .logo {
+        height: 90px;
+    }
+    
+    nav ul {
+        gap: 25px;
+    }
+    
+    nav a {
+        font-size: 28px;
+    }
+    
+    .secao1 {
+        margin-bottom: 40px;
+        width: 997px;
+    }
+    
+    .chamada, .saboreie {
+        font-size: 56px;
+        left: 8%;
+        top: 20%;
+    }
+    
+    .btn {
+        font-size: 28px;
+        padding: 15px 30px;
+    }
+    
+    .content{
+      display: flex;
+      
+      width: 957px;
+    }
+    
+    .history {
+        width:350px;
+        margin-left: 15%;
+        height: fit-content;
+        
+        
+    }
+    .article1{
+      width: 400px;
+      
+    }
+   .detalhe1{
+    width: 350px;
+    background-color: #9D4821;
+   }
+   .nord1{
+    width: 200px;
+    padding: 0%;
+    margin: 0%;
+    margin-left: 18%;
+    margin-top: 5%;
+   }
+   .images img{
+    width: 420px;
+    margin-left: 10%;
+   }
+    .corpo2{
+      width: 820px;
+      padding-right: 177px;
+     height: 2050px;
+    }
+    .corpo{
+      width: 800px;
+    }
+    .outro{
+      width: 800px;
+    }
+    .resta1{
+      width: 300px;
+    }
+    .resta2{
+      width: 300px;
+      margin-left: 13%;
+    }
+    .contact-form {
+        width: 300px;
+        margin-left: 2%;
+        height: 650px;
+    }
+    .contact-form input{
+      width: 220px;
+    }
+    .cuscuis{
+      width: 997px;
+    }
+   
+    
+    .section4{
+      width: 900px;
+      height: 2300px;
+      padding-right: 97.3px;
+    }
+    .item_esquerda, .item_direita {
+        width: 350px;
+        margin-left: 5%;
+    }
+    
+    .comida img, .comidas img {
+        height: 200px;
+        width: 320px;
+        margin-left: 1%;
+    }
+    
+    .desc_comida, .desc_comida2 {
+        height: 320px;
+        width: 90%;
+        margin-left: 2%;
+    }
+    .ci{
+      margin-top: 100px;
+      margin-left: 10%;
+      text-align: center;
+    }
+    
+    .secao5{
+width: 957px;
+height: 2600px;
+
+    }
+    .secao6{
+     margin: 0px;
+     padding: 0px;
+     width: fit-content;
+      height: 2500px;
+      
+    }
+   
+    .servicos {
+        margin-left: 3%;
+    }
+    
+    .sobre_os_serviços, .sobre_os_serviços2 {
+        width: 40%;
+    }
+    
+    
+    #icone, #carrinho {
+        font-size: 42px;
+    }
+    
+    #menu {
+        padding: 0 30px;
+    }
+    
+    #userclaro {
+        padding-right: 30px;
+    }
+    
+    
+    .secao5, .secao6, .secao7 {
+        padding: 40px 20px;
+    }
+    
+    .Cardapio2, .canga,
+    .conheça, .venha {
+        font-size: 56px;
+    }
+    
+    .services {
+        font-size: 28px;
+    }
+    .desc_serviço{
+      font-size: 18px;
+    }
+    .chamada_serviço{
+      font-size: 22px;
+    }
+    .chamada_serviço2{
+      font-size: 22px;
+    }
+    .rodape {
+      display: flex;
+      flex-direction: column;
+       width: 950px;
+       
+      margin-top: 7%;
+      
+      
+       
+    }
+    
+    #direitos, #dono {
+        font-size: 22px;
+    }
+    
+    #local {
+        font-size: 18px;
+    }
+}

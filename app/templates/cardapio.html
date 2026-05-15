@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/cardapio.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="./script/main.js" type="module" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <header><nav>
+    <a href=""><img id="logo" src="../Imagens/logo-cangarito.png" alt=""></a>
+    <ul>
+        <li><a href="../perfil-home/perfil.html">Home</a></li>
+        <li><a href="">Cardápio</a></li>
+        <li><a href="../Landing page/landing_page_claro.html">Contato</a></li>
+        <li><a href="../Landing page/landing_page_claro.html">Unidades</a></li>
+        <li><a href="../Landing page/landing_page_claro.html">Sobre</a></li>
+    </ul>
+    
+    <div class="icons">
+        
+        <a href="../Carrinho/carrinho.html"><i class="bi bi-cart-fill"></i></a>
+        <a href="../Cadastro/Cadastro-white/"><i class="bi bi-person-circle"></i></a>
+        
+    </div>
+    </nav></header>
+
+    <img id="small-background" src="https://thumbs.dreamstime.com/b/prato-original-de-cuscuz-brasil-gen%C3%A9rico-por-ai-imagem-do-couscuz-design-background-para-instagram-pintura-parede-facebook-325276330.jpg" alt="">
+
+    <main>
+        <section class="info-restaurante">
+            <h1>Cardápio</h1>
+
+          <div id="header-cardapio">
+            <div id="endereco">
+              <i class="bi bi-geo-alt-fill"></i>
+              <p>157, Rua do Enquadro, Bairro do Sufoco, Caicó-RN</p>
+            </div>
+
+            <div id="horarios">
+                <div id="dias-semana-minimized">
+                  <div id="container-bola-aberto">
+                    <div id="bola-situacao"></div> 
+                  <!-- Apenas a bolinha piscante -->
+                   <p>Aberto</p>
+                  </div>
+                  <p>Ver Horários <i class="bi bi-chevron-compact-down"></i></p>
+                </div>
+                <div id="dias-semana-expand">
+
+                    <span class="dias-semana">
+                        <p>Domingo</p>
+                        <p>Fechado</p>
+                    </span>
+
+                    <span class="dias-semana">
+                      <p>Segunda</p>
+                      <p>7:00 às 22:00</p>
+                    </span>
+
+                    <span class="dias-semana">
+                      <p>Terça</p>
+                      <p>7:00 às 22:00</p>
+                    </span>
+
+                    <span class="dias-semana">
+                        <p>Quarta</p>
+                        <p>7:00 às 22:00</p>
+                    </span>
+
+                    <span class="dias-semana">
+                        <p>Quinta</p>
+                        <p>7:00 às 00:00</p>
+                    </span>
+
+                    <span class="dias-semana">
+                        <p>Sexta</p>
+                        <p>7:00 às 00:00</p>
+                    </span>
+                    <span class="dias-semana">
+                      <p>Sábado</p>
+                      <p>7:00 às 00:00</p>
+                  </span>
+                </div>
+            </div>
+          </div>
+
+            <div id="barra-pesquisa"><i class="bi bi-search"></i><input type="search" placeholder="Pesquisar.."></div>
+
+        </section>
+        
+        <section class="lista-produtos">
+            <h2>Campeões de Venda</h2>
+            <div class="grade-produtos">
+
+                <article>
+                    <div class="container-info-produto">
+                      <img src="https://media.gazetadopovo.com.br/2021/08/26203036/coxinha-postos-pelanda-1920x1080-720x720.jpg" alt="Coxinha Barata">
+                      <div class="info-produto">
+                        <h3>Coxinha Barata</h3>
+                        <h2>R$ 15,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>300g</p>
+                          </div>
+                          <div class="tags-produto">
+                            <p>Catupiry</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      <p class="desc-produto">
+                        Coxinha de frango com molho especial do cangaço, temperado com cominho e coentro defumados.
+                      </p>
+                      
+                    
+                  </article>
+                  
+                  <article>
+                    <div class="container-info-produto">
+                      <img src="https://www.academiaassai.com.br/sites/default/files/styles/noticia_1020x640/public/como-fazer-bolo-de-milho-com-milho-em-lata.jpg?itok=r_pSSqSo" alt="Bolo de Milho">
+                      <div class="info-produto">
+                        <h3>Bolo de Milho</h3>
+                        <h2>R$ 12,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>250g</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                      <p class="desc-produto">
+                        Receita tradicional nordestina com milho verde, leite de coco e um toque de erva-doce.
+                      </p>
+                  </article>
+                  
+                  <article>
+                    <div class="container-info-produto">
+                      <img src="https://www.melhorpanela.com/wp-content/uploads/2024/03/cuscuz-recheado.jpg" alt="Cuscuz Recheado">
+                      <div class="info-produto">
+                        <h3>Cuscuz Recheado</h3>
+                        <h2>R$ 18,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>400g</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                      <p class="desc-produto">
+                        Cuscuz de milho com carne de sol desfiada, queijo coalho derretido e manteiga da terra.
+                      </p>
+                  </article>
+                  
+                  <article>
+                    <div class="container-info-produto">
+                      <img src="https://paraisodacozinha.com.br/wp-content/uploads/misto-quente-tradicional-a.jpg" alt="Misto Nordestino">
+                      <div class="info-produto">
+                        <h3>Misto Nordestino</h3>
+                        <h2>R$ 7,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>450g</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                      <p class="desc-produto">
+                        Um sanduiche básico com presunto, queijo, frango, ovo e um molho da casa.
+                      </p>
+                  </article>
+        </section>
+
+        <section class="lista-produtos">
+            <h2>Cuscuz</h2>
+
+
+            <div class="grade-produtos">
+            <article>
+                <div class="container-info-produto">
+                  <img src="https://totalpass.com/wp-content/uploads/2025/01/cuscuz-de-milho.jpg" alt="Cuscuz Simples">
+                  <div class="info-produto">
+                    <h3>Cuscuz Simples</h3>
+                    <h2>R$ 8,00</h2>
+                    <div class="container-tags-produto">
+                      <div class="tags-produto">
+                      <p>200g</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                  <p class="desc-produto">
+                    Cuscuz de milho cozido no vapor, servido puro com manteiga da terra.
+                  </p>
+              </article>
+              
+              <article>
+                <div class="container-info-produto">
+                  <img src="https://cdn.casaeculinaria.com/wp-content/uploads/2023/03/10143056/cuscuz-com-ovo.jpg" alt="Cuscuz com Ovo">
+                  <div class="info-produto">
+                    <h3>Cuscuz com Ovo</h3>
+                    <h2>R$ 10,00</h2>
+                    <div class="container-tags-produto">
+                      <div class="tags-produto">
+                      <p>250g</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                  <p class="desc-produto">
+                    Cuscuz tradicional acompanhado de ovo frito com gema mole.
+                  </p>
+              </article>
+              
+              <article>
+                <div class="container-info-produto">
+                  <img src="https://www.perdigao.com.br/assets/_images/5c9690259a716ad59ad4ad992403bceea45f7999.webp" alt="Cuscuz com Calabresa">
+                  <div class="info-produto">
+                    <h3>Cuscuz com Calabresa</h3>
+                    <h2>R$ 14,00</h2>
+                    <div class="container-tags-produto">
+                      <div class="tags-produto">
+                      <p>300g</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                  <p class="desc-produto">
+                    Cuscuz de milho com fatias de calabresa acebolada e manteiga da terra.
+                  </p>
+              </article>
+              
+              <article>
+                <div class="container-info-produto">
+                  <img src="https://www.deline.com.br/assets/images/recipes/cuscuz-com-queijo-coalho/mobile/thumb-video.jpg?v3" alt="Cuscuz com Queijo">
+                  <div class="info-produto">
+                    <h3>Cuscuz com Queijo</h3>
+                    <h2>R$ 12,00</h2>
+                    <div class="container-tags-produto">
+                      <div class="tags-produto">
+                      <p>250g</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+                  <p class="desc-produto">
+                    Cuscuz com generosas fatias de queijo coalho derretido por cima.
+                  </p>
+              </article>
+              
+              <article>
+                <div class="container-info-produto">
+                  <img src="https://receitatodahora.com.br/wp-content/uploads/2023/12/cuscuz-frigideira-2511.jpg" alt="Cuscuz com Banana">
+                  <div class="info-produto">
+                    <h3>Cuscuz com Banana</h3>
+                    <h2>R$ 11,00</h2>
+                    <div class="container-tags-produto">
+                      <div class="tags-produto">
+                      <p>250g</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+                  <p class="desc-produto">
+                    Cuscuz adocicado com banana-da-terra frita e melado de rapadura.
+                  </p>
+              </article>
+              
+              <article>
+                <div class="container-info-produto">
+                  <img src="https://www.minhareceita.com.br/app/uploads/2024/12/r0725-cuscuz-recheado-com-carne-de-charque-com-banana-da-terra-1200x675-1.webp" alt="Cuscuz com Charque">
+                  <div class="info-produto">
+                    <h3>Cuscuz com Charque</h3>
+                    <h2>R$ 17,00</h2>
+                    <div class="container-tags-produto">
+                      <div class="tags-produto">
+                      <p>350g</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                  <p class="desc-produto">
+                    Cuscuz de milho com charque desfiada, cebola roxa e coentro fresco.
+                  </p>
+              </article>
+              
+              <article>
+                <div class="container-info-produto">
+                  <img src="https://www.sabornamesa.com.br/media/k2/items/cache/ddbd51c6174319adf1ea9a6d30392812_XL.jpg" alt="Cuscuz Doce">
+                  <div class="info-produto">
+                    <h3>Cuscuz Doce</h3>
+                    <h2>R$ 10,00</h2>
+                    <div class="container-tags-produto">
+                      <div class="tags-produto">
+                      <p>220g</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                  <p class="desc-produto">
+                    Cuscuz adocicado com leite condensado e coco ralado fresco.
+                  </p>
+              </article>
+              
+              <article>
+                <div class="container-info-produto">
+                  <img src="https://caras.com.br/media/_versions/legacy/2008/09/08/img_1513_cuscuz-marroquino-com-camarao_widexl.jpg" alt="Cuscuz com Mariscos">
+                  <div class="info-produto">
+                    <h3>Cuscuz de Praia</h3>
+                    <h2>R$ 22,00</h2>
+                    <div class="container-tags-produto">
+                      <div class="tags-produto">
+                      <p>400g</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+                  <p class="desc-produto">
+                    Cuscuz de milho com frutos do mar refogados no leite de coco e pimenta de cheiro.
+                  </p>
+              </article>
+            </div>
+        </section>
+
+        <section class="lista-produtos">
+            <h2>Sobremesa</h2>
+
+            <div class="grade-produtos">
+
+                <article>
+                    <div class="container-info-produto">
+                      <img src="https://cdn.casaeculinaria.com/wp-content/uploads/2023/04/12121046/Cartola-1024x576.jpg" alt="Cartola">
+                      <div class="info-produto">
+                        <h3>Cartola</h3>
+                        <h2>R$ 9,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>150g</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                      <p class="desc-produto">
+                        Banana frita com queijo coalho, coberta com açúcar e canela.
+                      </p>
+                  </article>
+                  
+                  <article>
+                    <div class="container-info-produto">
+                      <img src="https://www.minhareceita.com.br/app/uploads/2024/07/mobile-pudim-de-leite.png" alt="Pudim de Leite">
+                      <div class="info-produto">
+                        <h3>Pudim de Leite</h3>
+                        <h2>R$ 17,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>300g</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                      <p class="desc-produto">
+                        Pudim caseiro com calda de caramelo e textura cremosa.
+                      </p>
+                  </article>
+                  
+                  <article>
+                    <div class="container-info-produto">
+                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR89cFOMDhoccjndOd0XC427WeTSDc7RmmOuA&s" alt="Sagu com Coco">
+                      <div class="info-produto">
+                        <h3>Sagu com Coco</h3>
+                        <h2>R$ 8,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>130g</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                      <p class="desc-produto">
+                        Bolinhas de sagu cozidas em leite de coco, servido gelado.
+                      </p>
+                  </article>
+                  
+                  <article>
+                    <div class="container-info-produto">
+                      <img src="https://static.tvgazeta.com.br/uploads/2024/03/Bolo-de-rolo.png.webp" alt="Bolo de Rolo">
+                      <div class="info-produto">
+                        <h3>Bolo de Rolo</h3>
+                        <h2>R$ 10,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>200g</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                      <p class="desc-produto">
+                        Camadas finas de massa com goiabada, enroladas com perfeição.
+                      </p>
+                  </article>
+                  
+            </div>
+        </section>
+
+        <section class="lista-produtos">
+            <h2>Bebidas</h2>
+
+            <div class="grade-produtos">
+
+                <article>
+                    <div class="container-info-produto">
+                      <img src="https://espaconatelie.com.br/wp-content/uploads/2024/09/Suco-de-Caju.jpg" alt="Suco de Caju">
+                      <div class="info-produto">
+                        <h3>Suco de Caju</h3>
+                        <h2>R$ 6,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>300ml</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                      <p class="desc-produto">
+                        Suco natural de caju com pouquíssimo açúcar e muito sabor.
+                      </p>
+                  </article>
+                  
+                  <article>
+                    <div class="container-info-produto">
+                      <img src="https://receitanatureba.com/wp-content/uploads/2022/05/Receita-de-Suco-de-Manga-Natural.jpg" alt="Suco de Mangaba">
+                      <div class="info-produto">
+                        <h3>Suco de Manga</h3>
+                        <h2>R$ 7,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>300ml</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                      <p class="desc-produto">
+                        Bebida refrescante feita com manga da região do muro de Romerito, muito saborosa.
+                      </p>
+                  </article>
+                  
+                  <article>
+                    <div class="container-info-produto">
+                      <img src="https://ibassets.com.br/ib.item.image.large/l-bc3a50b2b2f84d6f9dbbac4ad5bdd675.jpg" alt="Guaraná Jesus">
+                      <div class="info-produto">
+                        <h3>Cajuína</h3>
+                        <h2>R$ 12,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>1L</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                      <p class="desc-produto">
+                        Refrigerante típico do Seridó, com sabor doce e floral.
+                      </p>
+                  </article>
+                  
+                  <article>
+                    <div class="container-info-produto">
+                      <img src="https://nutrisafety.com.br/wp-content/uploads/2021/03/Mat%C3%A9ria-2.jpg" alt="Água de Coco">
+                      <div class="info-produto">
+                        <h3>Água de Coco</h3>
+                        <h2>R$ 5,00</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>350ml</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                      <p class="desc-produto">
+                        Água de coco natural, servida gelada direto no copo ou no coco.
+                      </p>
+                  </article>
+                  
+            </div>
+        </section>
+    </main>
+    
+    <dialog>
+      <div id="header-dialog">
+        <button class="sair-dialog">
+          <i id="fechar-dialog" class="bi bi-chevron-compact-down"></i>
+        </button>
+        <h1>Coxinha Barata</h1>
+      </div>
+      <div class="info-dialog">
+        <div class="container-tags-produto">
+          <div class="tags-produto">
+          <p>300g</p>
+        </div>
+        <img src="https://media.gazetadopovo.com.br/2021/08/26203036/coxinha-postos-pelanda-1920x1080-720x720.jpg" alt="">
+        <p class="desc-produto">
+          Coxinha de frango com molho especial do cangaço, temperado com cominho e coentro defumados.
+        </p>
+      </div>
+      <label for="observacao-dialog">Alguma Observação?</label>
+      <textarea name="observacao-dialog" id="observacao-dialog"></textarea>
+
+      <div class="footer-dialog">
+        <div class="botao-adicionar"></div>
+        <button class="adicionar-dialog">Adicionar + </button>
+      </div>
+    </dialog>
+    
+    <footer>
+        <h3>Copyright © 2025 Restaurante Cangarito
+          | Desevolvido por Informática 2V |</h3>
+        <p>João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-000
+          Fale conosco| ajuda-cangarito@gmail.com.br</p>
+    </footer>
+</body>
+</html>

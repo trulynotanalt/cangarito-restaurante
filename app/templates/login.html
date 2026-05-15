@@ -3,35 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="cadastro.css">
+    <title>Login Cangarito</title>
+    <link rel="stylesheet" href="login.css">
     <script src="pag-js.js" defer></script>
 </head>
 <body>
 
-    <img src="Img/logo-removebg-preview.png" alt="Logo" id="logo" width="65" height="68">
+    <img src="Img/logo-removebg-preview.png" alt="Logo Cangarito" id="logo" width="65" height="68">
 
     <section>
+        <div class="block-cangarito">
+            <img src="Img/cangarito.png" alt="" id="cangarito">
+            <div class="box-cadastro">
+                <p class="montserrat-label-forms">Não tem uma conta ainda?</p>
+                <a href="/Cadastro/Cadastro-white/cadastro.html" id="link-pags"><button class="montserrat-box-cadastro-button" id="cadastro-button">Cadastre-se</button></a>
+            </div>
+        </div>
+
         <main class="area">
             <div class="logar">
                 <div id="titulo" class="montserrat-titulo-p">
-                    <h1>Cadastre-se</h1>
+                    <p>Login</p>
                 </div>
 
                 <div id="informacoes">
-                    <p class="fonte-p">Usuário:</p>
-                    <input type="text" id="usuario" class="montserrat-placeholder" placeholder="romerito123">
-
                     <p class="fonte-p">Email:</p>
                     <input type="email" id="email" class="montserrat-placeholder" placeholder="romerito123@gmail.com">
 
                     <p class="fonte-p">Senha:</p>
-                    <input type="password" id="senha" class="montserrat-placeholder senha" placeholder="12345678">
+                    <input type="password" id="senha" class="montserrat-placeholder" placeholder="Digite sua senha">
 
-                    <p class="fonte-p">Confirmar Senha:</p>
-                    <input type="password" id="repsenha" class="montserrat-placeholder senha" placeholder="12345678">
-
-                    <button type="button" onclick="validar();redirecionar()" class="montserrat-button-p">Cadastrar</button>
+                    <button onclick="validar()" type="button" class="montserrat-button-p">Login</button>
 
                     <p id="acessar" class="montserrat-acess">ou acesse com:</p>
 
@@ -47,33 +49,25 @@
 
                         <a href="https://www.google.com.br/?hl=pt-BR" target="_blank" rel="noopener noreferrer">
                             <div class="circulo">
-                               
+                                
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
-                                    <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
+                                    <path d="M488 261.8C488 403.3 391.1 504 248 504C110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6c98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
                                 </svg>
                             </div>
                         </a>
 
                         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
                             <div class="circulo">
-                               
+                                
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8S339 319.5 339 255.9S287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7s74.7 33.5 74.7 74.7s-33.6 74.7-74.7 74.7zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6c-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6c-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6c29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6c11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
                                 </svg>
                             </div>
                         </a>
                     </div>
                 </div>
-            </div>
+            </div>   
         </main>
-
-        <div class="block-cangarito">
-            <img src="Img/cangarito.png" alt="Cangarito" id="cangarito" width="452" height="669">
-            <div class="box-cadastro">
-                <p class="montserrat-label-forms">Já tem uma conta?</p>
-                <a href="/Login/Login-white/login.html" id="link-pags"><button class="montserrat-box-cadastro-button" id="cadastro-button">Login</button></a>
-            </div>
-        </div>
     </section>
 
 </body>

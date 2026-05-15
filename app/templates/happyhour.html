@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos/dark.css  ">
+    <title>Happy Hour Especial</title>
+     <style>
+@import url('https://fonts.cdnfonts.com/css/xilosa');
+</style>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+</style>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+</style>
+ <script src="https://kit.fontawesome.com/0dcb96df0e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <a href=""><img class="logo" src="imagens/logo.png" alt="Cangarito Logo" class="logo">  </a>
+        
+        <nav>
+            <ul id="menu">
+                <li><a href="../perfil-home/perfil.html">Home</a></li>
+                <li><a href="../Cardápio/cardapio.html">Cardápio</a></li>
+                <li><a href="../Landing page/landing_page_claro.html">Contato</a></li>
+                <li><a href="../Landing page/landing_page_dark.html">Unidades</a></li>
+                <li><a href="../Landing page/landing_page_claro.html">Sobre</a></li>
+            </ul>
+        </nav>
+       <div id="userclaro">
+        <a href="../Carrinho/carrinho.html"><i id="carrinho" class="fa-solid fa-cart-shopping"></i></a>
+        <a href="../Login/Login-white/login.html"><i id="icone" class="fa-regular fa-circle-user fa-2xl"     > </i></a>
+       </div>
+</header>
+    
+
+    <article class="happy">
+        <h1>Happy Hour Time!</h1>
+        <p>Descubra as melhores promoções de drinks para cada dia da semana em nosso bar exclusivo</p>
+    </article>
+
+    <div class="dias-lado">
+        <div class="nav-dia" style="background-color: var(--segunda);" onclick="scrollToDay('segunda')">SEG</div>
+        <div class="nav-dia" style="background-color: var(--terca);" onclick="scrollToDay('terca')">TER</div>
+        <div class="nav-dia" style="background-color: var(--quarta);" onclick="scrollToDay('quarta')">QUA</div>
+        <div class="nav-dia" style="background-color: var(--quinta);" onclick="scrollToDay('quinta')">QUI</div>
+        <div class="nav-dia" style="background-color: var(--sexta);" onclick="scrollToDay('sexta')">SEX</div>
+        <div class="nav-dia" style="background-color: var(--sabado);" onclick="scrollToDay('sabado')">SAB</div>
+        <div class="nav-dia" style="background-color: var(--domingo);" onclick="scrollToDay('domingo')">DOM</div>
+    </div>
+
+    <div class="dias">
+        
+        <section class="secao-dia" id="segunda">
+            <div class="dia-titulo" >
+                <div class="dia-nome">Segunda-feira</div>
+                <div class="horario">18h - 22h</div>
+            </div>
+            <div class="bebidas">
+                <div class="drink-card">
+                    <a class="link-bebida" href=""><img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/de367554-a681-4e08-9f75-a3ed165f4eaf.png" alt="Copo de cerveja artesanal âmbar " class="drink-image"></a>
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Cerveja Artesanal</h3>
+                        <p class="drink-desc">Seleção de cervejas artesanais locais, variedade âmbar com notas de malte e lúpulo aromático.</p>
+                        <div class="drink-preco">
+                          
+                           
+                            <span class="happyhour-preco">R$ 12,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                   <a class="link-bebida" href=""><img src="imagens/vinho-tinto.jpg" alt="Taça de vinho tinto rubi " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Vinho Tinto</h3>
+                        <p class="drink-desc">Vinho tinto seco com notas de frutas vermelhas e especiarias, safra recente da região.</p>
+                        <div class="drink-preco">
+                    
+                            <span class="happyhour-preco">R$ 18,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                    <a class="link-bebida" href=""> <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/41ca4245-c1f6-4a52-bc7f-fd1ae033e7f2.png" alt="Coquetel tropical" class="drink-image"> </a>
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Caipirinha Especial</h3>
+                        <p class="drink-desc">Feita com cachaça premium, limão tahiti , açúcar demerara e hortelã</p>
+                        <div class="drink-preco">
+                         
+                            <span class="happyhour-preco">R$ 15,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+     
+        <section class="secao-dia" id="terca">
+            <div class="dia-titulo" >
+                <div class="dia-nome">Terça-feira</div>
+                <div class="horario">17h - 21h</div>
+            </div>
+            <div class="bebidas">
+                <div class="drink-card">
+               <a class="link-bebida" href="">     <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7cccfe93-59b6-405d-81d2-8ea32ede8d03.png" alt="Drink margarita " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Margarita</h3>
+                        <p class="drink-desc">Tequila premium, triple sec, suco de limão fresco e borda salgada no copo clássico.</p>
+                        <div class="drink-preco">
+                          
+                            <span class="happyhour-preco">R$ 20,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                 <a class="link-bebida" href="">   <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1541478a-ac05-4f7e-9bdc-b9b7b6f6acc7.png" alt="Coquetel mojito " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Mojito Havana</h3>
+                        <p class="drink-desc">Rum cubano, hortelã fresca, limão, açúcar e água com gás, com gelo triturado. </p>
+                        <div class="drink-preco">
+                           
+                            <span class="happyhour-preco">R$ 19,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                <a class="link-bebida" href="">    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/deaaf8e6-78f0-44b4-8d92-1735ca824be0.png" alt="Drink colorido de camadas com jarra de cerveja " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Sangria de Frutas</h3>
+                        <p class="drink-desc">Vinho tinto, frutas frescas da estação, licor de laranja e especiarias, servido em jarra.</p>
+                        <div class="drink-preco">
+                        
+                            <span class="happyhour-preco">R$ 24,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       
+        <section class="secao-dia" id="quarta">
+            <div class="dia-titulo" >
+                <div class="dia-nome">Quarta-feira</div>
+                <div class="horario">18h - 23h</div>
+            </div>
+            <div class="bebidas">
+                <div class="drink-card">
+                  <a class="link-bebida" href="">  <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f1d4075c-ff7e-4641-9430-48aa8b5b8a11.png" alt="Drink azul eléctrico" class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Blue Lagoon</h3>
+                        <p class="drink-desc">Vodka premium, curaçao blue e limonada, servido extremamente gelado com twist cítrico.</p>
+                        <div class="drink-preco">
+                           
+                            <span class="happyhour-preco">R$ 22,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                 <a class="link-bebida" href="">   <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/92052334-b0d2-4910-b95d-2773d5f15a46.png" alt="Coquetel whisky sour " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Whisky Sour</h3>
+                        <p class="drink-desc">Whisky envelhecido, suco de limão, xarope simples e clara de ovo para textura cremosa.</p>
+                        <div class="drink-preco">
+                           
+                            <span class="happyhour-preco">R$ 24,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                <a class="link-bebida" href="">   <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c13b2587-6071-41c5-8bbb-216958197b1d.png" alt="Copo pinã colada com abacaxi fresco " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Pina Colada</h3>
+                        <p class="drink-desc">Rum branco, creme de coco, suco de abacaxi fresco e gelo triturado, finalizado com abacaxi.</p>
+                        <div class="drink-preco">
+                           
+                            <span class="happyhour-preco">R$ 20,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       
+        <section class="secao-dia" id="quinta">
+            <div class="dia-titulo" >
+                <div class="dia-nome">Quinta-feira</div>
+                <div class="horario">19h - 22h</div>
+            </div>
+            <div class="bebidas">
+                <div class="drink-card">
+                 <a class="link-bebida" href=""> <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0339d16a-6e13-4e1c-8e5b-ee223314060a.png" alt="Drink old fashioned " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Old Fashioned</h3>
+                        <p class="drink-desc">Bourbon premium, angostura bitters, xarope de açúcar e twist de laranja, com gelo grande.</p>
+                        <div class="drink-preco">
+                          
+                            <span class="happyhour-preco">R$ 25,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                <a class="link-bebida" href="">   <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1b819541-51bc-41bb-b678-d132b0441bad.png" alt="Coquetel cosmopolita " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Cosmopolitan</h3>
+                        <p class="drink-desc">Vodka citron, triple sec, suco de oxicoco e suco de limão fresco, agitado e coado.</p>
+                        <div class="drink-preco">
+                            
+                            <span class="happyhour-preco">R$ 22,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+               <a class="link-bebida" href="">      <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4cf2ac2c-88a9-4be6-9a31-ddc5667d9f12.png" alt="Champanhe " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Espumante Brut</h3>
+                        <p class="drink-desc">Espumante brut de alta qualidade, seco e refinado com notas de frutas brancas e minerais.</p>
+                        <div class="drink-preco">
+                            
+                            <span class="happyhour-preco">R$ 32,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       
+        <section class="secao-dia" id="sexta">
+            <div class="dia-titulo" >
+                <div class="dia-nome">Sexta-feira</div>
+                <div class="horario">16h - 00h</div>
+            </div>
+            <div class="bebidas">
+                <div class="drink-card">
+                 <a class="link-bebida" href="">    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8fe7dce5-cb66-474d-ae19-6c349b1e70cd.png" alt="Coquetel negroni " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Negroni</h3>
+                        <p class="drink-desc">Gin premium, campari e vermute tinto, servido em copo baixo com gelo grande e twist cítrico.</p>
+                        <div class="drink-preco">
+                           
+                            <span class="happyhour-preco">R$ 24,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                   <a class="link-bebida" href="">  <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4826991d-e551-4ba6-bbef-f882c0bd05fe.png" alt="Drink moscow mule " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Moscow Mule</h3>
+                        <p class="drink-desc">Vodka, ginger beer, suco de limão e xarope de gengibre, servido no tradicional copo de cobre.</p>
+                        <div class="drink-preco">
+                            
+                            <span class="happyhour-preco">R$ 20,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                  <a class="link-bebida" href="">  <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d0a888ff-5d6b-4603-ba77-8016bc688d66.png" alt="Caipirinha de maracujá " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Caipirinha Tradicional</h3>
+                        <p class="drink-desc">Cachaça premium, polpas de frutas diversas e um toque de açucar, exemplo de maracuja.</p>
+                        <div class="drink-preco">
+                           
+                            <span class="happyhour-preco">R$ 17,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="secao-dia" id="sabado">
+            <div class="dia-titulo" >
+                <div class="dia-nome">Sábado</div>
+                <div class="horario">12h - 00h</div>
+            </div>
+            <div class="bebidas">
+                <div class="drink-card">
+                   <a class="link-bebida" href="">  <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/28e68e21-924f-4be5-a468-decc8b795b16.png" alt="Coquetel aperol spritz " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Aperol Spritz</h3>
+                        <p class="drink-desc">Aperol, prosecco e água com gás, servido com gelo e rodela de laranja, refrescante e cítrico.</p>
+                        <div class="drink-preco">
+                           
+                            <span class="happyhour-preco">R$ 21,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                 <a class="link-bebida" href="">   <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b63e94b5-82a9-428b-ad5e-1e5c6bc1cae3.png" alt="Drink daiquiri de morango " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Daiquiri de Morango</h3>
+                        <p class="drink-desc">Rum branco, morangos frescos, suco de limão e xarope simples, batido e coado sem gelo.</p>
+                        <div class="drink-preco">
+                           
+                            <span class="happyhour-preco">R$ 19,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                  <a class="link-bebida" href="">   <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4bc67543-ae12-40d7-b326-308472f8c431.png" alt="Taça de kir royal " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Kir Royal</h3>
+                        <p class="drink-desc">Crème de cassis e champanhe brut, elegante e sofisticado com frutas negras aromáticas.</p>
+                        <div class="drink-preco">
+                           
+                            <span class="happyhour-preco">R$ 28,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="secao-dia" id="domingo">
+            <div class="dia-titulo" >
+                <div class="dia-nome">Domingo</div>
+                <div class="horario">11h - 20h</div>
+            </div>
+            <div class="bebidas">
+                <div class="drink-card">
+                  <a class="link-bebida" href=""> <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f2d73e8c-419f-4e3e-9783-ca472e2454de.png" alt="Mimosa" class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Mimosa</h3>
+                        <p class="drink-desc">Espumante brut fresco com suco de laranja natural espremido na hora, perfeito para brunch.</p>
+                        <div class="drink-preco">
+                            
+                            <span class="happyhour-preco">R$ 24,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                <a class="link-bebida" href="">     <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1bfcd6be-7cef-4426-bb89-30324cbb408a.png" alt="Bloody mary" class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Bloody Mary</h3>
+                        <p class="drink-desc">Vodka, suco de tomate fresco, sangue de Lampião, limão e aipo para decorar.</p>
+                        <div class="drink-preco">
+                            
+                            <span class="happyhour-preco">R$ 18,00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="drink-card">
+                  <a class="link-bebida" href="">  <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7eccd44f-fb90-4c80-81f3-6f10802ff1c0.png" alt="Copo jarra de cerveja de trigo " class="drink-image"></a> 
+                    <div class="drink-info">
+                        <h3 class="drink-nome">Weissbier</h3>
+                        <p class="drink-desc">Cerveja de trigo alemã com notas de banana e cravo, refrescante e com baixo amargor.</p>
+                        <div class="drink-preco">
+                            
+                            <span class="happyhour-preco">R$ 14,00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+   <footer id="footer" class="rodape">
+<section class="di">
+<span id="direitos">Copyright © 2025 Restaurante Cangarito <br>
+| Desevolvido por <span id="dono">Informática 2V</span> |</span>
+</section>
+
+<section class="di">
+<span id="local">
+João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-000 <br>
+                               Fale conosco| ajuda-cangarito@gmail.com.br
+</span>
+</section>
+
+
+</footer>
+ </section>
+
+    <script>
+       
+        function scrollToDay(dayId) {
+            const element = document.getElementById(dayId);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+     
+        document.addEventListener('DOMContentLoaded', function() {
+            const drinkCards = document.querySelectorAll('.drink-card');
+            
+            drinkCards.forEach(card => {
+                
+                card.style.transitionDelay = `${Math.random() * 0.2}s`;
+                
+               
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.03)';
+                    this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.05)';
+                });
+            });
+
+           
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.6
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const navDay = document.querySelector(`.nav-dia[onclick*="${entry.target.id}"]`);
+                        document.querySelectorAll('.nav-dia').forEach(dia => {
+                            dia.style.transform = 'scale(1)';
+                        });
+                        if (navDay) {
+                            navDay.style.transform = 'scale(1.2)';
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.secao-dia').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
