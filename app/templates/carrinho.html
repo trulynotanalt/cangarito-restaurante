@@ -1,43 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <style>
-@import url('https://fonts.cdnfonts.com/css/xilosa');
-</style>
+{% extends "base.html" %}
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-</style>
+{% block titulo %}
+    Carrinho
+{% endblock %}
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-</style>
-<script src="https://kit.fontawesome.com/0dcb96df0e.js" crossorigin="anonymous"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilos/light.css">
-    <title>Document</title>
-</head>
-<body>
+{% block estilos %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho-light.css') }}">
+{% endblock %}
+
+{% block conteudo %}
     <main>
- <header>
-        <img class="logo" src="imagens/logo.png" alt="Cangarito Logo" class="logo">
-        <nav>
-            <ul id="menu">
-                <li><a href="../perfil-home/perfil.html">Home</a></li>
-                <li><a href="../Cardápio/cardapio.html">Cardápio</a></li>
-                <li><a href="../Landing page/landing_page_claro.html">Contato</a></li>
-                <li><a href="../Landing page/landing_page_dark.html">Unidades</a></li>
-                <li><a href="../Landing page/landing_page_claro.html">Sobre</a></li>
-            </ul>
-        </nav>
-       <div id="userclaro">
-        <a href=""><i id="carrinho" class="fa-solid fa-cart-shopping"></i></a>
-        <a href="../Cadastro/Cadastro-white/cadastro.html"><i id="icone" class="fa-regular fa-circle-user fa-2xl"></i></a>
-       </div>
-</header>
-    
-
 
   <h1>Carrinho</h1>
 
@@ -47,7 +19,7 @@
     
       <article class="item" role="listitem" aria-label="Item Carne de sol , preço 80 reais, quantidade 1, tamanho médio">
         <div class="image-container">
-          <img src="imagens/carne+de+sol.jpg" 
+          <img src="{{url_for('static',filename='img/carne+de+sol.jpg')}}" 
             alt="Carne de sol com acompanhamentos" 
            >
         </div>
@@ -71,7 +43,7 @@
      
       <article class="item" role="listitem" aria-label="Item Carne de sol, preço 80 reais, quantidade 1, tamanho médio">
         <div class="image-container">
-          <img src="imagens/carne+de+sol.jpg" 
+          <img src="{{url_for('static',filename='img/carne+de+sol.jpg')}}" 
             alt="Carne de sol com acompanhamentos" 
             >
         </div>
@@ -94,7 +66,7 @@
      
       <article class="item" role="listitem" aria-label="Item Carne de sol, preço 80 reais, quantidade 1, tamanho médio">
         <div class="image-container">
-          <img src="imagens/carne+de+sol.jpg" 
+          <img src="{{url_for('static',filename='img/carne+de+sol.jpg')}}" 
             alt="Carne de sol com acompanhamentos" 
             >
         </div>
@@ -132,7 +104,7 @@
 
       <article class="item_sugerido" aria-label="Batata frita, preço 25 reais, 300 gramas, descrição">
         <div class="rec-img-container">
-          <img src="imagens/french fries.jpeg" 
+          <img src="{{url_for('static',filename='img/french fries.jpeg')}}" 
             alt="batatas fritas" 
            >
           <span class="adicione" aria-label="Adicionar Batata frita ao pedido" role="button" tabindex="0" title="Adicionar ao pedido">+</span>
@@ -151,7 +123,7 @@
 
       <article class="item_sugerido" aria-label="Batata frita, preço 25 reais, 300 gramas, descrição">
         <div class="rec-img-container">
-          <img src="imagens/french fries.jpeg" 
+          <img src="{{url_for('static',filename='img/french fries.jpeg')}}" 
             alt="batatas fritas"
            >
           <span class="adicione" aria-label="Adicionar Batata Frita ao pedido" role="button" tabindex="0" title="Adicionar ao pedido">+</span>
@@ -170,7 +142,7 @@
 
       <article class="item_sugerido" aria-label="Batata frita, preço 25 reais, 300 gramas, descrição">
         <div class="rec-img-container">
-          <img src="imagens/french fries.jpeg" 
+          <img src="{{url_for('static',filename='img/french fries.jpeg')}}" 
             alt="batatas fritas"
            >
           <span class="adicione" aria-label="Adicionar Batata Frita ao pedido" role="button" tabindex="0" title="Adicionar ao pedido">+</span>
@@ -195,13 +167,11 @@
     <span id="local">João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-000 <br />
     Fale conosco: <a href="mailto:ajuda-cangarito@gmail.com">ajuda-cangarito@gmail.com</a></span>
   </footer>
-
-</body>
-</html>
+ </main>
+{% endblock %}
 
       
     
-    </main>
    
-</body>
-</html>
+   
+

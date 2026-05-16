@@ -1,41 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilos/dark.css  ">
-    <title>Happy Hour Especial</title>
-     <style>
-@import url('https://fonts.cdnfonts.com/css/xilosa');
-</style>
+{% extends "base.html" %}
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-</style>
+{% block titulo %}
+    Happy Hour
+{% endblock %}
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-</style>
- <script src="https://kit.fontawesome.com/0dcb96df0e.js" crossorigin="anonymous"></script>
-</head>
-<body>
-    <header>
-        <a href=""><img class="logo" src="imagens/logo.png" alt="Cangarito Logo" class="logo">  </a>
-        
-        <nav>
-            <ul id="menu">
-                <li><a href="../perfil-home/perfil.html">Home</a></li>
-                <li><a href="../Cardápio/cardapio.html">Cardápio</a></li>
-                <li><a href="../Landing page/landing_page_claro.html">Contato</a></li>
-                <li><a href="../Landing page/landing_page_dark.html">Unidades</a></li>
-                <li><a href="../Landing page/landing_page_claro.html">Sobre</a></li>
-            </ul>
-        </nav>
-       <div id="userclaro">
-        <a href="../Carrinho/carrinho.html"><i id="carrinho" class="fa-solid fa-cart-shopping"></i></a>
-        <a href="../Login/Login-white/login.html"><i id="icone" class="fa-regular fa-circle-user fa-2xl"     > </i></a>
-       </div>
-</header>
+{% block estilos %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/happy-hour-light.css')}}">
+{% endblock %}
+
+
+{% block conteudo %}
     
 
     <article class="happy">
@@ -74,7 +48,7 @@
                     </div>
                 </div>
                 <div class="drink-card">
-                   <a class="link-bebida" href=""><img src="imagens/vinho-tinto.jpg" alt="Taça de vinho tinto rubi " class="drink-image"></a> 
+                   <a class="link-bebida" href=""><img src="{{url_for('static',filename='img/vinho-tinto.jpg')}}" alt="Taça de vinho tinto rubi " class="drink-image"></a> 
                     <div class="drink-info">
                         <h3 class="drink-nome">Vinho Tinto</h3>
                         <p class="drink-desc">Vinho tinto seco com notas de frutas vermelhas e especiarias, safra recente da região.</p>
@@ -373,6 +347,10 @@ João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-
 
 </footer>
  </section>
+{% endblock %}
+
+{% block scripts %}
+    
 
     <script>
        
@@ -432,5 +410,4 @@ João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-
             });
         });
     </script>
-</body>
-</html>
+    {% endblock %}

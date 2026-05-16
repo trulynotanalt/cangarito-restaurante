@@ -46,9 +46,9 @@ produtos.forEach(produto => {
     `;
 
     dialog.showModal();
-    const botaoAumentar = document.querySelector('.aumentar-quantidade');
-    const botaoDiminuir = document.querySelector('.diminuir-quantidade');
-    const quantidadeAtualInput = document.querySelector('.quantidade-atual-widget');
+    const botaoAumentar = dialog.querySelector('.aumentar-quantidade');
+    const botaoDiminuir = dialog.querySelector('.diminuir-quantidade');
+    const quantidadeAtualInput = dialog.querySelector('.quantidade-atual-widget');
     
     botaoAumentar.addEventListener('click', ()=>{
       let valorAtual  = parseInt(quantidadeAtualInput.value) || 0

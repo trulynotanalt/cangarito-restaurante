@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Cangarito</title>
-    <link rel="stylesheet" href="login.css">
-    <script src="pag-js.js" defer></script>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/login-light.css')}}">
+    <script src="{{url_for('static',filename='js/pag-js.js')}}" defer></script>
 </head>
 <body>
 
-    <img src="Img/logo-removebg-preview.png" alt="Logo Cangarito" id="logo" width="65" height="68">
+   <a href="{{url_for('landingpage')}}"> <img id="logo" src="{{url_for('static', filename='img/logo-removebg-preview.png')}}" alt="Logo" id="logo" width="65" height="68"></a> 
 
     <section>
         <div class="block-cangarito">
-            <img src="Img/cangarito.png" alt="" id="cangarito">
+            <img src="{{url_for('static', filename='img/canga2.png')}}" alt="" id="cangarito">
             <div class="box-cadastro">
                 <p class="montserrat-label-forms">Não tem uma conta ainda?</p>
-                <a href="/Cadastro/Cadastro-white/cadastro.html" id="link-pags"><button class="montserrat-box-cadastro-button" id="cadastro-button">Cadastre-se</button></a>
+                <a href="{{url_for('cadastro')}}" id="link-pags"><button class="montserrat-box-cadastro-button" id="cadastro-button">Cadastre-se</button></a>
             </div>
         </div>
 

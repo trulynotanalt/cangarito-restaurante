@@ -1,55 +1,27 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cangarito - Perfil</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="perfil.css">
-    <script src="https://kit.fontawesome.com/0dcb96df0e.js" crossorigin="anonymous"></script>
+{% block titulo %}
+    Perfil
+{% endblock %}
 
-    <style>
-        @import url('https://fonts.cdnfonts.com/css/xilosa');
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-    </style>
-</head>
+{% block estilos %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil-light.css') }}">
+{% endblock %}
 
-<body>
-    <header>
-        <div class="logo-container">
-            <img src="Imagens/logo-removebg-preview.png" alt="Logo Cangarito">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="../Cardápio/cardapio.html">Cardápio</a></li>
-                <li><a href="../Landing page/landing_page_claro.html">Contato</a></li>
-                <li><a href="../Landing page/landing_page_claro.html">Unidades</a></li>
-                <li><a href="../Landing page/landing_page_claro.html">Sobre</a></li>
-            </ul>
-        </nav>
-        <div class="header-right">
-            <div class="icons">
-                <i id="carrinho" class="fa-solid fa-cart-shopping"></i>
-                <i id="icone" class="fa-regular fa-circle-user"></i>
-            </div>
-            <div id="theme-widget">
+{% block conteudo %}
+    
+<div id="theme-widget">
                 <span id="theme-sun">☀️</span>
                 <div id="theme-divider"></div>
                 <span id="theme-moon">🌙</span>
             </div>
-        </div>
-    </header>
-
     <section class="banner">
-        <img src="Imagens/Captura de tela 2025-08-14 013341.png" alt="Promoção Cangarito">
+        <img src="{{url_for('static',filename='img/promo.png')}}" alt="Promoção Cangarito">
     </section>
 
     <section class="perfil">
         <div class="perfil-info">
-            <img src="Imagens/romerito.png" alt="Foto de Perfil">
+            <img src="{{url_for('static',filename='img/romerito.png')}}" alt="Foto de Perfil">
             <div class="perfil-texto">
                 <h3>Romerito do Cuscuz</h3>
                 <p>Romerito Maratona Flokis de’mi</p>
@@ -66,7 +38,7 @@
         <a href="#">Histórico</a>
         <a href="#">Favoritos</a>
         <a href="#">Canga Points</a>
-        <a href="#">Ajuda & Suporte</a>
+        <a href="{{url_for('landingpage')}}#footer">Ajuda & Suporte</a>
     </nav>
 
     <section class="historico">
@@ -82,7 +54,7 @@
                     <i class="bi bi-three-dots-vertical"></i>
                 </div>
                 <div class="pedido-content">
-                    <img src="Imagens/veredadeiro paulista.jpeg" alt="Cuscuz">
+                    <img src="{{url_for('static',filename='img/verdadeiro paulista.jpeg')}}" alt="Cuscuz">
                     <div class="pedido-detalhes">
                         <div class="estrelas">★★★★☆</div>
                         <p><strong>Código do Pedido:</strong> FXI20930390400300</p>
@@ -100,7 +72,7 @@
                     <i class="bi bi-three-dots-vertical"></i>
                 </div>
                 <div class="pedido-content">
-                    <img src="Imagens/veredadeiro paulista.jpeg" alt="Cuscuz">
+                    <img src="{{url_for('static',filename='img/verdadeiro paulista.jpeg')}}" alt="Cuscuz">
                     <div class="pedido-detalhes">
                         <div class="estrelas">★★★★☆</div>
                         <p><strong>Código do Pedido:</strong> FXI20930390400300</p>
@@ -118,7 +90,7 @@
                     <i class="bi bi-three-dots-vertical"></i>
                 </div>
                 <div class="pedido-content">
-                    <img src="Imagens/veredadeiro paulista.jpeg" alt="Cuscuz">
+                    <img src="{{url_for('static',filename='img/verdadeiro paulista.jpeg')}}" alt="Cuscuz">
                     <div class="pedido-detalhes">
                         <div class="estrelas">★★★★☆</div>
                         <p><strong>Código do Pedido:</strong> FXI20930390400300</p>
@@ -132,8 +104,11 @@
             </article>
         </div>
     </section>
+</main>
+{% endblock %}
 
-    <script>
+{% block scripts %}
+        <script>
         const themeWidget = document.getElementById('theme-widget');
 
         function setTheme(theme) {
@@ -150,5 +125,5 @@
             setTheme(newTheme);
         });
     </script>
-</body>
-</html>
+{% endblock %}
+    <

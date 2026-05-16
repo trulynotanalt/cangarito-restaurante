@@ -1,3 +1,11 @@
+html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
+html.slow-scroll {
+            scroll-behavior: smooth;
+            scroll-snap-type: none;
+}
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 *{
@@ -26,7 +34,7 @@ body{
 body[data-theme="dark"] {
     --cor-principal: #333333;
     --cor-texto: #f5f5f5;
-    --cor-destaque: #BBBBBB;
+    --cor-destaque: #46CE3B;
     --cor-fundo-claro: #1A1A1A;
     --cor-background: #2B2B2B;
     --cor-cinza-claro: #555555;
@@ -35,58 +43,109 @@ body[data-theme="dark"] {
     --cor-palha-claro: #F3E3C4;
     --cor-sucesso: #46CE3B;
     color: var(--cor-texto);
+    
   }
-#logo{
+
+
+.logo{
     height: 44px;
     width: auto;
+    
 }
-header{
+.logo:hover{
+    cursor: pointer;
+}
+header  {
     background-color: var(--cor-principal);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding-left: 2%;
-    padding-right: 2%;
-}
-nav{
+    padding: 10px;
     display: flex;
     align-items: center;
-    padding: 2vh 0 2vh 0;
     justify-content: space-between;
-    width: 100%;
+    
 }
-nav ul{
+header nav{
+    justify-content: center;
+    align-items: center;
     display: flex;
-    gap: 2vw;
+    
 }
-nav li{
-    list-style: none;
-    font-size:1rem;
+li{
+    text-align: center;
+    align-items: center;
 }
-nav li a{
-    font-family: 'Montserrat', sans-serif;
-    text-decoration: none;
-    color: var(--cor-destaque);
-    font-weight: 600;
-    transition: 0.2s ease-out;
+#menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-nav li a:hover, .icons i:hover{
-    color: var(--cor-palha-claro);
-    transition: 0.2s ease-out;
-}
+.logo {
+    height: 80px;
+    
 
-.icons{
+}
+#icone{
+    font-size: 64px;
+    color: var(--cor-texto)
+}
+#icone:hover{
+  color: var(--cor-destaque);
+  transition: 0.2s ease-out;
+}
+.icone2{
+  display: flex;
+  text-decoration: none;
+}
+#carrinho{
+    font-size: 40px;
+    color: var(--cor-texto);
+    padding-right: 40px;
+    justify-content: center;
+    
+}
+#carrinho:hover{
+  color: var(--cor-destaque);
+  transition: 0.2s ease-out;
+}
+#userclaro{
+ align-items: center;
+    display: flex;
+    justify-content: center;
+}
+#userclaro:hover{
+ cursor: pointer;
+
+}
+.fa-regular fa-circle-user fa-2xl :hover{
+cursor: pointer;
+}
+.fa-regular fa-circle-user{
+width: 40px;
+height: 40px;
+}
+nav ul {
+    align-items: center;
+    text-align: center;
+    list-style: none;
     display: flex;
     gap: 20px;
-    font-size:28px;
-    cursor: pointer;
-    color: var(--cor-texto);
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
 }
-.icons i{
-    font-size:28px;
-    cursor: pointer;
+
+nav a {
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
     color: var(--cor-texto);
-    transition: 0.2s ease-out;
+    font-weight: bold;
+    font-size: 32px;
+    transition: color 0.3s ease;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+}
+
+nav a:hover {
+    color: var(--cor-destaque)
 }
 
 #small-background{
@@ -291,6 +350,8 @@ section{
     width: 50px;
     height: auto;
     font-size: 40px;
+    color: #000000;
+    
 }
 dialog .container-tags-produto{
     padding: 0 2% 2% 2%;

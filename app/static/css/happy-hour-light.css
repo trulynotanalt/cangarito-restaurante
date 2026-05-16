@@ -17,8 +17,12 @@
 
         body {
             background-color: #122e40;
-            line-height: 1.6;
+            line-height: 1.3;
             scroll-behavior: smooth;
+            width: 100%;
+            height: fit-content;
+            margin: 0;
+            padding: 0;
         }
 header  {
     background-color: #d89c4a;
@@ -26,11 +30,15 @@ header  {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    top: 0;
+    
 }
 header nav{
     justify-content: center;
     align-items: center;
     display: flex;
+    margin-left: 40px;
+    margin-top: 2px;
 }
 li{
     text-align: center;
@@ -48,17 +56,26 @@ li{
 }
 #icone{
     font-size: 64px;
-    color:#9d4821
+    color:#9d4821;
+    margin-top: 17px;
+    
+}
+#icone:hover{
+  color: #F3E3C4;
+  transition: 0.2s ease-out;
 }
 #carrinho{
     font-size: 40px;
     color: #000000;
     
-    border-width: 3px;
-    width: fit-content;
-    margin-right: 40px;
+    
+    padding-right: 40px;
     justify-content: center;
     
+}
+#carrinho:hover{
+  color: #F3E3C4;
+  transition: 0.2s ease-out;
 }
 #userclaro{
  align-items: center;

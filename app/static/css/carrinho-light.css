@@ -41,17 +41,23 @@ li{
 }
 #icone{
     font-size: 64px;
-    color:#9d4821
+    color:#9d4821;
+    margin-top: 14px;
+}
+#icone:hover{
+  color: #F3E3C4;
+  transition: 0.2s ease-out;
 }
 #carrinho{
     font-size: 40px;
     color: #000000;
-    border-bottom: solid #803919 3px;
-    border-width: 3px;
-    width: fit-content;
-    margin-right: 40px;
+    padding-right: 40px;
     justify-content: center;
     
+}
+#carrinho:hover{
+  color: #F3E3C4;
+  transition: 0.2s ease-out;
 }
 #userclaro{
  align-items: center;
