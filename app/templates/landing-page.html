@@ -77,7 +77,7 @@
         <aside class="contact-form slide-in-element ">
             <h3>Entre em contato</h3>
             <p>Realize o cadastro para concorrer a sorteios no Cangarito!</p>
-            <form id="contactForm">
+            <form action="{{url_for('landingpage')}}" id="contactForm" method="post">
               
                 <input class="input"  type="text" id="nome" name="nome" placeholder="Nome" required>
               

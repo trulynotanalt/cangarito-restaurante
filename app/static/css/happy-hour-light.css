@@ -1,3 +1,12 @@
+html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
+html.slow-scroll {
+            scroll-behavior: smooth;
+            scroll-snap-type: none;
+        }
+
 :root {
             --segunda: #d89c4a;
             --terca:#d89c4a;
