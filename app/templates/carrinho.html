@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block estilos %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho-light.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho.css') }}">
 {% endblock %}
 
 {% block conteudo %}
@@ -179,6 +179,26 @@ João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-
  </main>
 {% endblock %}
 
+{% block scripts %}
+    
+<script>
+          document.addEventListener('DOMContentLoaded', () => {
+
+                  function aplicarTema(theme) {
+                      document.body.setAttribute('data-theme', theme);
+                  }
+
+                  const temaSalvo = localStorage.getItem('theme');
+
+                  if (temaSalvo) {
+                      aplicarTema(temaSalvo);
+                  } else {
+                      aplicarTema('light');
+                  }
+              })
+</script>
+    
+{% endblock %}
       
     
    

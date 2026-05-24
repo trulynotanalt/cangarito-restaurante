@@ -41,9 +41,6 @@
   font-size: 20px;
   font-style: normal; 
 }
-
-
-
 :root{
     --body: #f3e3c4;
     --logar: #f5f5f5;
@@ -70,6 +67,7 @@ body[data-theme="dark"] {
     --btnbg: #7a7a7a;
      
   }
+
 *{
     margin: 0;
     padding: 0;
@@ -81,15 +79,16 @@ section{
     justify-content: center;
 }
 body{
+    display: flex;
     background-color: var(--body);
-    
+    flex-direction: column;
 }
 #logo{
-
-margin-right: 14px;
-margin-bottom: 18px;
-width: 70px;
-height: 84px;
+  
+    margin-right: 14px;
+    margin-bottom: 18px;
+    width: 70px;
+    height: 84px;
 }
 #logo:hover{
     cursor: pointer;
@@ -99,22 +98,21 @@ height: 84px;
     justify-content: center;
     align-items: center;
     
-    flex-direction: row-reverse;
 }
-
 #cangarito{
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 452px;
+    height: 669px;
 }
 .logar{
     display: flex;
     flex-direction: column;
     width: 617px;
     height: 669px;
-
     background-color: var(--logar);
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
 }
 #titulo{
     display: flex;
@@ -126,54 +124,53 @@ height: 84px;
     margin-right: auto;
     padding: 3%;
 }
-#titulo h1{
-    font-size: 48px;
+#titulo p{
     color: var(--h1);
-    font-weight: 600;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-.fonte-p {
-    color: var(--fontep);
-}
+   }
 #informacoes{
     display: flex;
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
     flex-direction: column;
-   padding-top: 40px;
+    padding-top: 40px;
     padding-left: 10px;
     padding-right: 10px;
-    gap: 3px;
-    
+    color: var(--informacoes);
 }
+   
+
 #informacoes input{
     display: flex;
-    width: 546px;
-    height: 48px;
-    padding-top: 5px;
+    width: 560px;
+    height: 60px;
+    padding-top: 2%;
     border-radius: 16px;
     background-color: var(--infoinputbg);
     color: var(--infoinput);
     border: 0px;
-    
 }
 #informacoes ::placeholder{
     color: var(--informacoesplace);
 }
-#informacoes {
-    display: flex;
+.fonte-p{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size:20px;
     font-weight: bold;
-    margin-top: 2px;
-    color: var(--informacoes);
+    margin-top: 5%;
+    color: var(--fontep);
 }
-.senha,#email,#usuario::placeholder{
+
+#senha,#email::placeholder{
     display: flex;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 26px;
     font-weight: normal;
+    padding: 10px;
+    justify-content: center;
+}
+#senha::placeholder{
+    display: flex;
     padding: 10px;
     justify-content: center;
 }
@@ -183,50 +180,38 @@ height: 84px;
     justify-content: center;
 
 }
-#texto::placeholder{
-    display: flex;
-    padding: 10px;
-    justify-content: center;
-}
-.senha::placeholder{
-    display: flex;
-    padding: 10px;
-    justify-content: center;
-
-}
-.senha,#email,#usuario{
+#senha,#email{
     display: flex;
    
     padding: 10px;
     justify-content: center;
 }
-
 button{
     display: flex;
-    width: 546px;
-    height: 48px;
-    margin-top: 30px;
+    width: 560px;
+    height: 65px;
+    margin-top: 8%;
     justify-content: center;
     align-items: center;
-    background-color: var(--btnbg);
-    color: #ffffff;
+     background-color: var(--btnbg);
+    color: white;
     border-radius: 16px;
     transition: 0.4s;
     border: 0px;
-    margin-bottom: 15px;
 }
-button #cadastrar{
+button #login{
     display: flex;
     width: 560px;
-    height: 48px;
+    height: 65px;
     padding: 1%;
     justify-content: center;
     align-items: center;
-    background-color: var(--btnbg);
-    color: #ffffff;
+     background-color: var(--btnbg);
+    color: white;
     border-radius: 16px;
     transition: 0.4s;
     border: 0px;
+
 }
 button:hover{
     background-color: #bb8b3e;
@@ -238,7 +223,7 @@ button:hover{
     justify-content: center;
     align-items: center;
 
-    margin-top: 1%;
+    margin-top: 4%;
 }
 .acessos{
     display: flex;
@@ -248,7 +233,7 @@ button:hover{
     margin-right: auto;
     justify-content: space-evenly;
     align-items: center;
-   
+  
 }
 .acessos a{
     opacity: 40%;
@@ -259,35 +244,37 @@ a:hover{
     opacity: 100%;
 }
 .circulo{
-display: flex;
-width: 50px;
-height: 50px;
-margin-left: auto;
-margin-right: auto;
-margin-top: 3% ;
-flex-direction: row;
-border: black solid 3px;
-border-radius: 50%;
-margin-top: auto;
-margin-bottom: auto;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3% ;
+    flex-direction: row;
+    border: black solid 3px;
+    border-radius: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 .circulo svg{
-display: flex;
-width: 40px;
-height: 40px;
-margin-top: auto;
-margin-bottom: auto;
-margin-left: auto;
-margin-right: auto;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 .block-cangarito{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     position: relative;
 }
 .box-cadastro{
-  width: 344px;
+    width: 344px;
     height: 334.5px;
     position: absolute;
     background: transparent;
@@ -300,23 +287,19 @@ margin-right: auto;
     box-shadow: 2px 2px 10px 0px rgb(24, 24, 24) ;
     color: #E8E8E8;
 }
-
 .box-cadastro #cadastro-button{
     width:264px;
     border-radius: 50px; /*Tive que fazer uma alteração no botão, pra deixar ele menor e mais adequado a div*/
     height: 54px;
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: medium;
-    font-style: normal;
 }
 #link-pags{
     text-decoration: none;
 }
+
 @media (max-width: 390px) {
     body{
         width: 410px;
-        height: 950px;
+        height: 890px;
     }
     .area{
         box-shadow: 0 0px 0px;
@@ -324,9 +307,9 @@ margin-right: auto;
     .logar{
         display: flex;
         width: 390px;
-        height: 600px;
-        border-bottom-right-radius: 10px;
-        border-top-right-radius: 10px;
+        height: 550px;
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
 
    
     }
@@ -336,13 +319,11 @@ margin-right: auto;
         flex-direction: row-reverse;
     }
     section{
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: column-reverse;
    
     }
-    #informacoes{
-        padding-top: 2px;
-    }
+   
+
     #informacoes input{
         display: flex;
         width: 334.5px;
@@ -379,8 +360,8 @@ margin-right: auto;
         width: 390px;
         height: 224px;
         padding: 0px;
-        border-bottom-left-radius: 10px;
-        border-top-left-radius: 10px;
+        border-bottom-left-radius: 0px;
+        border-top-left-radius: 0px;
     }
     .acessos{
         justify-content: center;
@@ -390,7 +371,7 @@ margin-right: auto;
 @media (min-width: 391px) and (max-width: 430px) {
     body{
         width: 450px;
-        height: 1036px;
+        height: 922px;
     }
     .area{
         box-shadow: 0 0px 0px;
@@ -398,9 +379,9 @@ margin-right: auto;
     .logar{
         display: flex;
         width: 430px;
-        height: 600px;
-        border-bottom-right-radius: 10px;
-        border-top-right-radius: 10px;
+        height: 550px;
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
 
    
     }
@@ -410,13 +391,11 @@ margin-right: auto;
         flex-direction: row-reverse;
     }
     section{
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: column-reverse;
    
     }
-     #informacoes{
-        padding-top: 2px;
-    }
+   
+
     #informacoes input{
         display: flex;
         width: 334.5px;
@@ -425,7 +404,6 @@ margin-right: auto;
         
     
     }
-    
     button{
         display: flex;
         width: 334.5px;
@@ -454,8 +432,8 @@ margin-right: auto;
         width: 430px;
         height: 310px;
         padding: 0px;
-        border-bottom-left-radius: 10px;
-        border-top-left-radius: 10px;
+        border-bottom-left-radius: 0px;
+        border-top-left-radius: 0px;
     }
     .acessos{
         justify-content: center;
@@ -470,7 +448,6 @@ body{
     .area{
         justify-content: center;
         align-items: center;
-        margin-left: 380px;
     }
     #logo{
         width: 140px;
@@ -508,7 +485,9 @@ body{
         width: 334.5px;
 
     }
-   
+    .box-cadastro{
+      margin-left: 380px;
+    }
     .box-cadastro #cadastro-button{
         width:264px;
         border-radius: 50px; /*Tive que fazer uma alteração no botão, pra deixar ele menor e mais adequado a div*/
@@ -518,7 +497,7 @@ body{
         width: 380px;
         height: 680px;
         padding: 0px;
-
+        margin-left: 380px;
 
     }
     .acessos{
