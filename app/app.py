@@ -33,5 +33,22 @@ def login():
 def perfil():
     return render_template('perfil.html')
 
+#as rotas abaixo são parte do crud e qm mexe é o cara do crud
+@app.route('/criar', methods=['GET', 'POST'])
+def criar():
+    pass
+
+@app.route('/pedidos') # tem q juntar ao de rotas
+def mostrar():
+    pass
+
+@app.route('/editar/<int:id>', methods = ['GET','POST'])
+def editar(id):
+    pass
+
+@app.route('/deletar/<int:id>')
+def deletar(id):
+    pass
+
 if __name__ == "__main__":
     app.run(debug=True)
