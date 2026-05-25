@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block estilos %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil-light.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
 {% endblock %}
 
 {% block conteudo %}
@@ -124,6 +124,18 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             setTheme(newTheme);
         });
+        function aplicarTema(theme) {
+                document.body.setAttribute('data-theme', theme);
+            }
+
+            const temaSalvo = localStorage.getItem('theme');
+
+            if (temaSalvo) {
+                aplicarTema(temaSalvo);
+            } else {
+                aplicarTema('light');
+            }
+        
     </script>
 {% endblock %}
     <
