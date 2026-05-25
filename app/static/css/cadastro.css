@@ -44,32 +44,7 @@
 
 
 
-:root{
-    --body: #f3e3c4;
-    --logar: #f5f5f5;
-    --h1: #000000;
-    --fontep: #000000;
-    --cor-principal:#D89F46;
-    --infoinputbg: #eeeeee;
-    --infoinput: #000000;
-    --informacoes: #000000;
-    --informacoesplace: #1a1a1a;
-    --btnbg: #9D4821;
 
-}
-body[data-theme="dark"] {
-    --body: #3b3b3b;
-    --logar: #222222;
-    --h1: #ffffff;
-    --fontep: #e5e5e5;
-    --infoinputbg: #5c5c5c;
-    --infoinput: #f0f0f0;
-    --informacoes: #e8e8e8;
-    --informacoesplace: #c2c2c2;
-    --cor-principal: #333333;
-    --btnbg: #7a7a7a;
-     
-  }
 *{
     margin: 0;
     padding: 0;
@@ -81,7 +56,7 @@ section{
     justify-content: center;
 }
 body{
-    background-color: var(--body);
+    background-color: #f3e3c4;
     
 }
 #logo{
@@ -91,14 +66,12 @@ margin-bottom: 18px;
 width: 70px;
 height: 84px;
 }
-#logo:hover{
-    cursor: pointer;
-}
+
 .area{
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    box-shadow: 0 5px 5px gray;
     flex-direction: row-reverse;
 }
 
@@ -112,7 +85,7 @@ height: 84px;
     width: 617px;
     height: 669px;
 
-    background-color: var(--logar);
+    background-color: #F5F5F5;
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
 }
@@ -128,12 +101,8 @@ height: 84px;
 }
 #titulo h1{
     font-size: 48px;
-    color: var(--h1);
     font-weight: 600;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-.fonte-p {
-    color: var(--fontep);
 }
 #informacoes{
     display: flex;
@@ -153,21 +122,17 @@ height: 84px;
     height: 48px;
     padding-top: 5px;
     border-radius: 16px;
-    background-color: var(--infoinputbg);
-    color: var(--infoinput);
+    background-color: #EEEEEE;
     border: 0px;
     
 }
-#informacoes ::placeholder{
-    color: var(--informacoesplace);
-}
+
 #informacoes {
     display: flex;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size:20px;
     font-weight: bold;
     margin-top: 2px;
-    color: var(--informacoes);
 }
 .senha,#email,#usuario::placeholder{
     display: flex;
@@ -208,8 +173,8 @@ button{
     margin-top: 30px;
     justify-content: center;
     align-items: center;
-    background-color: var(--btnbg);
-    color: #ffffff;
+    background-color: #9D4821;
+    color: white;
     border-radius: 16px;
     transition: 0.4s;
     border: 0px;
@@ -222,8 +187,8 @@ button #cadastrar{
     padding: 1%;
     justify-content: center;
     align-items: center;
-    background-color: var(--btnbg);
-    color: #ffffff;
+    background-color: #9D4821;
+    color: white;
     border-radius: 16px;
     transition: 0.4s;
     border: 0px;

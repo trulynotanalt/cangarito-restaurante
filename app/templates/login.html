@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Cangarito</title>
-    <link rel="stylesheet" href="{{url_for('static', filename = 'css/login.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/login-light.css')}}">
     <script src="{{url_for('static',filename='js/pag-js.js')}}" defer></script>
 </head>
 <body>
@@ -69,23 +69,6 @@
             </div>   
         </main>
     </section>
-<script>
 
-        
-        document.addEventListener('DOMContentLoaded', () => {
-
-            function aplicarTema(theme) {
-                document.body.setAttribute('data-theme', theme);
-            }
-
-            const temaSalvo = localStorage.getItem('theme');
-
-            if (temaSalvo) {
-                aplicarTema(temaSalvo);
-            } else {
-                aplicarTema('light');
-            }
-        })
-    </script>
 </body>
 </html>

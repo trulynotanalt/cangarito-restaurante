@@ -39,45 +39,6 @@ body[data-theme="dark"] #theme-moon {
     color: var(--cor-principal);
 }
 
-:root{
-    --body: #d4d4d4;
-    --cor-principal:#D89F46;
-    --cor-icone:#9d4821;
-    --cor-carrinho:#000000 ;      
-    --cor-texto:#1a1a1a;
-    --perfil: #f5f5f5;
-    --perfilinfo: #000000;
-    --perfilh3: #1a1a1a;
-    --menu: #f5f5f5;
-    --hist: #3b3b3b;
-    --histheader: #000000;
-    --pedidostrong: #2a2a2a;
-    --pedidop: #000000;
-    --cor-destaque:#F3E3C4;   
-    --cor-destaque2:#9d4821;  
-    
-    
-
-}
-body[data-theme="dark"] {
-    --body:#222222;
-    --cor-principal: #333333;
-    --cor-icone:#f5f5f5;
-    --cor-carrinho:#f5f5f5;
-    --cor-texto: #f5f5f5;
-    --perfil: #3b3b3b;
-    --perfilinfo: #e0e0e0;
-    --perfilh3: #cacaca;
-    --menu: #1a1a1a;
-    --hist: #b4b4b4;
-    --histheader: #c49875;
-    --pedidostrong: #ffffff;
-    --pedidop: #b4b4b4;
-    --cor-destaque: #46CE3B;
-    --cor-destaque2:#46CE3B;  
-   
-     
-  }
 * {
     margin: 0;
     padding: 0;
@@ -86,7 +47,7 @@ body[data-theme="dark"] {
 }
 
 body {
-    background-color: var(--body);
+    background-color: #D9D9D9;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -102,102 +63,74 @@ body {
     flex-direction: column;
 }
 
-header  {
-    background-color: var(--cor-principal);
-    padding: 10px;
+header {
+    background-color: #d89c4a;
+    padding: 10px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: sticky;
     top: 0;
-    
+    z-index: 1000;
 }
-header nav{
+
+header .logo-container img {
+    height: 80px;
+}
+
+header nav {
+    display: flex;
     justify-content: center;
     align-items: center;
-    display: flex;
 }
-li{
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+}
+
+header nav li {
     text-align: center;
     align-items: center;
 }
-#menu{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.logo {
-    height: 80px;
-    
 
+header nav a {
+    text-decoration: none;
+    color: #803919;
+    font-size: 32px;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-
-#icone{
-    font-size: 64px;
-    color: var(--cor-icone)
+header nav a:hover {
+    color: #F3E3C4;
 }
-#icone:hover{
-  color: var(--cor-destaque);
-  transition: 0.2s ease-out;
+
+header .icons i {
+    margin-left: 50px;
+    cursor: pointer;
+
 }
 #carrinho{
     font-size: 40px;
-    color:var(--cor-carrinho);
-    padding-right: 40px;
-    justify-content: center;
-    
 }
-#carrinho:hover{
-  color: var(--cor-destaque);
-  transition: 0.2s ease-out;
+#icone{
+    font-size: 56px;
 }
 
-.icone2{
-  display: flex;
-  text-decoration: none;
+header #carrinho:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
 }
 
-#userclaro{
- align-items: center;
-    display: flex;
-    justify-content: center;
-}
-#userclaro:hover{
- cursor: pointer;
-
-}
-.fa-regular fa-circle-user fa-2xl :hover{
-cursor: pointer;
-}
-.fa-regular fa-circle-user{
-width: 40px;
-height: 40px;
-}
-nav ul {
-    align-items: center;
-    text-align: center;
-    list-style: none;
-    margin-left: 40px;
-    display: flex;
-    gap: 20px;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 600;
-}
-
-nav a {
-    text-align: center;
-    align-items: center;
-    text-decoration: none;
-    color: var(--cor-icone);
-    font-weight: bold;
-    font-size: 32px;
-    transition: color 0.3s ease;
-      font-family: "Montserrat", sans-serif;
-      font-weight: 600;
-}
-
-nav a:hover {
-    color: var(--cor-destaque);
+header #icone:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
 }
 
 .banner img {
@@ -208,7 +141,7 @@ nav a:hover {
 }
 
 .perfil {
-    background: var(--menu);
+    background: #f5f5f5;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -221,7 +154,6 @@ nav a:hover {
 .perfil-info {
     display: flex;
     align-items: center;
-    color: var(--perfilinfo);
     gap: 15px;
 }
 
@@ -243,14 +175,13 @@ nav a:hover {
     display: flex;
     align-items: center;
     gap: 5px;
-    color: var(--cor-texto);
     font-weight: bold;
 }
 
 .menu-perfil {
     display: flex;
     justify-content: space-around;
-    background: var(--menu);
+    background: #f5f5f5;
     border: 1px solid #ccc;
     margin: 10px auto;
     width: 990px;
@@ -259,23 +190,21 @@ nav a:hover {
 .menu-perfil a {
     padding: 10px;
     text-decoration: none;
-    color: var(--cor-texto);
+    color: black;
     flex: 1;
     text-align: center;
     border-right: 1px solid #ccc;
 }
 
 .menu-perfil a:hover {
-    color: var(--cor-destaque2);
-    border-bottom: 3px solid var(--cor-destaque2);
+    border-bottom: 3px solid #46ce3b;
 }
 
 .historico {
-    background: var(--menu);
+    background: #f5f5f5;
     width: 990px;
     margin: 0 auto 40px;
     border: 1px solid #ccc;
-    color: var(--hist);
     padding: 15px;
     flex: 1;
 }
@@ -283,7 +212,6 @@ nav a:hover {
 .historico-header {
     display: flex;
     justify-content: space-between;
-    color: var(--histheader);
     align-items: center;
 }
 
@@ -321,12 +249,7 @@ nav a:hover {
     justify-content: space-between;
     align-items: center;
 }
-.pedido-detalhes strong{
-    color: var(--pedidostrong);
-}
-.pedido-detalhes p{
-    color: var(--pedidop);
-}
+
 .pedido-content {
     display: flex;
     gap: 15px;

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block estilos %}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/happy-hour.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/happy-hour-light.css')}}">
 {% endblock %}
 
 
@@ -18,13 +18,13 @@
     </article>
 
     <div class="dias-lado">
-        <div class="nav-dia" style="background-color: var(--dias);" onclick="scrollToDay('segunda')">SEG</div>
-        <div class="nav-dia" style="background-color: var(--dias);" onclick="scrollToDay('terca')">TER</div>
-        <div class="nav-dia" style="background-color: var(--dias);" onclick="scrollToDay('quarta')">QUA</div>
-        <div class="nav-dia" style="background-color: var(--dias);" onclick="scrollToDay('quinta')">QUI</div>
-        <div class="nav-dia" style="background-color: var(--dias);" onclick="scrollToDay('sexta')">SEX</div>
-        <div class="nav-dia" style="background-color: var(--dias);" onclick="scrollToDay('sabado')">SAB</div>
-        <div class="nav-dia" style="background-color: var(--dias);" onclick="scrollToDay('domingo')">DOM</div>
+        <div class="nav-dia" style="background-color: var(--segunda);" onclick="scrollToDay('segunda')">SEG</div>
+        <div class="nav-dia" style="background-color: var(--terca);" onclick="scrollToDay('terca')">TER</div>
+        <div class="nav-dia" style="background-color: var(--quarta);" onclick="scrollToDay('quarta')">QUA</div>
+        <div class="nav-dia" style="background-color: var(--quinta);" onclick="scrollToDay('quinta')">QUI</div>
+        <div class="nav-dia" style="background-color: var(--sexta);" onclick="scrollToDay('sexta')">SEX</div>
+        <div class="nav-dia" style="background-color: var(--sabado);" onclick="scrollToDay('sabado')">SAB</div>
+        <div class="nav-dia" style="background-color: var(--domingo);" onclick="scrollToDay('domingo')">DOM</div>
     </div>
 
     <div class="dias">
@@ -366,18 +366,6 @@ João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-
 
      
         document.addEventListener('DOMContentLoaded', function() {
-
-            function aplicarTema(theme) {
-                document.body.setAttribute('data-theme', theme);
-            }
-
-            const temaSalvo = localStorage.getItem('theme');
-
-            if (temaSalvo) {
-                aplicarTema(temaSalvo);
-            } else {
-                aplicarTema('light');
-            }
             const drinkCards = document.querySelectorAll('.drink-card');
             
             drinkCards.forEach(card => {
