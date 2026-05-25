@@ -99,7 +99,8 @@ body {
     --cor-footerbg:#F3E3C4;
     --cor-dono:#d89c4a;
     --local:#000000;
-    
+    --cor-botao-cardapio:#f4f4f4;
+    --cor-text-botao-cardapio:#0a0a0a;
 
 }
 body[data-theme="dark"] {
@@ -139,7 +140,8 @@ body[data-theme="dark"] {
     --cor-footerbg:#3b3b3b;
     --cor-dono:#46CE3B;
     --local:#ffffff;
-     
+    --cor-botao-cardapio:#f4f4f4;
+    --cor-text-botao-cardapio:#0a0a0a;
   }
 header  {
     background-color: var(--cor-principal);
@@ -283,13 +285,16 @@ p {
     border-radius: 40px;
     transition: border-color 0.4s ease;
     border: solid 2px rgb(255, 255, 255);
-      font-family: "Montserrat", sans-serif;
-      font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    transition: 0.3s ease-in;
+
 }
 
 .btn:hover {
-    border-color: #d89c4a;
-   
+  background-color: var(--cor-botao-cardapio);
+  color: var(--cor-text-botao-cardapio);
+  transition: 0.3s ease-in;
 }
 .logo:hover{
 cursor: pointer;
