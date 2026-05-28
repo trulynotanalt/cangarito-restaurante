@@ -7,7 +7,7 @@ produtos.forEach(produto => {
     const nome = produto.querySelector('h3').textContent;
     const preco = produto.querySelector('h2').textContent;
     const descProduto = produto.querySelector('.desc-produto').textContent;
-
+    const quantidadeAtualInput = dialog.querySelector('.quantidade-atual-widget')
 
     dialog.innerHTML = `
       <div id="header-dialog">
@@ -34,7 +34,11 @@ produtos.forEach(produto => {
         <h2>Alguma Observação?</h2>
         <textarea name="observacao-dialog" id="observacao-dialog"></textarea>
       </div>
-
+      <form action="post">
+        <input id="item_name_input" type="hidden" name="nome_produto" value=${nome}>
+        <input id="item_quantidade_input" type="hidden" name="quantidade_pedido" value=${nome}>
+        <input id="item_name_input" type="hidden" name="observacao">
+      </form>
       <div class="footer-dialog">
         <div class="widget-quantidade">
           <button type="button" class="diminuir-quantidade">-</button>
