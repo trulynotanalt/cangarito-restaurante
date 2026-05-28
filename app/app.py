@@ -34,7 +34,7 @@ def cardapio():
 
         conn.close()
 
-        return render_template('cardapio.html', itens_sobremesa=itens_sobremesa, itens_cuscuz=itens_cuscuz, itens_campeao_vendas=itens_campeao_vendas, itens_bebidas=itens_bebidas, quantidade_itens = len(itens_campeao_vendas))
+        return render_template('cardapio.html', itens_sobremesa=itens_sobremesa, itens_cuscuz=itens_cuscuz, itens_campeao_vendas=itens_campeao_vendas, itens_bebidas=itens_bebidas)
     # POST boy
 
     resp = make_response()
@@ -72,8 +72,8 @@ def carrinho():
         
         if resultado:
             id_item_cardapio = resultado[0]
-            cursor.execute("INSERT INTO pedido (id_user, observacao)  VALUES (?, ?);", (1, i['observacao']) )## COLOCAR A SESSION PRA FUNCIONAR E TROCAR PELO '1'
-            id_pedido_gerado = cursor.lastrowid
+            cursor.execute("INSERT INTO pedido (id_user, observacao)  VALUES (?, ?);", (1, i['observacao']) )# COLOCAR A SESSION PRA FUNCIONAR E TROCAR PELO '1'
+            id_pedido_gerado = cursor.lastrowid # RECUPERA O ÚLTIMO ID GERADO PELO CURSOR
             cursor.execute("INSERT INTO item_cardapio_pedido (id_pedido, id_item_cardapio, quantidade)  VALUES (?, ?, ?);", (id_pedido_gerado, id_item_cardapio, i['quantidade']) )
 
     conn.commit()

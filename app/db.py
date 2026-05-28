@@ -31,8 +31,10 @@ def criar_banco():
         name TEXT NOT NULL,
         price NUMERIC NOT NULL,
         desc TEXT NOT NULL,
+        active BOOL NOT NULL DEFAULT true,
         classificacao TEXT NOT NULL CHECK(classificacao IN ('cuscuz','campeao_vendas','bebidas', 'sobremesa'))
         );
+    
     """)
 
 def criar_conexao():
@@ -64,6 +66,5 @@ def injecao():
     ('Cajuína', 12.00, 'Refrigerante típico do Seridó, com sabor doce e floral.', 'bebidas'),
     ('Água de Coco', 5.00, 'Água de coco natural, servida gelada direto no copo ou no coco.', 'bebidas');
     """)
-
 
 

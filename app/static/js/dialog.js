@@ -7,7 +7,7 @@ produtos.forEach(produto => {
     const nome = produto.querySelector('h3').textContent;
     const preco = produto.querySelector('h2').textContent;
     const descProduto = produto.querySelector('.desc-produto').textContent;
-    const quantidadeAtualInput = dialog.querySelector('.quantidade-atual-widget')
+    const quantidadeItens = dialog.querySelector('.quantidade-atual-widget').value;
 
     dialog.innerHTML = `
       <div id="header-dialog">
@@ -36,8 +36,7 @@ produtos.forEach(produto => {
       </div>
       <form action="post">
         <input id="item_name_input" type="hidden" name="nome_produto" value=${nome}>
-        <input id="item_quantidade_input" type="hidden" name="quantidade_pedido" value=${nome}>
-        <input id="item_name_input" type="hidden" name="observacao">
+        <input id="item_name_input" type="hidden" name="observacao value=${descProduto}" 
       </form>
       <div class="footer-dialog">
         <div class="widget-quantidade">
@@ -52,13 +51,12 @@ produtos.forEach(produto => {
     dialog.showModal();
     const botaoAumentar = dialog.querySelector('.aumentar-quantidade');
     const botaoDiminuir = dialog.querySelector('.diminuir-quantidade');
-    const quantidadeAtualInput = dialog.querySelector('.quantidade-atual-widget');
-    
+    const quantidadeAtualInput = dialog.querySelector('.quantidade-atual-widget')
     botaoAumentar.addEventListener('click', ()=>{
       let valorAtual  = parseInt(quantidadeAtualInput.value) || 0
       quantidadeAtualInput.value = valorAtual + 1
     })
-    
+
     botaoDiminuir.addEventListener('click', ()=>{
       let valorAtual  = parseInt(quantidadeAtualInput.value) || 0
       valorAtual -= 1
@@ -69,7 +67,8 @@ produtos.forEach(produto => {
     })
     const fecharBtn = dialog.querySelector('#fechar-dialog');
     fecharBtn.addEventListener('click', () => {
-      dialog.close();
+    dialog.close();
     });
   });
 });
+
