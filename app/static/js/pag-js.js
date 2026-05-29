@@ -5,48 +5,45 @@ function validar(){
         var usuario = document.getElementById("usuario").value;
         if (usuario == null || usuario === "") {
             alert("Digite um nome de usuário!");
-            return;
+            return false;;
         }
         var email = document.getElementById("email").value;
         if(email == null || email == ""){
             alert("O e-mail não pode ser nulo!");
-            return;
+            return false;;
         }
         if(email.indexOf("@") < 1){
             alert("E-mail inválido! Digite um e-mail com '@'");
-            return;
+            return false;;
         }
         if(email.indexOf(".") < 1){
             alert("E-mail inválido! Digite um e-mail com pelo menos um '.' ");
-            return;
+            return false;;
         }
 
         var senha = document.getElementById("senha").value;
         if(senha == null || senha == ""){
             alert("A senha não pode ser nula!");
-            return;
+            return false;;
         }
         if(senha.length < 6){
             alert("A senha precisa ter pelo menos 6 dígitos!");
-            return;
+            return false;;
         }
 
         var repsenha = document.getElementById("repsenha").value;
         if(repsenha == ""){
             alert("A senha repetida não pode ser nula");
-            return;
+            return false;;
         }
         if(senha !== repsenha){
             alert("As senhas precisam ser idênticas");
-            return;
+            return false;;
         }
-
-        alert("Login validado com sucesso!");
-        function redirecionar() {
-            window.location.href = "../../Cardápio/cardapio.html";
-        }
+    return true;
     } catch(err){
         alert("Erro: " + err);
+        return false;
     }
 }
 

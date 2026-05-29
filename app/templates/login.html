@@ -27,16 +27,18 @@
                 </div>
 
                 <div id="informacoes">
-                    <p class="fonte-p">Email:</p>
-                    <input type="text" id="nome" class="montserrat-placeholder" placeholder="nome do usuario" name="nome">
+                    <form action="{{url_for('login')}}" method="post" onsubmit="return validar()">
+                        <p class="fonte-p">Email:</p>
+                        <input type="text" id="nome" class="montserrat-placeholder" placeholder="nome do usuario" name="nome">
 
-                    <p class="fonte-p">Email:</p>
-                    <input type="email" id="email" class="montserrat-placeholder" placeholder="romerito123@gmail.com" name="email">
+                        <p class="fonte-p">Email:</p>
+                        <input type="email" id="email" class="montserrat-placeholder" placeholder="romerito123@gmail.com" name="email">
 
-                    <p class="fonte-p">Senha:</p>
-                    <input type="password" id="senha" class="montserrat-placeholder" placeholder="Digite sua senha" name="senha">
+                        <p class="fonte-p">Senha:</p>
+                        <input type="password" id="senha" class="montserrat-placeholder" placeholder="Digite sua senha" name="senha">
 
-                    <button onclick="validar()" type="button" class="montserrat-button-p">Login</button>
+                        <button  type="submit" class="montserrat-button-p">Login</button>
+                    </form>
 
                     <p id="acessar" class="montserrat-acess">ou acesse com:</p>
 

@@ -40,15 +40,16 @@ def cadastro():
         cursor = conexao.cursor()
 
         cursor.execute("""
-            INSERT INTO user
-            (nome, email, password)
-            VALUE (?, ?, ?)
+            INSERT INTO users
+            (nome, email, password, type)
+            VALUES (?, ?, ?, ?)
         
-        """ (usuario, email, c_senha))
+        """,(usuario, email, c_senha, 'normal'))
 
+        conexao.commit()
+        conexao.close()
 
-
-
+        return redirect(url_for('login'))
 
     
     return render_template('cadastro.html')
@@ -138,9 +139,9 @@ def login():
     nome_user = request.form.get("nome")
     email_user = request.form.get('email')
     passw_user = request.form.get('senha')
-    user_in_bank = conn.execute("SELECT nome, email, password   FROM users WHERE name LIKES ? AND password == ?", (nome_user, email_user, passw_user))
+    user_in_bank = conn.execute("SELECT nome, email, password   FROM users WHERE nome = ? AND email = ? AND password = ?", (nome_user, email_user, passw_user)).fetchone()
 
-    if not user_in_bank:
+    if  user_in_bank is None:
         conn.close()
         return redirect(url_for('login'))
     
@@ -219,7 +220,10 @@ def pedido_cancelar(id):
     
     return render_template('perfil.html')
 
-
+@app.route('/logout', methods=["POST"])
+def logout():
+    session.pop('usuario', None)
+    return redirect(url_for('landingpage'))
 
 if __name__ == "__main__":
     app.run(debug=True)
