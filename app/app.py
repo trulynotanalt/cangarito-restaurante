@@ -86,13 +86,83 @@ def carrinho():
 def happyhour():
     return render_template('happyhour.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    if request.method == 'GET':
+        return render_template('login.html')
+    conn = criar_conexao()
+    
+    email_user = request.form.get('name_user')
+    passw_user = request.form.get('password_user')
+    user_in_bank = conn.execute("SELECT email, password FROM users WHERE name LIKES ? AND password == ?", (email_user, passw_user))
 
-@app.route('/perfil')
+    if not user_in_bank:
+        conn.close()
+        return redirect(url_for('login'))
+    
+    conn.close()
+    # COLOCAR SESSÃO AQUI
+    return redirect(url_for('landingpage'))
+
+
+@app.route('/perfil', methods=['GET'])
 def perfil():
-    return render_template('perfil.html')
 
+    pedidos_agrupados = {}
+    conn = criar_conexao()
+    
+    # CONSULTA TODAS AS LINHAS QUE LIGAM (USUARIO - PEDIDO - ITEM_PEDIDO)
+    query = conn.executescript("""
+        SELECT 
+            pedido.id AS pedido_id,
+            item_cardapio.name AS item_nome,
+            item_cardapio.price AS item_preco,
+            item_cardapio_pedido.quantidade AS item_quantidade,
+            pedido.observacao AS item_observacao
+                        
+        FROM pedido
+            INNER JOIN item_cardapio_pedido ON pedido.id = item_cardapio_pedido.id_pedido
+            INNER JOIN item_cardapio ON item_cardapio_pedido.id_item_cardapio = item_cardapio.id
+        WHERE pedido.id_user = ?;
+                        
+    """).fetchall() # SUBSTITUIR ESSE '1' PELO ID DO USUÁRIO SALVO NO SESSION
+
+    # ITERA SOBRE CADA LINHA RETORNADA DA QUERY E SEPARA POR PEDIDO
+    for i in query:
+        pedido_id, item_nome, item_preco, item_quantidade, item_observacao = query
+
+        if pedido_id not in pedidos_agrupados:
+            pedidos_agrupados[pedido_id] = {
+                'id_pedido': pedido_id,
+                'id_observacao' : item_observacao,
+                'itens_comprados' : []
+            }
+
+        pedidos_agrupados[pedido_id]['itens_comprados'] = {
+            'nome': item_nome,
+            'preco': item_preco,
+            'quantidade': item_quantidade
+        }
+    
+    lista_pedidos = list(pedidos_agrupados)
+    return render_template('perfil.html', lista_pedidos=lista_pedidos)
+
+
+@app.route('/pedido/cancel/{id}', methods=['GET', 'POST'])
+def pedido_cancelar(id):
+    if request.method == 'POST':
+        conn = criar_conexao()
+        conn.executescript("""
+        UPDATE pedidos IF EXISTS
+        SET active = false
+        WHERE id = ?;
+        """, (id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('perfil'))
+        # PEGA O ATRIBUTO DA ROTA E DESATIVA/CANCELA O PEDIDO NO BANCO DE DADOS
+    
+    return render_template('perfil.html')
+    
 if __name__ == "__main__":
     app.run(debug=True)

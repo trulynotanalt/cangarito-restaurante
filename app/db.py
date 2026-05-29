@@ -6,13 +6,17 @@ def criar_banco():
     CREATE TABLE IF NOT EXISTS users(
         id INTEGER PRIMARY KEY  AUTOINCREMENT,
         nome TEXT NOT NULL,
-        type TEXT NOT NULL CHECK(type IN ('normal', 'admin')) 
+        email TEXT NOT NULL,
+        type TEXT NOT NULL CHECK(type IN ('normal', 'admin')),
+        password TEXT NOT NULL
         );
                     
     CREATE TABLE IF NOT EXISTS pedido(
         id INTEGER PRIMARY KEY  AUTOINCREMENT,
         id_user INTEGER NOT NULL, 
         observacao TEXT,
+        active BOOL NOT NULL DEFAULT true,
+                          
         FOREIGN KEY (id_user) REFERENCES users(id)
         );
                     
@@ -31,7 +35,6 @@ def criar_banco():
         name TEXT NOT NULL,
         price NUMERIC NOT NULL,
         desc TEXT NOT NULL,
-        active BOOL NOT NULL DEFAULT true,
         classificacao TEXT NOT NULL CHECK(classificacao IN ('cuscuz','campeao_vendas','bebidas', 'sobremesa'))
         );
     
@@ -68,3 +71,5 @@ def injecao():
     """)
 
 
+criar_banco()
+injecao()

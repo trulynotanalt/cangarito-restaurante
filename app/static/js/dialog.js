@@ -41,7 +41,7 @@ produtos.forEach(produto => {
       <div class="footer-dialog">
         <div class="widget-quantidade">
           <button type="button" class="diminuir-quantidade">-</button>
-          <input type="text" name="quantidade-atual-widget" class="quantidade-atual-widget" value="0">
+          <input type="text" name="quantidade-atual-widget" class="quantidade-atual-widget" value="1">
           <button type="button" class="aumentar-quantidade">+</button>
         </div>
         <button class="adicionar-dialog">Adicionar + ${preco}</button>
