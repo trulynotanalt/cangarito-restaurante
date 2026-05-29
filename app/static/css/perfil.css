@@ -343,3 +343,23 @@ nav a:hover {
     color: gold;
     margin-bottom: 5px;
 }
+
+#logout{
+    width: fit-content;
+    padding: 8px 16px;
+    color: #803919;
+    background-color: #d89c4a;
+    border-radius: 16px; 
+    font-size: 20px;
+}
+#logout a{
+    text-decoration: none;
+    color: #803919;
+}
+
+#divlogout :hover{
+    cursor: pointer;
+    background-color: #F3E3C4;
+    color: #d89c4a;
+    transition: 0.5s ease-out;
+}

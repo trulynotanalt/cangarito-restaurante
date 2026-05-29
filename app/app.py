@@ -117,6 +117,8 @@ def editar(id):
 @app.route('/deletar/<int:id>')
 def deletar(id):
     pass
-
+@app.route('/trocarsenha')
+def trocarsenha():
+    return render_template('trocarsenha.html')
 if __name__ == "__main__":
     app.run(debug=True)
