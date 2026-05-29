@@ -7,7 +7,7 @@ def criar_banco():
         id INTEGER PRIMARY KEY  AUTOINCREMENT,
         nome TEXT NOT NULL,
         email TEXT NOT NULL,
-        type TEXT NOT NULL CHECK(type IN ('normal', 'admin')),
+        type TEXT NOT NULL DEFAULT 'normal' CHECK(type IN ('normal', 'admin')),
         password TEXT NOT NULL
         );
                     

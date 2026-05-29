@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
 from db import *
 from item_cardapio import Item_Cardapio
 import json
 
 app = Flask(__name__)
 app.secret_key = "GloriaAJesus"
+
 
 def construtor_itens_cardapio(lista_pedidos):
     lista_obj = []
@@ -25,14 +26,27 @@ def landingpage():
 def cadastro():
 
     #cara do bd.py q se vire aq
-    # if 'roro' in session:
-    #     return redirect(url_for('landingpage'))
+    if 'usuario' in session:
+        return redirect(url_for('landingpage'))
     
     if request.method == 'POST':
         #aq o cara do banco de dados vai usar essas infos para fazer a confirmação e integração com o bd.py
+        usuario = request.form.get('usuario')
         email = request.form.get('email')
         senha = request.form.get('senha')
         c_senha = request.form.get('c_senha')
+
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+
+        cursor.execute("""
+            INSERT INTO user
+            (nome, email, password)
+            VALUE (?, ?, ?)
+        
+        """ (usuario, email, c_senha))
+
+
 
 
 
@@ -42,6 +56,7 @@ def cadastro():
 @app.route('/cardapio', methods=['GET', 'POST'])
 def cardapio():
     if request.method == 'GET':
+
         conn = criar_conexao()
 
         itens_cuscuz = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz'")))
@@ -53,7 +68,8 @@ def cardapio():
 
         return render_template('cardapio.html', itens_sobremesa=itens_sobremesa, itens_cuscuz=itens_cuscuz, itens_campeao_vendas=itens_campeao_vendas, itens_bebidas=itens_bebidas)
     # POST boy
-
+    if 'usuario' not in session:
+        return redirect(url_for('cadastro'))
     resp = make_response()
     nome_produto = request.form.get('nome_produto')
     quantidade = request.form.get('quantidade_pedido')
@@ -76,6 +92,10 @@ def cardapio():
 
 @app.route('/carrinho', methods = ['GET', 'POST'])
 def carrinho():
+
+    if 'usuario' not in session:
+        return redirect(url_for('cadastro'))
+
     if request.method == 'GET':
         lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
         return render_template('carrinho.html', pedidos=lista_pedidos)
@@ -103,8 +123,8 @@ def carrinho():
 def happyhour():
 
     #acaba nunca, avemaria
-    # if 'roro' not in session:
-    #     return redirect(url_for('cadastro'))
+    if 'usuario' not in session:
+        return redirect(url_for('cadastro'))
     
     return render_template('happyhour.html')
 
@@ -112,11 +132,13 @@ def happyhour():
 def login():
     if request.method == 'GET':
         return render_template('login.html')
+    
     conn = criar_conexao()
     
-    email_user = request.form.get('name_user')
-    passw_user = request.form.get('password_user')
-    user_in_bank = conn.execute("SELECT email, password FROM users WHERE name LIKES ? AND password == ?", (email_user, passw_user))
+    nome_user = request.form.get("nome")
+    email_user = request.form.get('email')
+    passw_user = request.form.get('senha')
+    user_in_bank = conn.execute("SELECT nome, email, password   FROM users WHERE name LIKES ? AND password == ?", (nome_user, email_user, passw_user))
 
     if not user_in_bank:
         conn.close()
@@ -124,12 +146,20 @@ def login():
     
     conn.close()
     # COLOCAR SESSÃO AQUI
+    session['usuario'] = {
+        "nome": nome_user,
+        "email": email_user,
+        "senha": passw_user
+    }
     return redirect(url_for('landingpage'))
 
 
 @app.route('/perfil', methods=['GET'])
 def perfil():
 
+    if 'usuario' not in session:
+        return redirect('cadastro')
+    
     pedidos_agrupados = {}
     conn = criar_conexao()
     
@@ -172,6 +202,9 @@ def perfil():
 
 @app.route('/pedido/cancel/{id}', methods=['GET', 'POST'])
 def pedido_cancelar(id):
+    if 'usuario' not in session:
+        return redirect(url_for('cadastro'))
+    
     if request.method == 'POST':
         conn = criar_conexao()
         conn.executescript("""
