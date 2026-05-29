@@ -48,7 +48,7 @@ def cardapio():
         'observacao' : observacao,
     }
 
-    lista_pedidos = json.loads(request.cookies.get('pedidos'))
+    lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
     lista_pedidos.append(pedido)
 
     resp = redirect(url_for('cardapio'))
@@ -67,8 +67,8 @@ def carrinho():
     conn = criar_conexao()
     resp = make_response()
     cursor = conn.cursor()
-    for i in lista_pedidos:
-        resultado = cursor.execute('SELECT id FROM item_cardapio WHERE name == ? ', (i['name'])).fetchone()
+    for i in lista_pedidos:                                                         
+        resultado = cursor.execute('SELECT id FROM item_cardapio WHERE name == ? ', (i['nome'],)).fetchone()
         
         if resultado:
             id_item_cardapio = resultado[0]
@@ -163,6 +163,8 @@ def pedido_cancelar(id):
         # PEGA O ATRIBUTO DA ROTA E DESATIVA/CANCELA O PEDIDO NO BANCO DE DADOS
     
     return render_template('perfil.html')
-    
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)

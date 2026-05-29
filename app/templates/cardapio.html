@@ -12,7 +12,7 @@
 
 {% block scripts %}
 
-<script
+ <script
 type="module"
 src="{{ url_for('static',
 filename='js/main.js') }}">
@@ -189,37 +189,10 @@ filename='js/main.js') }}">
     </main>
     
     <dialog>
-      <div id="header-dialog">
-        <button class="sair-dialog">
-          <i id="fechar-dialog" class="bi bi-chevron-compact-down"></i>
-        </button>
-        <h1>Coxinha Barata</h1>
-      </div>
-      <div class="info-dialog">
-        <div class="container-tags-produto">
-          <div class="tags-produto">
-          <p>300g</p>
-        </div>
-        <img src="https://media.gazetadopovo.com.br/2021/08/26203036/coxinha-postos-pelanda-1920x1080-720x720.jpg" alt="">
-        <p class="desc-produto">
-          Coxinha de frango com molho especial do cangaço, temperado com cominho e coentro defumados.
-        </p>
-      </div>
-      <label for="observacao-dialog">Alguma Observação?</label>
-      <textarea name="observacao-dialog" id="observacao-dialog"></textarea>
-      <form action="post">
-        <input id="item_name_input" type="hidden" name="nome_produto">
-        <input id="item_quantidade_input" type="hidden" name="quantidade">
-        <input id="item_quantidade_input" type="hidden" name="observacao">
-      </form>
-      <div class="footer-dialog">
-        <div class="widget-quantidade">
-          <button type="button" class="diminuir-quantidade">-</button>
-          <input type="text" name="quantidade-atual-widget" class="quantidade-atual-widget" value="0">
-          <button type="button" class="aumentar-quantidade">+</button>
-        <button class="adicionar-dialog">Adicionar + </button>
-      </div>
-    </dialog>
+
+    
+
+</dialog>
 
     <footer id="footer">
         <h3>Copyright © 2025 Restaurante Cangarito

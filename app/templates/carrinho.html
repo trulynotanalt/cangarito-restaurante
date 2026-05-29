@@ -16,75 +16,34 @@
   <section class="container" aria-label="Carrinho e resumo do pedido">
 
     <div class="carrinho_div" aria-label="Itens no carrinho" role="list" tabindex="0">
+      {% for pedido in pedidos %}
     
       <article class="item" role="listitem" aria-label="Item Carne de sol , preço 80 reais, quantidade 1, tamanho médio">
         <div class="image-container">
           <img src="{{url_for('static',filename='img/carne+de+sol.jpg')}}" 
-            alt="Carne de sol com acompanhamentos" 
-           >
+            alt="Carne de sol com acompanhamentos">
         </div>
-        <div class="info">
-          
-            <span class="nome_food"> Carne de sol</span> <br>
-          <span class="preço">Preço: R$ 80,00</span> <br>
-          <span class="info_comida2">Código do Pedido: FIX20930390400300</span> <br>
-      <span class="info_comida">   Data do Pedido: 23/07/2025 </span> <br>
-         <span class="info_comida"> Tamanho: Médio</span> <br>
-        </div>
-        <button class="remover_bt" aria-label="Remover item Verdadeiro Paulista" title="Remover item"><span class="remover">×</span></button>
-        <span class="opções" aria-hidden="true">⋮</span>
-        <div class="quantia" aria-label="Controle de quantidade para Verdadeiro Paulista">
-          <button aria-label="Diminuir quantidade" title="Diminuir quantidade" type="button">−</button>
-          <span aria-live="polite" aria-atomic="true">1</span>
-          <button aria-label="Aumentar quantidade" title="Aumentar quantidade" type="button">+</button>
-        </div>
-      </article>
 
-     
-      <article class="item" role="listitem" aria-label="Item Carne de sol, preço 80 reais, quantidade 1, tamanho médio">
-        <div class="image-container">
-          <img src="{{url_for('static',filename='img/carne+de+sol.jpg')}}" 
-            alt="Carne de sol com acompanhamentos" 
-            >
-        </div>
         <div class="info">
-          <span class="nome_food"> Carne de sol</span> <br>
-          <span class="preço">Preço: R$ 80,00</span> <br>
-          <span class="info_comida2">Código do Pedido: FIX20930390400300</span> <br>
-      <span class="info_comida">   Data do Pedido: 23/07/2025 </span> <br>
-         <span class="info_comida"> Tamanho: Médio</span> <br>
-        </div>
-        <button class="remover_bt" aria-label="Remover item Verdadeiro Paulista" title="Remover item"><span class="remover">×</span></button>
-        <span class="opções" aria-hidden="true">⋮</span>
-        <div class="quantia" aria-label="Controle de quantidade para Verdadeiro Paulista">
-          <button  title="Diminuir quantidade" type="button">−</button>
-          <span  aria-atomic="true">1</span>
-          <button  title="Aumentar quantidade" type="button">+</button>
-        </div>
-      </article>
+            <span class="nome_food">
+        {{ pedido.nome }}
+      </span>
 
-     
-      <article class="item" role="listitem" aria-label="Item Carne de sol, preço 80 reais, quantidade 1, tamanho médio">
-        <div class="image-container">
-          <img src="{{url_for('static',filename='img/carne+de+sol.jpg')}}" 
-            alt="Carne de sol com acompanhamentos" 
-            >
-        </div>
-        <div class="info">
-          <span class="nome_food"> Carne de sol</span> <br>
-          <span class="preço">Preço: R$ 80,00</span> <br>
-          <span class="info_comida2">Código do Pedido: FIX20930390400300</span> <br>
-      <span class="info_comida">   Data do Pedido: 23/07/2025 </span> <br>
-         <span class="info_comida"> Tamanho: Médio</span> <br>
-        </div>
-        <button class="remover_bt" aria-label="Remover item Verdadeiro Paulista" title="Remover item"><span class="remover">×</span></button>
-        <span class="opções" aria-hidden="true">⋮</span>
-        <div class="quantia" >
-          <button  title="Diminuir quantidade" type="button">−</button>
-          <span  aria-atomic="true">1</span>
-          <button  title="Aumentar quantidade" type="button">+</button>
+      <br>
+
+      <span class="nome_food">
+        Quantidade: {{ pedido.quantidade }}
+      </span>
+
+      <br>
+
+      <span class="nome_food">
+        Observação: {{ pedido.observacao }}
+      </span>
         </div>
       </article>
+      
+      {% endfor %}
     </div>
 
     <aside class="pedido" aria-label="Resumo do Pedido" tabindex="0">
