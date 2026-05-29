@@ -63,74 +63,105 @@ body {
     flex-direction: column;
 }
 
-header {
+header  {
     background-color: #d89c4a;
-    padding: 10px 40px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
+    position: sticky; 
     top: 0;
-    z-index: 1000;
+    z-index: 1000; 
+    opacity: 1;
+    transform: none ;
 }
-
-header .logo-container img {
-    height: 80px;
-}
-
-header nav {
-    display: flex;
+header nav{
     justify-content: center;
     align-items: center;
-}
-
-header nav ul {
-    list-style: none;
     display: flex;
-    gap: 20px;
-    align-items: center;
-    text-align: center;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
 }
-
-header nav li {
+li{
     text-align: center;
     align-items: center;
 }
+#menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo {
+    height: 80px;
+    
 
-header nav a {
-    text-decoration: none;
-    color: #803919;
-    font-size: 32px;
-    font-weight: 600;
-    transition: color 0.3s ease;
 }
 
-header nav a:hover {
-    color: #F3E3C4;
+
+#icone{
+    font-size: 64px;
+    color:#9d4821
 }
-
-header .icons i {
-    margin-left: 50px;
-    cursor: pointer;
-
+#icone:hover{
+  color: #F3E3C4;
+  transition: 0.2s ease-out;
 }
 #carrinho{
     font-size: 40px;
+    color: #000000;
+    padding-right: 40px;
+    justify-content: center;
+    
 }
-#icone{
-    font-size: 56px;
+#carrinho:hover{
+  color: #F3E3C4;
+  transition: 0.2s ease-out;
 }
 
-header #carrinho:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease-in-out;
+.icone2{
+  display: flex;
+  text-decoration: none;
 }
 
-header #icone:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease-in-out;
+#userclaro{
+ align-items: center;
+    display: flex;
+    justify-content: center;
+}
+#userclaro:hover{
+ cursor: pointer;
+
+}
+.fa-regular fa-circle-user fa-2xl :hover{
+cursor: pointer;
+}
+.fa-regular fa-circle-user{
+width: 40px;
+height: 40px;
+}
+nav ul {
+    align-items: center;
+    text-align: center;
+    list-style: none;
+    margin-left: 40px;
+    display: flex;
+    gap: 20px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+}
+
+nav a {
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    color: #803919;
+    font-weight: bold;
+    font-size: 32px;
+    transition: color 0.3s ease;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+}
+
+nav a:hover {
+    color: #F3E3C4;
 }
 
 .banner img {

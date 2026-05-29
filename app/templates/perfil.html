@@ -1,30 +1,147 @@
-{%extends 'base.html'%}
+{% extends "base.html" %}
 
-{%block styles%}
-<link rel="stylesheet" href="{{url_for('static', filename='css/perfil.css')}}">
-{%endblock%}
-{%block content%}
-<main>
-    <section>
-        <div id="container-info">
-            <div id="container-img">
-              <a href="{{url_for('perfil')}}">  <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                </svg> </a>
+{% block titulo %}
+    Perfil
+{% endblock %}
+
+{% block estilos %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil-light.css') }}">
+{% endblock %}
+
+{% block conteudo %}
+    
+<div id="theme-widget">
+                <span id="theme-sun">☀️</span>
+                <div id="theme-divider"></div>
+                <span id="theme-moon">🌙</span>
             </div>
-            <div id="info">
-                <p><b>Nome:</b> {{usuario.nome}} </p>
-                <p><b>Email:</b> {{usuario.email}} </p>
-                <p><b>Telefone:</b> {{usuario.telefone}} </p>
-            </div> 
-        </div>
+    <section class="banner">
+        <img src="{{url_for('static',filename='img/promo.png')}}" alt="Promoção Cangarito">
+    </section>
 
-        <div id="container-logout">
-           <a href="{{url_for('logout')}}"> <button>
-                Logout
-            </button>
-           </a>
+    <section class="perfil">
+        <div class="perfil-info">
+            <img src="{{url_for('static',filename='img/romerito.png')}}" alt="Foto de Perfil">
+            <div class="perfil-texto">
+                <h3>Romerito do Cuscuz</h3>
+                <p>Romerito Maratona Flokis de’mi</p>
+                <small><i class="bi bi-geo-alt"></i> Insira seu endereço</small>
+            </div>
+        </div>
+        <div class="canga-points">
+            <span>Canga points: <strong>200</strong></span>
+            <i class="bi bi-coin"></i>
         </div>
     </section>
+
+    {% comment %} PEDRO, LEMBRAR DE COLOCAR ISSO EM CADA PEDIDO {% endcomment %}
+
+    {% comment %} <a href="{{url_for('pedido_cancelar', id=pedido.id_pedido_gerado ) }}" class="btn">
+       <button type="button" aria-label="Cancelar pedido">Cancelar o pedido</button>
+    </a> {% endcomment %}
+
+    <nav class="menu-perfil">
+        <a href="#">Histórico</a>
+        <a href="#">Favoritos</a>
+        <a href="#">Canga Points</a>
+        <a href="{{url_for('landingpage')}}#footer">Ajuda & Suporte</a>
+    </nav>
+
+    <section class="historico">
+        <div class="historico-header">
+            <h4>Histórico de Pedidos</h4>
+            <i class="bi bi-funnel-fill"></i>
+        </div>
+
+        <div class="historico-lista">
+            <article class="pedido">
+                <div class="pedido-header">
+                    <h5>Verdadeiro Paulista</h5>
+                    <i class="bi bi-three-dots-vertical"></i>
+                </div>
+                <div class="pedido-content">
+                    <img src="{{url_for('static',filename='img/verdadeiro paulista.jpeg')}}" alt="Cuscuz">
+                    <div class="pedido-detalhes">
+                        <div class="estrelas">★★★★☆</div>
+                        <p><strong>Código do Pedido:</strong> FXI20930390400300</p>
+                        <p><strong>Data:</strong> 22/07/2025</p>
+                        <p><strong>Estado:</strong> Pendente</p>
+                        <p><strong>Entregue:</strong> Retirada</p>
+                        <p><strong>Preço Pago:</strong> R$ 80,00</p>
+                    </div>
+                    
+                </div>
+            </article>
+             <article class="pedido">
+                <div class="pedido-header">
+                    <h5>Verdadeiro Paulista</h5>
+                    <i class="bi bi-three-dots-vertical"></i>
+                </div>
+                <div class="pedido-content">
+                    <img src="{{url_for('static',filename='img/verdadeiro paulista.jpeg')}}" alt="Cuscuz">
+                    <div class="pedido-detalhes">
+                        <div class="estrelas">★★★★☆</div>
+                        <p><strong>Código do Pedido:</strong> FXI20930390400300</p>
+                        <p><strong>Data:</strong> 22/07/2025</p>
+                        <p><strong>Estado:</strong> Pendente</p>
+                        <p><strong>Entregue:</strong> Retirada</p>
+                        <p><strong>Preço Pago:</strong> R$ 80,00</p>
+                    </div>
+                    
+                </div>
+            </article>
+             <article class="pedido">
+                <div class="pedido-header">
+                    <h5>Verdadeiro Paulista</h5>
+                    <i class="bi bi-three-dots-vertical"></i>
+                </div>
+                <div class="pedido-content">
+                    <img src="{{url_for('static',filename='img/verdadeiro paulista.jpeg')}}" alt="Cuscuz">
+                    <div class="pedido-detalhes">
+                        <div class="estrelas">★★★★☆</div>
+                        <p><strong>Código do Pedido:</strong> FXI20930390400300</p>
+                        <p><strong>Data:</strong> 22/07/2025</p>
+                        <p><strong>Estado:</strong> Pendente</p>
+                        <p><strong>Entregue:</strong> Retirada</p>
+                        <p><strong>Preço Pago:</strong> R$ 80,00</p>
+                    </div>
+                    
+                </div>
+            </article>
+        </div>
+    </section>
+    <div id="divlogout">
+
+    <button id="logout">
+    <a href="{{url_for('trocarsenha')}}" > <strong>Troque sua senha</strong></a>
+    </button>
+
+    <button id="logout">
+    <a href="{{url_for('cadastro')}}"> <strong>logout</strong></a>
+    </button>
+
+    </div>
+    
 </main>
-{%endblock%}
+{% endblock %}
+
+{% block scripts %}
+        <script>
+        const themeWidget = document.getElementById('theme-widget');
+
+        function setTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+
+        themeWidget.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        });
+    </script>
+{% endblock %}
+    <

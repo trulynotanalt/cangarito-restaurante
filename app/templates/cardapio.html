@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    Cardápio
+{% endblock %}
+
+{% block estilos %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cardapio.css') }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+{% endblock %}
+
+{% block scripts %}
+
+ <script
+type="module"
+src="{{ url_for('static',
+filename='js/main.js') }}">
+</script>
+
+{% endblock %}
+
+{% block conteudo %}
+    
+
+    <img id="small-background" src="https://thumbs.dreamstime.com/b/prato-original-de-cuscuz-brasil-gen%C3%A9rico-por-ai-imagem-do-couscuz-design-background-para-instagram-pintura-parede-facebook-325276330.jpg" alt="">
+
+    <main>
+        <section class="info-restaurante">
+            <h1>Cardápio</h1>
+
+          <div id="header-cardapio">
+            <div id="endereco">
+              <i class="bi bi-geo-alt-fill"></i>
+              <p>157, Rua do Enquadro, Bairro do Sufoco, Caicó-RN</p>
+            </div>
+
+            <div id="horarios">
+                <div id="dias-semana-minimized">
+                  <div id="container-bola-aberto">
+                    <div id="bola-situacao"></div> 
+                  <!-- Apenas a bolinha piscante -->
+                   <p>Aberto</p>
+                  </div>
+                  <p>Ver Horários <i class="bi bi-chevron-compact-down"></i></p>
+                </div>
+                <div id="dias-semana-expand">
+
+                    <span class="dias-semana">
+                        <p>Domingo</p>
+                        <p>Fechado</p>
+                    </span>
+
+                    <span class="dias-semana">
+                      <p>Segunda</p>
+                      <p>7:00 às 22:00</p>
+                    </span>
+
+                    <span class="dias-semana">
+                      <p>Terça</p>
+                      <p>7:00 às 22:00</p>
+                    </span>
+
+                    <span class="dias-semana">
+                        <p>Quarta</p>
+                        <p>7:00 às 22:00</p>
+                    </span>
+
+                    <span class="dias-semana">
+                        <p>Quinta</p>
+                        <p>7:00 às 00:00</p>
+                    </span>
+
+                    <span class="dias-semana">
+                        <p>Sexta</p>
+                        <p>7:00 às 00:00</p>
+                    </span>
+                    <span class="dias-semana">
+                      <p>Sábado</p>
+                      <p>7:00 às 00:00</p>
+                  </span>
+                </div>
+            </div>
+          </div>
+
+            <div id="barra-pesquisa"><i class="bi bi-search"></i><input type="search" placeholder="Pesquisar.."></div>
+
+        </section>
+        
+        <section class="lista-produtos">
+            <h2>Campeões de Venda</h2>
+            <div class="grade-produtos">
+              {%for i in itens_campeao_vendas %}
+              <article>
+                    <div class="container-info-produto">
+                      <img src="https://media.gazetadopovo.com.br/2021/08/26203036/coxinha-postos-pelanda-1920x1080-720x720.jpg" alt="Coxinha Barata">
+                      <div class="info-produto">
+                        <h3>{{i.name}}</h3>
+                        <h2>R$ {{i.price}}</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>*</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      <p class="desc-produto">
+                        {{i.desc}}
+                      </p>
+                  </article>
+              {%endfor%}
+            </div>
+        </section>
+
+        <section class="lista-produtos">
+            <h2>Cuscuz</h2>
+            <div class="grade-produtos">    
+              {%for i in itens_cuscuz %}
+              <article>
+                    <div class="container-info-produto">
+                      <img src="https://media.gazetadopovo.com.br/2021/08/26203036/coxinha-postos-pelanda-1920x1080-720x720.jpg" alt="Coxinha Barata">
+                      <div class="info-produto">
+                        <h3>{{i.name}}</h3>
+                        <h2>R$ {{i.price}}</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>*</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      <p class="desc-produto">
+                        {{i.desc}}
+                      </p>
+                  </article>
+              {%endfor%}   
+            </div>
+        </section>
+
+        <section class="lista-produtos">
+            <h2>Sobremesa</h2>
+            <div class="grade-produtos">
+              {%for i in itens_cuscuz %}
+              <article>
+                    <div class="container-info-produto">
+                      <img src="https://media.gazetadopovo.com.br/2021/08/26203036/coxinha-postos-pelanda-1920x1080-720x720.jpg" alt="Coxinha Barata">
+                      <div class="info-produto">
+                        <h3>{{i.name}}</h3>
+                        <h2>R$ {{i.price}}</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>*</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      <p class="desc-produto">
+                        {{i.desc}}
+                      </p>
+                  </article>
+              {%endfor%}
+            </div>
+        </section>
+
+        <section class="lista-produtos">
+            <h2>Bebidas</h2>
+            <div class="grade-produtos">
+              {%for i in itens_bebidas %}
+              <article>
+                    <div class="container-info-produto">
+                      <img src="https://media.gazetadopovo.com.br/2021/08/26203036/coxinha-postos-pelanda-1920x1080-720x720.jpg" alt="Coxinha Barata">
+                      <div class="info-produto">
+                        <h3>{{i.name}}</h3>
+                        <h2>R$ {{i.price}}</h2>
+                        <div class="container-tags-produto">
+                          <div class="tags-produto">
+                          <p>*</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      <p class="desc-produto">
+                        {{i.desc}}
+                      </p>
+                  </article>
+              {%endfor%}                 
+            </div>
+        </section>
+    </main>
+    
+    <dialog>
+
+    
+
+</dialog>
+
+    <footer id="footer">
+        <h3>Copyright © 2025 Restaurante Cangarito
+          | Desevolvido por Informática 2V |</h3>
+        <p>João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-000
+          Fale conosco| ajuda-cangarito@gmail.com.br</p>
+    </footer>
+{% endblock %}

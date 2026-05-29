@@ -5,6 +5,7 @@
   font-weight: 600;
   font-size: 48px;
   font-style: normal;
+  color: #e2e2e2;
 }
 .montserrat-box-cadastro-button {
   font-family: "Montserrat", sans-serif;
@@ -12,6 +13,7 @@
   font-weight: medium;
   font-size: 16px;
   font-style: normal;
+  color: #f0f0f0;
 }
 .montserrat-placeholder {
   font-family: "Montserrat", sans-serif;
@@ -19,6 +21,7 @@
   font-weight: normal;
   font-size: 26px;
   font-style: normal;
+  
 }
 .montserrat-button-p {
   font-family: "Montserrat", sans-serif;
@@ -26,6 +29,7 @@
   font-weight: medium;
   font-size: 32px;
   font-style: normal;
+  
 }
 .montserrat-acess {
   font-family: "Montserrat", sans-serif;
@@ -40,6 +44,7 @@
   font-weight: normal;
   font-size: 20px;
   font-style: normal; 
+  
 }
 
 
@@ -56,7 +61,7 @@ section{
     justify-content: center;
 }
 body{
-    background-color: #f3e3c4;
+    background-color: #3b3b3b;
     
 }
 #logo{
@@ -66,12 +71,13 @@ margin-bottom: 18px;
 width: 70px;
 height: 84px;
 }
-
+#logo:hover{
+    cursor: pointer;
+}
 .area{
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 5px 5px gray;
     flex-direction: row-reverse;
 }
 
@@ -85,7 +91,7 @@ height: 84px;
     width: 617px;
     height: 669px;
 
-    background-color: #F5F5F5;
+    background-color: #222222;
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
 }
@@ -103,6 +109,10 @@ height: 84px;
     font-size: 48px;
     font-weight: 600;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #ffffff;
+}
+.fonte-p{
+    color: #e2e2e2;
 }
 #informacoes{
     display: flex;
@@ -116,15 +126,18 @@ height: 84px;
     gap: 3px;
     
 }
+#informacoes ::placeholder{
+    color: #c2c2c2;
+}
 #informacoes input{
     display: flex;
     width: 546px;
     height: 48px;
     padding-top: 5px;
     border-radius: 16px;
-    background-color: #EEEEEE;
+    background-color: #5c5c5c;
     border: 0px;
-    
+    color: #f0f0f0;
 }
 
 #informacoes {
@@ -133,6 +146,7 @@ height: 84px;
     font-size:20px;
     font-weight: bold;
     margin-top: 2px;
+    color: #d8d8d8;
 }
 .senha,#email,#usuario::placeholder{
     display: flex;
@@ -173,7 +187,7 @@ button{
     margin-top: 30px;
     justify-content: center;
     align-items: center;
-    background-color: #9D4821;
+    background-color: #7a7a7a;
     color: white;
     border-radius: 16px;
     transition: 0.4s;

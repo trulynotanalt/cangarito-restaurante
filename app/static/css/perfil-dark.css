@@ -47,7 +47,7 @@ body[data-theme="dark"] #theme-moon {
 }
 
 body {
-    background-color: #D9D9D9;
+    background-color: #222222;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -63,74 +63,106 @@ body {
     flex-direction: column;
 }
 
-header {
-    background-color: #d89c4a;
-    padding: 10px 40px;
+header  {
+    background-color: #3b3b3b;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
+    position: sticky; 
     top: 0;
-    z-index: 1000;
+    z-index: 1000; 
+    opacity: 1;
+    transform: none ;
 }
-
-header .logo-container img {
-    height: 80px;
-}
-
-header nav {
-    display: flex;
+header nav{
     justify-content: center;
     align-items: center;
-}
-
-header nav ul {
-    list-style: none;
     display: flex;
-    gap: 20px;
-    align-items: center;
-    text-align: center;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
 }
-
-header nav li {
+li{
     text-align: center;
     align-items: center;
 }
+#menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo {
+    height: 80px;
+    
 
-header nav a {
-    text-decoration: none;
-    color: #803919;
-    font-size: 32px;
-    font-weight: 600;
-    transition: color 0.3s ease;
 }
 
-header nav a:hover {
-    color: #F3E3C4;
+
+#icone{
+    font-size: 64px;
+    color:#f5f5f5
 }
-
-header .icons i {
-    margin-left: 50px;
-    cursor: pointer;
-
+#icone:hover{
+  color: #46ce3b;
+  transition: 0.2s ease-out;
 }
 #carrinho{
     font-size: 40px;
+    color: #f5f5f5;
+    padding-right: 40px;
+    justify-content: center;
+    
 }
-#icone{
-    font-size: 56px;
+#carrinho:hover{
+  color: #46ce3b;
+  transition: 0.2s ease-out;
 }
 
-header #carrinho:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease-in-out;
+.icone2{
+  display: flex;
+  text-decoration: none;
 }
 
-header #icone:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease-in-out;
+#userclaro{
+ align-items: center;
+    display: flex;
+    justify-content: center;
+}
+#userclaro:hover{
+ cursor: pointer;
+
+}
+.fa-regular fa-circle-user fa-2xl :hover{
+cursor: pointer;
+}
+.fa-regular fa-circle-user{
+width: 40px;
+height: 40px;
+}
+nav ul {
+    align-items: center;
+    text-align: center;
+    list-style: none;
+    margin-left: 40px;
+    display: flex;
+    gap: 20px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+}
+
+nav a {
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 32px;
+    transition: color 0.3s ease;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+}
+
+nav a:hover {
+    color: #46ce3b;
+    transition: 0.2s ease-out;
 }
 
 .banner img {
@@ -141,7 +173,7 @@ header #icone:hover {
 }
 
 .perfil {
-    background: #f5f5f5;
+    background: #1a1a1a;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -155,6 +187,7 @@ header #icone:hover {
     display: flex;
     align-items: center;
     gap: 15px;
+    color: #e0e0e0;
 }
 
 .perfil-info img {
@@ -165,10 +198,12 @@ header #icone:hover {
 
 .perfil-texto h3 {
     margin-bottom: 5px;
+    color: #cacaca;
 }
 
 .perfil-texto p {
     font-size: 14px;
+    color: #cacaca;
 }
 
 .canga-points {
@@ -176,13 +211,14 @@ header #icone:hover {
     align-items: center;
     gap: 5px;
     font-weight: bold;
+    color: #ffffff;
 }
 
 .menu-perfil {
     display: flex;
     justify-content: space-around;
-    background: #f5f5f5;
-    border: 1px solid #ccc;
+    background: #1a1a1a;
+    border: 1px solid #d8d8d8;
     margin: 10px auto;
     width: 990px;
 }
@@ -190,7 +226,7 @@ header #icone:hover {
 .menu-perfil a {
     padding: 10px;
     text-decoration: none;
-    color: black;
+    color: #c0c0c0;
     flex: 1;
     text-align: center;
     border-right: 1px solid #ccc;
@@ -198,27 +234,31 @@ header #icone:hover {
 
 .menu-perfil a:hover {
     border-bottom: 3px solid #46ce3b;
+    transition: 0.5s ease-out;
 }
 
 .historico {
-    background: #f5f5f5;
+    background: #1a1a1a;
     width: 990px;
     margin: 0 auto 40px;
     border: 1px solid #ccc;
     padding: 15px;
     flex: 1;
+    color: #b4b4b4;
 }
 
 .historico-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #c49875;
 }
 
 .historico-lista {
     height: 400px;
     overflow-y: auto;
     padding-right: 5px;
+    
 }
 
 .historico-lista::-webkit-scrollbar {
@@ -248,8 +288,14 @@ header #icone:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #e7e7e7;
 }
-
+.pedido-detalhes strong{
+    color: #b4b4b4;
+}
+.pedido-detalhes p{
+    color: #ffffff;
+}
 .pedido-content {
     display: flex;
     gap: 15px;

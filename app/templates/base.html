@@ -1,48 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arquivo base</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=account_circle" />
-    {%block styles%}
-    {%endblock%}
+
+    <title>
+        {% block titulo %}
+
+        {% endblock %}
+    </title>
+
+ 
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/xilosa');
+    </style>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    </style>
+
+    
+    <script src="https://kit.fontawesome.com/0dcb96df0e.js"
+            crossorigin="anonymous"></script>
+
+   
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/landing_claro.css') }}">
+
+          {% block estilos %}
+            
+          {% endblock %}
 </head>
 
 <body>
+
     
+
     <header>
-        {%block headerContent%}
-        <nav><ul>
-                <li id="primeiro">
-                    <div>
-                        <a href="{{url_for('criacao')}}">Criação</a>
-                        <a href="{{url_for('base')}}">Home</a>
-                    </div>
-                </li>
+
+      <a href="{{url_for('landingpage')}}"> 
+        <img class="logo"
+             src="{{ url_for('static', filename='img/logo.png') }}"
+             alt="Cangarito Logo">
+      </a>  
+
+        <nav>
+
+            <ul id="menu">
+
                 <li>
-                    <a href="{{url_for('perfil')}}"><span class="material-symbols-outlined">
-                        account_circle
-                    </span></a>
+                    <a href="{{ url_for('landingpage') }}">
+                        Home
+                    </a>
                 </li>
-        </ul></nav>
-        
-        {%endblock%}
-    </header>
-    
-    {%block content%}
 
-    {%endblock%}
+                <li>
+                    <a href="{{ url_for('cardapio') }}">
+                        Cardápio
+                    </a>
+                </li>
 
-    <footer>
-        {% block footerContent %}
-        <div>
-            <p>©2026 CleysysFood’s. All rights reserved</p>
+                <li>
+                    <a href="#footer">
+                        Contato
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('landingpage')}}#unidades">
+                        Unidades
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{url_for('landingpage')}}#historia">
+                        Sobre
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <div id="userclaro">
+
+            <a class="icone2"
+               href="{{ url_for('carrinho') }}">
+
+                <i id="carrinho"
+                   class="fa-solid fa-cart-shopping"></i>
+
+            </a>
+
+            <a class="icone2"
+               href="{{ url_for('perfil') }}">
+
+                <i id="icone"
+                   class="fa-regular fa-circle-user fa-2xl"></i>
+
+            </a>
+
         </div>
-        {% endblock %}
-    </footer>
+
+        
+    </header>
+
+ 
+
+    {% block conteudo %}
+
+
     
+    {% endblock %}
+
+   
+
+    
+        {% block scripts %}
+            
+        {% endblock %}
 </body>
 
 </html>
