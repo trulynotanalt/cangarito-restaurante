@@ -104,18 +104,19 @@
             </article>
         </div>
     </section>
-
     <div id="divlogout">
 
     <button id="logout">
     <a href="{{url_for('trocarsenha')}}" > <strong>Troque sua senha</strong></a>
     </button>
 
-    <button id="logout">
-    <a href="{{url_for('cadastro')}}"> <strong>logout</strong></a>
+    <form action="{{url_for('logout')}} " Method = "POST">
+    <button id="logout" type="submit">
+        <strong>Logout</strong>
     </button>
-
+    </form>
     </div>
+    
 </main>
 {% endblock %}
 
@@ -136,18 +137,6 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             setTheme(newTheme);
         });
-        function aplicarTema(theme) {
-                document.body.setAttribute('data-theme', theme);
-            }
-
-            const temaSalvo = localStorage.getItem('theme');
-
-            if (temaSalvo) {
-                aplicarTema(temaSalvo);
-            } else {
-                aplicarTema('light');
-            }
-        
     </script>
 {% endblock %}
     <

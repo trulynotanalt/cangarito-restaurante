@@ -1,52 +1,62 @@
-
-
-function validar(){
-    try{
-        var usuario = document.getElementById("usuario").value;
-        if (usuario == null || usuario === "") {
-            alert("Digite um nome de usuário!");
-            return;
-        }
-        var email = document.getElementById("email").value;
-        if(email == null || email == ""){
-            alert("O e-mail não pode ser nulo!");
-            return;
-        }
-        if(email.indexOf("@") < 1){
-            alert("E-mail inválido! Digite um e-mail com '@'");
-            return;
-        }
-        if(email.indexOf(".") < 1){
-            alert("E-mail inválido! Digite um e-mail com pelo menos um '.' ");
-            return;
+function validar() {
+    try {
+        
+        var campoNome = document.getElementById("nome") || document.getElementById("usuario");
+        if (campoNome) {
+            var nome = campoNome.value.trim();
+            if (nome === null || nome === "") {
+                alert("O nome de usuário não pode ser vazio!");
+                return false; // Impede o envio do formulário
+            }
         }
 
-        var senha = document.getElementById("senha").value;
-        if(senha == null || senha == ""){
-            alert("A senha não pode ser nula!");
-            return;
-        }
-        if(senha.length < 6){
-            alert("A senha precisa ter pelo menos 6 dígitos!");
-            return;
-        }
-
-        var repsenha = document.getElementById("repsenha").value;
-        if(repsenha == ""){
-            alert("A senha repetida não pode ser nula");
-            return;
-        }
-        if(senha !== repsenha){
-            alert("As senhas precisam ser idênticas");
-            return;
+  
+        var campoEmail = document.getElementById("email");
+        if (campoEmail) {
+            var email = campoEmail.value.trim();
+            if (email === null || email === "") {
+                alert("O e-mail não pode ser nulo!");
+                return false;
+            }
+            if (email.indexOf("@") < 1) {
+                alert("E-mail inválido! Digite um e-mail com '@'");
+                return false;
+            }
+            if (email.indexOf(".") < 1) {
+                alert("E-mail inválido! Digite um e-mail com pelo menos um '.'");
+                return false;
+            }
         }
 
-        alert("Login validado com sucesso!");
-        function redirecionar() {
-            window.location.href = "../../Cardápio/cardapio.html";
+    
+        var campoSenha = document.getElementById("senha");
+        if (campoSenha) {
+            var senha = campoSenha.value;
+            if (senha === null || senha === "") {
+                alert("A senha não pode ser nula!");
+                return false;
+            }
+            if (senha.length < 6) {
+                alert("A senha precisa ter pelo menos 6 dígitos!");
+                return false;
+            }
         }
-    } catch(err){
-        alert("Erro: " + err);
+
+      
+        var campoRepSenha = document.getElementById("repsenha");
+        if (campoRepSenha) {
+            var repSenha = campoRepSenha.value;
+            if (senha !== repSenha) {
+                alert("As senhas não coincidem!");
+                return false;
+            }
+        }
+
+        
+        return true; 
+    } catch(err) {
+        alert("Erro na validação: " + err);
+        return false;
     }
 }
 

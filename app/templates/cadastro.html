@@ -20,20 +20,21 @@
                 </div>
 
                 <div id="informacoes">
-                    <p class="fonte-p">Usuário:</p>
-                    <input type="text" id="usuario" class="montserrat-placeholder" placeholder="romerito123" name="usuario">
+                    <form action="{{url_for('cadastro')}}" method="post" onsubmit="return validar()">
+                        <p class="fonte-p">Usuário:</p>
+                        <input type="text" id="usuario" class="montserrat-placeholder" placeholder="romerito123" name="usuario">
 
-                    <p class="fonte-p">Email:</p>
-                    <input type="email" id="email" class="montserrat-placeholder" placeholder="romerito123@gmail.com" nome="email">
+                        <p class="fonte-p">Email:</p>
+                        <input type="email" id="email" class="montserrat-placeholder" placeholder="romerito123@gmail.com" name="email">
 
-                    <p class="fonte-p">Senha:</p>
-                    <input type="password" id="senha" class="montserrat-placeholder senha" placeholder="12345678" nome="senha">
+                        <p class="fonte-p">Senha:</p>
+                        <input type="password" id="senha" class="montserrat-placeholder senha" placeholder="12345678" name="senha">
 
-                    <p class="fonte-p">Confirmar Senha:</p>
-                    <input type="password" id="repsenha" class="montserrat-placeholder senha" placeholder="12345678" nome="c_senha">
+                        <p class="fonte-p">Confirmar Senha:</p>
+                        <input type="password" id="repsenha" class="montserrat-placeholder senha" placeholder="12345678" name="c_senha">
 
-                    <button type="button" onclick="validar();redirecionar()" class="montserrat-button-p">Cadastrar</button>
-                    
+                        <button type="submit" class="montserrat-button-p">Cadastrar</button>
+                    </form>
                     <p id="acessar" class="montserrat-acess">ou acesse com:</p>
 
                     <div class="acessos">

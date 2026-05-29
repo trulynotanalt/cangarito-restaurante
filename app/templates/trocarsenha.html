@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar Senha</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/trocarsenha.css') }}">
+    <script src="{{url_for('static',filename='js/pag-js.js')}}" defer></script>
+</head>
+<body>
+
+    <a href="{{url_for('landingpage')}}"> <img id="logo" src="{{url_for('static', filename='img/logo-removebg-preview.png')}}" alt="Logo" id="logo" width="65" height="68"></a> 
+
+    <section>
+        <main class="area">
+            <div class="logar">
+                <div id="titulo" class="montserrat-titulo-p">
+                    <h1>Troque sua senha</h1>
+                </div>
+
+               <div id="informacoes">
+    <form action="{{ url_for('trocarsenha') }}" method="POST">
+        
+        <p class="fonte-p">Nova senha:</p>
+        <input type="password" id="novasenh" name="novasenha" class="montserrat-placeholder" placeholder="******" required>
+
+        <p class="fonte-p">Confirmar nova senha:</p>
+        <input type="password" id="confirmar" name="confirmarsenha" class="montserrat-placeholder" placeholder="******" required>
+
+        <button type="submit" class="montserrat-button-p">Trocar a senha</button>
+    </form>
+</div>
+                    
+
+</body>
+</html>
