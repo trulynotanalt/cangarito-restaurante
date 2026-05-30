@@ -297,30 +297,3 @@ nav a:hover {
     color: gold;
     margin-bottom: 5px;
 }
-.pendente{
-    color: #ff9900; 
-    font-weight: bold;
-
-}
-.listaped{
-    margin-left: 20px; 
-    list-style-type: disc;
-}
-.cancelado{
-    color: #cc0000; 
-    font-weight: bold
-}
-.pedidocancelado{
-    background-color: #ff4d4d; 
-    color: white; 
-    border: none;
-     padding: 5px 10px; 
-     border-radius: 4px; 
-     cursor: pointer; 
-     font-weight: bold;
-}
-.nenhumpedido{
-    text-align: center; 
-    color: gray; 
-    padding: 20px;
-}
