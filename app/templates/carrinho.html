@@ -53,11 +53,17 @@
 
     <aside class="pedido" aria-label="Resumo do Pedido" tabindex="0">
       <h2>Resumo do Pedido</h2>
-      <div class="line subtotal"><span>Subtotal:</span> <span>R$240.00</span></div>
-      <div class="line imposto"><span>Taxa:</span> <span>R$10</span></div>
-      <div class="line total"><span>Total:</span> <span>R$250.00</span></div>
-      <button type="button" aria-label="Realizar pedido">Realizar pedido</button>
-      <a href="" class="continue">Continuar Comprando</a>
+      <div class="line subtotal"><span>Subtotal:</span> <span>R$ {{subtotal}}</span></div>
+      <div class="line imposto"><span>Taxa:</span> <span>R$ {{imposto}}</span></div>
+      <div class="line total"><span>Total:</span> <span>R$ {{total}}</span></div>
+      <form action="carrinho" method="post">
+              <input type="hidden" name="subtotal" value="{{subtotal}}">
+              <input type="hidden" name="imposto" value="{{imposto}}">
+              <input type="hidden" name="total" value="{{total}}">
+              <button type="submit" aria-label="Realizar pedido">Realizar pedido</button>
+      </form>
+
+      <a href="{{url_for('cardapio')}}" class="continue">Continuar Comprando</a>
     </aside>
 
   </section>

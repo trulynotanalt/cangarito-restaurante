@@ -15,6 +15,9 @@ def criar_banco():
         id INTEGER PRIMARY KEY  AUTOINCREMENT,
         id_user INTEGER NOT NULL, 
         observacao TEXT,
+        subtotal NUMERIC NOT NULL,
+        imposto NUMERIC NOT NULL,
+        total NUMERIC NOT NULL,
         active BOOL NOT NULL DEFAULT true,
                           
         FOREIGN KEY (id_user) REFERENCES users(id)
@@ -69,7 +72,3 @@ def injecao():
     ('Cajuína', 12.00, 'Refrigerante típico do Seridó, com sabor doce e floral.', 'bebidas'),
     ('Água de Coco', 5.00, 'Água de coco natural, servida gelada direto no copo ou no coco.', 'bebidas');
     """)
-
-
-criar_banco()
-injecao()

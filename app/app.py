@@ -26,22 +26,21 @@ def cadastro():
 def cardapio():
     if request.method == 'GET':
         conn = criar_conexao()
-
-        itens_cuscuz = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz'")))
-        itens_sobremesa = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'sobremesa'")))
-        itens_campeao_vendas = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'campeao_vendas'")))
-        itens_bebidas = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'bebidas'")))
+        itens_cuscuz, itens_sobremesa, itens_bebidas, itens_campeao_vendas = [], [], [], []
+        itens_cuscuz = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz'").fetchall()))
+        itens_sobremesa = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'sobremesa'").fetchall()))
+        itens_campeao_vendas = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'campeao_vendas'").fetchall()))
+        itens_bebidas = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'bebidas'").fetchall()))
 
         conn.close()
 
         return render_template('cardapio.html', itens_sobremesa=itens_sobremesa, itens_cuscuz=itens_cuscuz, itens_campeao_vendas=itens_campeao_vendas, itens_bebidas=itens_bebidas)
     # POST boy
 
-    resp = make_response()
-    nome_produto = request.form.get('nome_produto')
-    preco_produto = request.form.get('preco_produto')
-    quantidade = request.form.get('quantidade_pedido')
-    observacao = request.form.get('observacao')
+    nome_produto = request.form.get('nome_produto').replace('R$', '')
+    preco_produto = request.form.get('preco_produto').replace('R$', '')
+    quantidade = request.form.get('quantidade_pedido').replace('R$', '')
+    observacao = request.form.get('observacao').replace('R$', '')
 
     pedido = {
         'nome' : nome_produto,
@@ -49,13 +48,16 @@ def cardapio():
         'quantidade' : quantidade,
         'observacao' : observacao,
     }
+    lista_pedidos = request.cookies.get('pedidos', '[]')
 
-    lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
-    lista_pedidos.append(pedido)
+    if lista_pedidos:
+        lista_pedidos = json.loads(lista_pedidos)
+        lista_pedidos.append(pedido)
 
     resp = redirect(url_for('cardapio'))
     resp.set_cookie('pedidos', json.dumps(lista_pedidos))
     return resp
+    
     
 
 
@@ -63,25 +65,38 @@ def cardapio():
 def carrinho():
     if request.method == 'GET':
         lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
-        return render_template('carrinho.html', pedidos=lista_pedidos)
+        subtotal = 0
+
+        for pedido in lista_pedidos:
+            subtotal += float(pedido['preco'])
+
+        imposto = subtotal*0.02
+        total = subtotal+imposto
+
+        return render_template('carrinho.html', pedidos=lista_pedidos, subtotal=subtotal, imposto=imposto, total=total)
     
     lista_pedidos = json.loads(request.cookies.get('pedidos'))
     conn = criar_conexao()
     resp = make_response()
     cursor = conn.cursor()
-    for i in lista_pedidos:                                                         
-        resultado = cursor.execute('SELECT id FROM item_cardapio WHERE name == ? ', (i['nome'],)).fetchone()
-        
+    subtotal = 0
+
+    for item in lista_pedidos:                                                         
+        resultado = cursor.execute('SELECT id FROM item_cardapio WHERE name == ? ', (item['nome'],)).fetchone()
         if resultado:
+            subtotal += float(item['preco'])
+            imposto = subtotal*0.02
+            total = subtotal+imposto
             id_item_cardapio = resultado[0]
-            cursor.execute("INSERT INTO pedido (id_user, observacao)  VALUES (?, ?);", (1, i['observacao']) )# COLOCAR A SESSION PRA FUNCIONAR E TROCAR PELO '1'
+            
+            cursor.execute("INSERT INTO pedido (id_user, observacao, subtotal, imposto, total)  VALUES (?, ?, ?, ?, ?);", (1, item['observacao'],subtotal, imposto, total ))# COLOCAR A SESSION PRA FUNCIONAR E TROCAR PELO '1'
             id_pedido_gerado = cursor.lastrowid # RECUPERA O ÚLTIMO ID GERADO PELO CURSOR
-            cursor.execute("INSERT INTO item_cardapio_pedido (id_pedido, id_item_cardapio, quantidade)  VALUES (?, ?, ?);", (id_pedido_gerado, id_item_cardapio, i['quantidade']) )
+            cursor.execute("INSERT INTO item_cardapio_pedido (id_pedido, id_item_cardapio, quantidade)  VALUES (?, ?, ?);", (id_pedido_gerado, id_item_cardapio, item['quantidade']) )
 
     conn.commit()
     conn.close()
-    resp = render_template('carrinho.html')
-    resp.set_cookie('pedidos', '')
+    resp = redirect(url_for('cardapio'))
+    resp.set_cookie('pedidos', '[]')
     return resp
 
 @app.route('/happyhour')
