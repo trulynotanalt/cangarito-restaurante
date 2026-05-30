@@ -51,6 +51,12 @@ produtos.forEach(produto => {
       name="quantidade_pedido"
       value="1">
 
+    <input
+      id="preco_produto_input"
+      type="hidden"
+      name="preco_produto"
+      value="R$ ${preco}">
+
     <div class="footer-dialog">
 
       <div class="widget-quantidade">

@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block estilos %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho-light.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
 {% endblock %}
 
 {% block conteudo %}
@@ -41,6 +42,13 @@
         Observação: {{ pedido.observacao }}
       </span>
         </div>
+        <a href="{{url_for('carrinho_remove', id=pedido.id_carrinho)}}">
+          <button id="remover_pedido" name="remover_pedido">
+            <span class="material-symbols-outlined">
+              delete
+            </span>
+          </button>
+        </a>
       </article>
       
       {% endfor %}
