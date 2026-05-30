@@ -5,21 +5,21 @@ html {
 html.slow-scroll {
             scroll-behavior: smooth;
             scroll-snap-type: none;
-        }    
-body {
-
-    margin: 0;
-    padding: 0;
-    background-color: #000000;
-    width: 100%;
-    height: fit-content;
-    
-}
+        }
 .erro_mensagem {
     color: red; 
     font-size: 16px; 
     display: none; 
-}       
+}                
+body {
+
+    margin: 0;
+    padding: 0;
+    background-color: var(--cor-lore);
+    width: 100%;
+    height: fit-content;
+    
+}
 .montserrat{
   font-family: "Montserrat", sans-serif;
 }
@@ -36,25 +36,115 @@ body {
             transform: translateX(-100%); 
             transition: opacity 1s ease-out, transform 1s ease-out; 
         }
-
-        .slide-in-element.visible {
+.slide-in-element2{
+  opacity: 0; 
+            transform: translateX(100%); 
+            transition: opacity 1s ease-out, transform 1s ease-out; 
+}
+.slide-in-element.visible {
             opacity: 1; 
             transform: translateX(0); 
         }
+.slide-in-element.visible2 {
+            opacity: 1; 
+            transform: translateX(0); 
+        }
+        
 
         
-        .contact-form.slide-in-element { 
+.contact-form.slide-in-element { 
             opacity: 0;
             transform: translateX(100%); 
             transition: opacity 1s ease-out, transform 1s ease-out;
         }
-        .contact-form.slide-in-element.visible {
+.contact-form.slide-in-element.visible {
             opacity: 1;
             transform: translateX(0);
         }
 
+:root{
+    --cor-principal:#D89F46;
+    --cor-icone:#9d4821;
+    --cor-carrinho:#000000 ;      
+    --cor-texto:#1a1a1a;
+    --cor-lore:#5f2b13;
+    --cor-hist:#D8C49A;
+    --cor-nossa:#9d4821;
+    --cor-info1:#000000;
+    --cor-corpo2:linear-gradient(to bottom, #2A7BAD, #2E3132);
+    --cor-ctform:#fff5e1;
+    --cor-ctborda:#9d4821;
+    --cor-ctformh3:#9d4821;
+    --cor-ctp:#616161;
+    --cor-ctinput: color-mix(in srgb, #EFE7D8 100%, #000000 20%);
+    --cor-inputrform:#b4b4b4;
+    --ctpinputbg: none;
+    --ctpbtnbg: #D89F46;
+    --ctpbtncor:#000000;
+    --cadastrar:#f95b20;
+    --cadastrarbg: none;
+    --cor-desccomida: #163A50;
+    --cor-nomefood: #F3E3C4;
+    --cor-preco: #D89F46;
+    --cor-carac-comida: #EFE7D8;
+    --cor-cardapiobg:#D89F46;
+    --cor-cardapio:#9d4821;
+    --cor-cardapio-hv:#9D4821;
+    --cor-sec6: #163A50;
+    --cor-sec7: #803919;
+    --cor-servicos: #163A50;
+    --chamada-servico: #000000;
+    --chamada-servicobg: #d89c4a;
+    --cor-destaque:#F3E3C4;         
+    --cor-footerbg:#F3E3C4;
+    --cor-dono:#d89c4a;
+    --local:#000000;
+    --cor-botao-cardapio:#f4f4f4;
+    --cor-text-botao-cardapio:#0a0a0a;
+
+}
+body[data-theme="dark"] {
+    --cor-principal: #333333;
+    --cor-icone:#f5f5f5;
+    --cor-carrinho:#f5f5f5;
+    --cor-texto: #f5f5f5;
+    --cor-lore:#000000;     
+    --cor-hist:#163A50;
+    --cor-nossa:#F3E3C4;
+    --cor-info1:#f5f5f5;
+    --cor-corpo2:linear-gradient(to bottom, #2c2c2c, #050B0F);
+    --cor-ctform:#3b3b3b;
+    --cor-ctborda:#EFE7D8;
+    --cor-ctformh3:#F3E3C4;
+    --cor-ctp:#D89F46;
+    --cor-ctinput:color-mix(in srgb, #EFE7D8 100%, #000000 20%);
+    --cor-inputrform:#b1b2b2;
+    --ctpinputbg: #EFE7D8;
+    --ctpbtnbg: #000000;
+    --ctpbtncor:#f5f5f5;
+    --cadastrar:#D89F46;
+    --cadastrarbg:#1a1a1a;
+    --cor-desccomida: #1a1a1a;
+    --cor-nomefood: #FFFFFF;
+    --cor-preco: #D89F46;
+    --cor-carac-comida: #F3E3C4;
+    --cor-cardapiobg:#000000;
+    --cor-cardapio:#ffffff;
+    --cor-cardapio-hv:#1a1a1a;
+    --cor-sec6: #2d2d2d;
+    --cor-sec7: #1a1a1a;
+    --cor-servicos: #3b3b3b;
+    --chamada-servico: #ffffff;
+    --chamada-servicobg: #000000;
+    --cor-destaque: #46CE3B;
+    --cor-footerbg:#3b3b3b;
+    --cor-dono:#46CE3B;
+    --local:#ffffff;
+    --cor-botao-cardapio:#f4f4f4;
+    --cor-text-botao-cardapio:#0a0a0a;
+  }
 header  {
-    background-color: #3b3b3b;
+    background-color: var(--cor-principal);
     padding: 10px;
     display: flex;
     align-items: center;
@@ -62,7 +152,8 @@ header  {
     position: sticky; 
     top: 0;
     z-index: 1000; 
-   
+    opacity: 1;
+    transform: none ;
 }
 header nav{
     justify-content: center;
@@ -80,30 +171,36 @@ li{
 }
 .logo {
     height: 80px;
-  
+    
 
 }
+
 
 #icone{
     font-size: 64px;
-    color: #f5f5f5;
-    margin-top: 15px;
+    color: var(--cor-icone)
 }
 #icone:hover{
-    color: #46CE3B;
-    transition: 0.2s ease-out;
+  color: var(--cor-destaque);
+  transition: 0.2s ease-out;
 }
 #carrinho{
     font-size: 40px;
-    color: #f5f5f5;
+    color:var(--cor-carrinho);
     padding-right: 40px;
     justify-content: center;
     
 }
 #carrinho:hover{
-    color: #46CE3B;
-    transition: 0.2s ease-out;
+  color: var(--cor-destaque);
+  transition: 0.2s ease-out;
 }
+
+.icone2{
+  display: flex;
+  text-decoration: none;
+}
+
 #userclaro{
  align-items: center;
     display: flex;
@@ -111,6 +208,7 @@ li{
 }
 #userclaro:hover{
  cursor: pointer;
+
 }
 .fa-regular fa-circle-user fa-2xl :hover{
 cursor: pointer;
@@ -125,26 +223,24 @@ nav ul {
     list-style: none;
     display: flex;
     gap: 20px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-   
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
 }
 
 nav a {
     text-align: center;
     align-items: center;
     text-decoration: none;
-    color: #ffffff;
+    color: var(--cor-icone);
     font-weight: bold;
     font-size: 32px;
     transition: color 0.3s ease;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
 }
 
 nav a:hover {
-    color: #46CE3B;
-    
+    color: var(--cor-destaque);
 }
 
 .secao1 {
@@ -167,7 +263,7 @@ nav a:hover {
 
 .saboreie{
    
-    font-family: 'Xilosa', sans-serif;
+   font-family: 'Xilosa', sans-serif;
     font-size: 80px;
     color: #F3E3C4;
     text-align: start;
@@ -191,11 +287,14 @@ p {
     border: solid 2px rgb(255, 255, 255);
     font-family: "Montserrat", sans-serif;
     font-weight: 600;
+    transition: 0.3s ease-in;
+
 }
 
 .btn:hover {
-    border-color: #d89c4a;
-   
+  background-color: var(--cor-botao-cardapio);
+  color: var(--cor-text-botao-cardapio);
+  transition: 0.3s ease-in;
 }
 .logo:hover{
 cursor: pointer;
@@ -212,10 +311,9 @@ cursor: pointer;
 
 
 
-
 .container {
     width: 100%;
-    background-color: #000000;
+    background-color: var(--cor-lore);
    padding-bottom: 30px;
 }
 
@@ -229,7 +327,7 @@ cursor: pointer;
 
 .history {
     flex: 1;
-    background-color: #163A50;
+    background-color: var(--cor-hist);
     padding: 20px;
     border-radius: 8px;
     height: 492px;
@@ -269,19 +367,19 @@ position: relative;
     max-width: 100%;
 }
 .nossa{
-    color: #F3E3C4;
+    color: var(--cor-nossa);
     font-size: 48px;
-   font-family: 'Xilosa', sans-serif;
+     font-family: 'Xilosa', sans-serif;
 }
 .cangari{
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
     color: #B4B4B4;
     font-size: 24px;
 }
 .desc{
-    color: #f5f5f5;
-    font-family: "Montserrat", sans-serif;
+    color: var(--cor-info1);
+      font-family: "Montserrat", sans-serif;
       font-weight: 600;
     font-size: 24px;
 }
@@ -289,7 +387,7 @@ position: relative;
 .conheça{
     font-family: 'Xilosa', sans-serif;
     font-size: 48px;
-    color: #EFE7D8;
+    color: #F3E3C4;
   padding-top: 2%;
   text-align: center;
 }
@@ -326,15 +424,16 @@ position: relative;
     border-radius: 8px;
 }
 .resta1 p{
-    font-weight: 400;
-     font-family: "Montserrat", sans-serif;
+    
+      font-family: "Montserrat", sans-serif;
+      font-weight: 400;
     font-size: 24px;
 }
 .resta1 h2{
     font-family: "Montserrat", sans-serif;
+      font-weight: 400;
     font-size: 32px;
     color: #F3E3C4;
-    font-weight: 400;
 }
 
 .info h2 {
@@ -358,13 +457,13 @@ position: relative;
 
 .contact-form {
     margin-top: 1%;
-    background-color: #3B3B3B;
+    background-color: var(--cor-ctform);
     padding: 20px;
     height: 607px;
     width: 20%;
     margin-left: 15%;
     padding-right: 2%;
-    border: solid 14px #EFE7D8;
+    border: solid 14px var(--cor-ctborda);
     border-top: transparent;
     border-left: transparent;
     
@@ -375,9 +474,9 @@ position: relative;
 }
 
 .contact-form h3 {
-    color: #F3E3C4;
-    font-family: "Merriweather", serif;
-    font-weight: 400;
+    color: var(--cor-ctformh3);
+   font-family: "Merriweather", serif;
+   font-weight: 400;
     text-align: center;
     font-size: 36px;
 }
@@ -387,11 +486,11 @@ position: relative;
     margin: 10px 0 5px;
 }
 .contact-form p{
-    color: #D89F46;
+    color: var(--cor-ctp);
     text-align: center;
     font-size: 24px;
-     font-family: "Montserrat", sans-serif;
-     font-weight: 400;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
 }
 
 .contact-form input {
@@ -399,26 +498,24 @@ position: relative;
     padding: 8px;
     margin-bottom: 3%;
     border: 3px solid;
-    border-color: color-mix(in srgb, #EFE7D8 100%, #000000 20%);
+    border-color: var(--cor-ctinput);
     border-radius: 4px;
-    color: #b1b2b2;
-    background-color: #EFE7D8;
+    color: var(--cor-inputrform);
+    background-color: var(--ctpinputbg);
+    
 
 }
-.input{
-    content: #ffffff;
-    
-}
+
 .contact-form button {
-    background-color: #000000;
-    color: #f5f5f5;
+    background-color: var(--ctpbtnbg);
+    color: var(--ctpbtncor);
     border: none;
     border-radius: 24px;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 24px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
+     font-family: "Montserrat", sans-serif;
+     font-weight: 600;
    
 }
 .cadastrar{
@@ -427,12 +524,12 @@ position: relative;
   
 }
 .cadastrar :hover{
-    color: #d89c4a;
-    background-color: #1a1a1a;
+  color: var(--cadastrar);
+    background-color: var(--cadastrarbg);
     transition: 0.5s;
 }
 .corpo2{
-    background: linear-gradient(to bottom, #2c2c2c, #050B0F);
+    background: var(--cor-corpo2);
     color: white;
     margin: 0;
     padding: 0;
@@ -463,13 +560,13 @@ position: relative;
 }
 .resta2 p{
     
-    font-family: "Montserrat", sans-serif;
-    font-weight: 400;
+     font-family: "Montserrat", sans-serif;
+     font-weight: 400;
     font-size: 24px;
 }
 .resta2 h2{
     font-family: "Montserrat", sans-serif;
-    font-weight: 400;
+     font-weight: 400;
     font-size: 32px;
     color: #F3E3C4;
 }
@@ -526,7 +623,7 @@ height: 162px;
 .titulo4{
     padding-bottom: 15px;
     font-family: "Montserrat", sans-serif;
-    font-weight: 600;
+     font-weight: 600;
     color: #d89c4a;
     font-size: 24px;
 }
@@ -544,8 +641,7 @@ width: fit-content;
 .item_esquerda{
     display: flex;
     flex-direction: column;
-    margin-left: 10%;
-   
+   margin-left: 10%;
 }
 .comida{
     text-align: center;
@@ -560,8 +656,9 @@ width: fit-content;
     border-radius: 5px;
     
 }
+
 .desc_comida{
-    background-color: #1A1A1A;
+    background-color: var(--cor-desccomida);
     border-radius: 5px;
     height: 256px;
     margin-top: 5%;
@@ -570,25 +667,25 @@ width: fit-content;
 }
 .nome_comida{
     font-size: 32px;
-    color: #ffffff;
+    color: var(--cor-nomefood);
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
 }
 .preço{
     font-size: 32px;
-    color: #D89F46;
-    font-family: "Merriweather", serif;
-    font-weight: 400;
+    color: var(--cor-preco);
+       font-family: "Montserrat", sans-serif;
+     font-weight: 400;
     
 }
 
 
 .carac_comida{
     
-font-family: "Montserrat", sans-serif;
-    font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
 font-size: 24px;
-color: #F3E3C4;
+color: var(--cor-carac-comida);
 }
 .item_direita{
     
@@ -609,7 +706,7 @@ color: #F3E3C4;
    cursor: pointer;
 }
 .desc_comida2{
-    background-color: #1A1A1A;
+    background-color: var(--cor-desccomida);
     border-radius: 5px;
     height: 256px;
     margin-top: 5%;
@@ -620,13 +717,13 @@ color: #F3E3C4;
 .cardapio_inteiro{
     text-align: center;
     text-decoration: none;
-    background-color: #000000;
+    background-color: var(--cor-cardapiobg);
     padding: 10px 20px;
-    color: #ffffff;
+    color: var(--cor-cardapio);
    border-radius: 40px;
     font-size: 32px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
+      font-family: "Montserrat", sans-serif;
+     font-weight: 700;
     
     
 }
@@ -645,8 +742,8 @@ color: #F3E3C4;
 }
 .cardapio_inteiro:hover{
     cursor: pointer;
-    color: #D89F46;
-    background-color: #1A1A1A;
+    color: #d89c4a;
+    background-color: var(--cor-cardapio-hv);
     transition: 0.8s;
 }
 .ci{
@@ -660,8 +757,10 @@ color: #F3E3C4;
  
    
 }
+
+
 .secao6{
-    background-color: #2D2D2D;
+    background-color: var(--cor-sec6);
     width: 100%;
     padding-top: 20px;
 
@@ -669,8 +768,8 @@ color: #F3E3C4;
     height: 2450px;
 }
 .services{
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
+     font-family: "Montserrat", sans-serif;
+     font-weight: 700;
     font-size: 24px;
     color: #d89c4a;
    
@@ -681,7 +780,7 @@ color: #F3E3C4;
     color: #F3E3C4;
 }
 .secao7{
-    background-color: #1a1a1a;
+    background-color: var(--cor-sec7);
     width: 95%;
     height: 2400px;
     margin-left: auto;
@@ -702,7 +801,7 @@ display: flex;
 }
 
 .sobre_os_serviços{
-    background-color: #3B3B3B;
+    background-color: var(--cor-servicos);
     border-radius: 5px;
     width: 544px;
     height: 425px;
@@ -720,7 +819,7 @@ display: flex;
 }
 .desc_serviço{
     font-size: 24px;
-     font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: 400;
     color: #EFE7D8;
     padding-left: 10%;
@@ -728,13 +827,14 @@ display: flex;
    
     height: 120px;
 }
+
 .chamada_serviço{
     font-size: 28px;
-    color: #ffffff;
+    color: var(--chamada-servico);
      font-family: "Montserrat", sans-serif;
-    font-weight: 500;
+     font-weight: 500;
     text-decoration: none;
-    background-color: #000000;
+    background-color: var(--chamada-servicobg);
     width: fit-content;
     padding: 10px 20px;
     border-radius: 24px;
@@ -753,7 +853,7 @@ height: 425px;
     cursor: pointer;
 }
 .sobre_os_serviços2{
-     background-color: #3B3B3B;
+     background-color: var(--cor-servicos);
     border-radius: 5px;
     width: 544px;
     height: 425px;
@@ -776,11 +876,11 @@ height: 425px;
 }
 .chamada_serviço2{
      font-size: 28px;
-    color: #ffffff;
+    color: var(--chamada-servico);
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
     text-decoration: none;
-    background-color: #000000;
+    background-color: var(--chamada-servicobg);
     width: fit-content;
     padding: 10px 20px;
     border-radius: 24px;
@@ -789,31 +889,31 @@ height: 425px;
     margin-top: 25%;
 }
 .chamada_serviço2:hover{
-    background-color: #1A1A1A;
-    color: #d89c4a;
+    background-color: var(--cor-cardapio-hv);
+    color: #D89F46;
     transition: 0.8s;
 }
 .chamada_serviço:hover{
-    background-color: #1a1a1a;
-    color: #d89c4a;
+    background-color: var(--cor-cardapio-hv);
+    color: #D89F46;
     transition: 0.8s; 
 }
 .rodape{
-    background-color: #3b3b3b;
+    background-color: var(--cor-footerbg);
     width: 100%;
     height: 300px;
 }
 #direitos{
     font-size: 20px;
      font-family: "Montserrat", sans-serif;
-    font-weight: 300;
-    color: #ffffff;
+     font-weight: 300;
+    color:var(--cor-carrinho);
 }
 #dono{
    font-size: 20px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 300;
-    color: #46CE3B;  
+      font-family: "Montserrat", sans-serif;
+     font-weight: 300;
+    color: var(--cor-dono);  
 }
 .di{
     padding-top: 4%;
@@ -822,10 +922,11 @@ height: 425px;
 }
 #local{
      font-size: 14px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 400;
-    color: #ffffff;
+      font-family: "Montserrat", sans-serif;
+     font-weight: 400;
+    color: var(--local);
 }
+
 @media (width: 390px) {
   body {
     width: 780px;
@@ -879,18 +980,11 @@ height: 425px;
     margin-left: 0;
     align-self: center;
   }
-    .detalhe1 {
+  .history,  .detalhe1 {
     width: 95%;
     margin-left: auto;
     margin-right: auto;
     height: auto;
-    margin-top: 15px;
-  }
-  .history{
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-    height: 269px;
     margin-top: 15px;
   }
   .container{
