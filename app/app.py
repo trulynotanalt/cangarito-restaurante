@@ -19,7 +19,7 @@ def construtor_itens_cardapio(lista_pedidos):
 def landingpage():
     return render_template('landing-page.html')
 
-@app.route('/cadastro')
+@app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
 
     #cara do bd.py q se vire aq
@@ -65,6 +65,8 @@ def cardapio():
         conn.close()
 
         return render_template('cardapio.html', itens_sobremesa=itens_sobremesa, itens_cuscuz=itens_cuscuz, itens_campeao_vendas=itens_campeao_vendas, itens_bebidas=itens_bebidas)
+    if 'usuario' not in session:
+        return redirect(url_for('login'))
         
     nome_produto = request.form.get('nome_produto').replace('R$', '')
     preco_produto = request.form.get('preco_produto').replace('R$', '')
@@ -94,10 +96,11 @@ def cardapio():
 
 @app.route('/carrinho', methods = ['GET', 'POST'])
 def carrinho():
-    user_id = session.get('user_id', 1)
 
     if 'usuario' not in session:
         return redirect(url_for('cadastro'))
+    
+    user_id = session.get('user_id', 1)
 
     if request.method == 'GET':
         lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
@@ -195,10 +198,11 @@ def login():
 
 @app.route('/perfil', methods=['GET'])
 def perfil():
-    user_id = session.get('user_id', 1)
     
     if 'usuario' not in session:
         return redirect(url_for('login'))
+
+    user_id = session.get('user_id', 1)
     
     pedidos_agrupados = {}
     conn = criar_conexao()
