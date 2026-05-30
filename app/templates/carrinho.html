@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block estilos %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho-light.css') }}">
 {% endblock %}
 
 {% block conteudo %}
@@ -48,11 +48,13 @@
 
     <aside class="pedido" aria-label="Resumo do Pedido" tabindex="0">
       <h2>Resumo do Pedido</h2>
-      <div class="line subtotal"><span>Subtotal:</span> <span>R$240.00</span></div>
-      <div class="line imposto"><span>Taxa:</span> <span>R$10</span></div>
-      <div class="line total"><span>Total:</span> <span>R$250.00</span></div>
-      <button type="button" aria-label="Realizar pedido">Realizar pedido</button>
-      <a href="" class="continue">Continuar Comprando</a>
+      <div class="line subtotal"><span>Subtotal:</span> <span>R$ {{ "%.2f"|format(subtotal) }}</span></div>
+      <div class="line imposto"><span>Taxa (2%):</span> <span>R$ {{ "%.2f"|format(imposto) }}</span></div>
+      <div class="line total"><span>Total:</span> <span>R$ {{ "%.2f"|format(total) }}</span></div>
+      <form action="{{ url_for('carrinho') }}" method="POST" style="width: 100%;">
+        <button type="submit" aria-label="Realizar pedido" style="width: 100%;">Realizar pedido</button>
+      </form>
+      <a href="{{ url_for('cardapio') }}" class="continue">Continuar Comprando</a>
     </aside>
 
   </section>
@@ -158,8 +160,3 @@ João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-
 </script>
     
 {% endblock %}
-      
-    
-   
-   
-

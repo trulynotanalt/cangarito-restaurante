@@ -1,5 +1,6 @@
 .env
 env
 env/
-app/__pycache__
+*.pyc
 /app/__pycache__
+app/__pycache__/app.cpython-312.pyc

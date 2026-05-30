@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
 from db import *
 from item_cardapio import Item_Cardapio
 import json
@@ -16,176 +16,191 @@ def construtor_itens_cardapio(lista_pedidos):
 
 @app.route('/')
 def landingpage():
-    #boa sorte bd.py, vulgo joão victor noberto tomaz santana
-    # if 'roro' not in session:
-    #     return redirect(url_for('cadastro'))
     return render_template('landing-page.html')
 
-@app.route('/cadastro', methods=['GET','POST'])
+@app.route('/cadastro')
 def cadastro():
-
-    #cara do bd.py q se vire aq
-    # if 'roro' in session:
-    #     return redirect(url_for('landingpage'))
-    
-    if request.method == 'POST':
-        #aq o cara do banco de dados vai usar essas infos para fazer a confirmação e integração com o bd.py
-        email = request.form.get('email')
-        senha = request.form.get('senha')
-        c_senha = request.form.get('c_senha')
-
-
-
-    
     return render_template('cadastro.html')
 
 @app.route('/cardapio', methods=['GET', 'POST'])
 def cardapio():
     if request.method == 'GET':
         conn = criar_conexao()
-
-        itens_cuscuz = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz'")))
-        itens_sobremesa = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'sobremesa'")))
-        itens_campeao_vendas = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'campeao_vendas'")))
-        itens_bebidas = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'bebidas'")))
+        itens_cuscuz, itens_sobremesa, itens_bebidas, itens_campeao_vendas = [], [], [], []
+        itens_cuscuz = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz'").fetchall()))
+        itens_sobremesa = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'sobremesa'").fetchall()))
+        itens_campeao_vendas = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'campeao_vendas'").fetchall()))
+        itens_bebidas = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'bebidas'").fetchall()))
 
         conn.close()
 
         return render_template('cardapio.html', itens_sobremesa=itens_sobremesa, itens_cuscuz=itens_cuscuz, itens_campeao_vendas=itens_campeao_vendas, itens_bebidas=itens_bebidas)
-    # POST boy
-
-    resp = make_response()
-    nome_produto = request.form.get('nome_produto')
-    quantidade = request.form.get('quantidade_pedido')
-    observacao = request.form.get('observacao')
+        
+    nome_produto = request.form.get('nome_produto').replace('R$', '')
+    preco_produto = request.form.get('preco_produto').replace('R$', '')
+    quantidade = request.form.get('quantidade_pedido').replace('R$', '')
+    observacao = request.form.get('observacao').replace('R$', '')
 
     pedido = {
         'nome' : nome_produto,
+        'preco' : preco_produto,
         'quantidade' : quantidade,
         'observacao' : observacao,
     }
+    lista_pedidos = request.cookies.get('pedidos', '[]')
 
-    lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
-    lista_pedidos.append(pedido)
+    if lista_pedidos:
+        lista_pedidos = json.loads(lista_pedidos)
+        lista_pedidos.append(pedido)
 
     resp = redirect(url_for('cardapio'))
     resp.set_cookie('pedidos', json.dumps(lista_pedidos))
     return resp
-    
+   
 
 
 @app.route('/carrinho', methods = ['GET', 'POST'])
 def carrinho():
+    user_id = session.get('user_id', 1)
+
     if request.method == 'GET':
         lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
-        return render_template('carrinho.html', pedidos=lista_pedidos)
+        subtotal = 0
+
+        for pedido in lista_pedidos:
+            subtotal += float(pedido['preco']) * int(pedido['quantidade'])
+
+        imposto = subtotal * 0.02
+        total = subtotal + imposto
+
+        return render_template('carrinho.html', pedidos=lista_pedidos, subtotal=subtotal, imposto=imposto, total=total)
     
-    lista_pedidos = json.loads(request.cookies.get('pedidos'))
+  
+    lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
+    if not lista_pedidos:
+        return redirect(url_for('cardapio'))
+
     conn = criar_conexao()
-    resp = make_response()
     cursor = conn.cursor()
-    for i in lista_pedidos:                                                         
-        resultado = cursor.execute('SELECT id FROM item_cardapio WHERE name == ? ', (i['nome'],)).fetchone()
-        
+    
+    subtotal = 0
+    observacoes = []
+    for item in lista_pedidos:                                                         
+        subtotal += float(item['preco']) * int(item['quantidade'])
+        if item['observacao']:
+            observacoes.append(f"{item['nome']}: {item['observacao']}")
+
+    imposto = subtotal * 0.02
+    total = subtotal + imposto
+    observacao_geral = "; ".join(observacoes)
+
+   
+    cursor.execute("INSERT INTO pedido (id_user, observacao, subtotal, imposto, total, active) VALUES (?, ?, ?, ?, ?, ?);", 
+                   (user_id, observacao_geral, subtotal, imposto, total, 1))
+    id_pedido_gerado = cursor.lastrowid
+
+    
+    for item in lista_pedidos:
+        resultado = cursor.execute('SELECT id FROM item_cardapio WHERE name == ? ', (item['nome'],)).fetchone()
         if resultado:
             id_item_cardapio = resultado[0]
-            cursor.execute("INSERT INTO pedido (id_user, observacao)  VALUES (?, ?);", (1, i['observacao']) )# COLOCAR A SESSION PRA FUNCIONAR E TROCAR PELO '1'
-            id_pedido_gerado = cursor.lastrowid # RECUPERA O ÚLTIMO ID GERADO PELO CURSOR
-            cursor.execute("INSERT INTO item_cardapio_pedido (id_pedido, id_item_cardapio, quantidade)  VALUES (?, ?, ?);", (id_pedido_gerado, id_item_cardapio, i['quantidade']) )
+            cursor.execute("INSERT INTO item_cardapio_pedido (id_pedido, id_item_cardapio, quantidade) VALUES (?, ?, ?);", 
+                           (id_pedido_gerado, id_item_cardapio, item['quantidade']))
 
     conn.commit()
     conn.close()
-    resp = render_template('carrinho.html')
-    resp.set_cookie('pedidos', '')
+    
+    resp = redirect(url_for('perfil'))
+    resp.set_cookie('pedidos', '[]')
     return resp
+
 
 @app.route('/happyhour')
 def happyhour():
-
-    #acaba nunca, avemaria
-    # if 'roro' not in session:
-    #     return redirect(url_for('cadastro'))
-    
     return render_template('happyhour.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template('login.html')
-    conn = criar_conexao()
     
+    conn = criar_conexao()
     email_user = request.form.get('name_user')
     passw_user = request.form.get('password_user')
-    user_in_bank = conn.execute("SELECT email, password FROM users WHERE name LIKES ? AND password == ?", (email_user, passw_user))
+   
+    user_in_bank = conn.execute("SELECT id, email FROM users WHERE email = ? AND password == ?", (email_user, passw_user)).fetchone()
 
     if not user_in_bank:
         conn.close()
         return redirect(url_for('login'))
-    
+
+    session['user_id'] = user_in_bank[0]
     conn.close()
-    # COLOCAR SESSÃO AQUI
+
     return redirect(url_for('landingpage'))
 
 
 @app.route('/perfil', methods=['GET'])
 def perfil():
+    user_id = session.get('user_id', 1)
 
     pedidos_agrupados = {}
     conn = criar_conexao()
     
-    # CONSULTA TODAS AS LINHAS QUE LIGAM (USUARIO - PEDIDO - ITEM_PEDIDO)
-    query = conn.executescript("""
+    
+    query = conn.execute("""
         SELECT 
             pedido.id AS pedido_id,
+            pedido.total AS pedido_total,
+            pedido.active AS pedido_ativo,
             item_cardapio.name AS item_nome,
             item_cardapio.price AS item_preco,
             item_cardapio_pedido.quantidade AS item_quantidade,
             pedido.observacao AS item_observacao
-                        
         FROM pedido
             INNER JOIN item_cardapio_pedido ON pedido.id = item_cardapio_pedido.id_pedido
             INNER JOIN item_cardapio ON item_cardapio_pedido.id_item_cardapio = item_cardapio.id
-        WHERE pedido.id_user = ?;
-                        
-    """).fetchall() # SUBSTITUIR ESSE '1' PELO ID DO USUÁRIO SALVO NO SESSION
+        WHERE pedido.id_user = ? ORDER BY pedido.id ASC;
+    """, (user_id,)).fetchall()
 
-    # ITERA SOBRE CADA LINHA RETORNADA DA QUERY E SEPARA POR PEDIDO
     for i in query:
-        pedido_id, item_nome, item_preco, item_quantidade, item_observacao = query
+        pedido_id, pedido_total, pedido_ativo, item_nome, item_preco, item_quantidade, item_observacao = i
 
         if pedido_id not in pedidos_agrupados:
             pedidos_agrupados[pedido_id] = {
                 'id_pedido': pedido_id,
-                'id_observacao' : item_observacao,
+                'total': pedido_total,
+                'ativo': int(pedido_ativo),
+                'observacao' : item_observacao,
                 'itens_comprados' : []
             }
 
-        pedidos_agrupados[pedido_id]['itens_comprados'] = {
+        pedidos_agrupados[pedido_id]['itens_comprados'].append({
             'nome': item_nome,
             'preco': item_preco,
             'quantidade': item_quantidade
-        }
-    
-    lista_pedidos = list(pedidos_agrupados)
+        })
+
+    conn.close()
+    lista_pedidos = list(pedidos_agrupados.values())
     return render_template('perfil.html', lista_pedidos=lista_pedidos)
 
 
-@app.route('/pedido/cancel/{id}', methods=['GET', 'POST'])
+@app.route('/pedido/cancelar/<int:id>', methods=['GET', 'POST'])
 def pedido_cancelar(id):
-    if request.method == 'POST':
-        conn = criar_conexao()
-        conn.executescript("""
-        UPDATE pedidos IF EXISTS
-        SET active = false
-        WHERE id = ?;
-        """, (id))
-        conn.commit()
-        conn.close()
-        return redirect(url_for('perfil'))
-        # PEGA O ATRIBUTO DA ROTA E DESATIVA/CANCELA O PEDIDO NO BANCO DE DADOS
-    
-    return render_template('perfil.html')
-
+    user_id = session.get('user_id', 1)
+        
+    conn = criar_conexao()
+    conn.execute("""
+        UPDATE pedido 
+        SET active = 0
+        WHERE id = ? AND id_user = ?;
+    """, (id, user_id))
+        
+    conn.commit()
+    conn.close()
+    return redirect(url_for('perfil'))
 
 
 if __name__ == "__main__":
