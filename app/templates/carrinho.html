@@ -40,30 +40,21 @@
       <span class="nome_food">
         Observação: {{ pedido.observacao }}
       </span>
-      <br>
-      <span class="nome_food">
-        Preço: {{ pedido.preco }}
-      </span>
         </div>
       </article>
-
-
+      
       {% endfor %}
     </div>
 
     <aside class="pedido" aria-label="Resumo do Pedido" tabindex="0">
       <h2>Resumo do Pedido</h2>
-      <div class="line subtotal"><span>Subtotal:</span> <span>R$ {{subtotal}}</span></div>
-      <div class="line imposto"><span>Taxa:</span> <span>R$ {{imposto}}</span></div>
-      <div class="line total"><span>Total:</span> <span>R$ {{total}}</span></div>
-      <form action="carrinho" method="post">
-              <input type="hidden" name="subtotal" value="{{subtotal}}">
-              <input type="hidden" name="imposto" value="{{imposto}}">
-              <input type="hidden" name="total" value="{{total}}">
-              <button type="submit" aria-label="Realizar pedido">Realizar pedido</button>
+      <div class="line subtotal"><span>Subtotal:</span> <span>R$ {{ "%.2f"|format(subtotal) }}</span></div>
+      <div class="line imposto"><span>Taxa (2%):</span> <span>R$ {{ "%.2f"|format(imposto) }}</span></div>
+      <div class="line total"><span>Total:</span> <span>R$ {{ "%.2f"|format(total) }}</span></div>
+      <form action="{{ url_for('carrinho') }}" method="POST" style="width: 100%;">
+        <button type="submit" aria-label="Realizar pedido" style="width: 100%;">Realizar pedido</button>
       </form>
-
-      <a href="{{url_for('cardapio')}}" class="continue">Continuar Comprando</a>
+      <a href="{{ url_for('cardapio') }}" class="continue">Continuar Comprando</a>
     </aside>
 
   </section>
@@ -131,17 +122,41 @@
     </div>
   </section>
 
-  <footer>
-    Copyright © 2025 Restaurante Cangarito | Desenvolvido por <a href="mailto:ajuda-cangarito@gmail.com">Informática 2V</a> <br />
-    <br>
-    <span id="local">João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-000 <br />
-    Fale conosco: <a href="mailto:ajuda-cangarito@gmail.com">ajuda-cangarito@gmail.com</a></span>
-  </footer>
+  <footer id="footer" class="rodape slide-in-element">
+<section class="di">
+<span id="direitos">Copyright © 2025 Restaurante Cangarito <br>
+| Desevolvido por <span id="dono">Informática 2V</span> |</span>
+</section>
+
+<section class="di">
+<span id="local">
+João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-000 <br>
+                               Fale conosco| ajuda-cangarito@gmail.com.br
+</span>
+</section>
+
+
+</footer>
  </main>
 {% endblock %}
 
-      
+{% block scripts %}
     
-   
-   
+<script>
+          document.addEventListener('DOMContentLoaded', () => {
 
+                  function aplicarTema(theme) {
+                      document.body.setAttribute('data-theme', theme);
+                  }
+
+                  const temaSalvo = localStorage.getItem('theme');
+
+                  if (temaSalvo) {
+                      aplicarTema(temaSalvo);
+                  } else {
+                      aplicarTema('light');
+                  }
+              })
+</script>
+    
+{% endblock %}
