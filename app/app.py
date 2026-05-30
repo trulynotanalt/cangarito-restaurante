@@ -6,11 +6,11 @@ import json
 app = Flask(__name__)
 app.secret_key = "GloriaAJesus"
 
-
+# pega lista do banco e transforma em objetos
 def construtor_itens_cardapio(lista_pedidos):
     lista_obj = []
     for i in lista_pedidos:
-        obj = Item_Cardapio(i[1], i[2], i[3])
+        obj = Item_Cardapio(i[1], i[2], i[3]) # monta objeto
         lista_obj.append(obj)
     return lista_obj
 
@@ -22,12 +22,12 @@ def landingpage():
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
 
-    #cara do bd.py q se vire aq
+    
     if 'usuario' in session:
         return redirect(url_for('landingpage'))
     
     if request.method == 'POST':
-        #aq o cara do banco de dados vai usar essas infos para fazer a confirmação e integração com o bd.py
+        
         usuario = request.form.get('usuario')
         email = request.form.get('email')
         senha = request.form.get('senha')
@@ -35,7 +35,7 @@ def cadastro():
 
         conexao = criar_conexao()
         cursor = conexao.cursor()
-
+        # salva usuário no banco
         cursor.execute("""
             INSERT INTO users
             (nome, email, password, type)
@@ -54,7 +54,7 @@ def cadastro():
 @app.route('/cardapio', methods=['GET', 'POST'])
 def cardapio():
     if request.method == 'GET':
-
+        # busca itens do cardápio separados por categoria
         conn = criar_conexao()
         itens_cuscuz, itens_sobremesa, itens_bebidas, itens_campeao_vendas = [], [], [], []
         itens_cuscuz = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz'").fetchall()))
@@ -82,7 +82,7 @@ def cardapio():
         'quantidade' : quantidade,
         'observacao' : observacao,
     }
-
+    # transforma cookie em lista e adiciona item
     if lista_pedidos:
         lista_pedidos = json.loads(lista_pedidos)
         pedido['id_carrinho'] = int(len(lista_pedidos))
@@ -124,6 +124,7 @@ def carrinho():
     
     subtotal = 0
     observacoes = []
+    # soma valores e junta observações
     for item in lista_pedidos:                                                         
         subtotal += float(item['preco']) * int(item['quantidade'])
         if item['observacao']:
@@ -138,7 +139,7 @@ def carrinho():
                    (user_id, observacao_geral, subtotal, imposto, total, 1))
     id_pedido_gerado = cursor.lastrowid
 
-  
+    # salva itens do pedido
     for item in lista_pedidos:
       
         resultado = cursor.execute(
@@ -187,7 +188,7 @@ def login():
 
     session['user_id'] = user_in_bank[0]
     conn.close()
-    # COLOCAR SESSÃO AQUI
+    
     session['usuario'] = {
         
         "email": email_user,
@@ -224,6 +225,7 @@ def perfil():
         WHERE pedido.id_user = ? ORDER BY pedido.id ASC;
     """, (user_id,)).fetchall()
 
+    # organiza pedidos por ID
     for i in query:
         pedido_id, pedido_total, pedido_ativo, item_nome, item_preco, item_quantidade, item_observacao = i
 
@@ -247,6 +249,8 @@ def perfil():
 
 @app.route('/carrinho/remove/<int:id>')
 def carrinho_remove(id):
+
+    # remove item do cookie do carrinho
     lista_pedidos = request.cookies.get('pedidos', '[]')
 
     if lista_pedidos:
@@ -267,6 +271,8 @@ def pedido_cancelar(id):
     user_id = session.get('user_id', 1)
         
     conn = criar_conexao()
+
+    # desativa pedido no banco
     conn.execute("""
         UPDATE pedido 
         SET active = 0
@@ -289,6 +295,7 @@ def trocarsenha():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
+        # pega nova senha
         nova_senha = request.form.get('novasenha')
         confirmar_senha = request.form.get('confirmarsenha')
 
