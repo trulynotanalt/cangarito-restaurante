@@ -583,6 +583,48 @@ h1 {
      font-weight: 400;
     color: var(--local);
 }
+
+.item .info strong {
+  font-weight: 700;
+  display: block;
+  font-size: 16px; 
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.item > a {
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.remover_pedido {
+  background: transparent;
+  border: none;
+  color: #777;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.remover_pedido:hover {
+  color: #dc3545;
+  background-color: #ffeef0;
+}
+
+.remover_pedido .material-symbols-outlined {
+  font-size: 24px;
+}
+
 @media (width: 390px) {
   body {
     padding: 0;
