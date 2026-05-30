@@ -86,7 +86,7 @@ body[data-theme="dark"] {
 }
 
 body {
-    background-color: #D9D9D9;
+    background-color: var(--body);
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -102,74 +102,102 @@ body {
     flex-direction: column;
 }
 
-header {
-    background-color: #d89c4a;
-    padding: 10px 40px;
+header  {
+    background-color: var(--cor-principal);
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
     top: 0;
-    z-index: 1000;
+    
 }
-
-header .logo-container img {
-    height: 80px;
-}
-
-header nav {
-    display: flex;
+header nav{
     justify-content: center;
     align-items: center;
-}
-
-header nav ul {
-    list-style: none;
     display: flex;
-    gap: 20px;
-    align-items: center;
-    text-align: center;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
 }
-
-header nav li {
+li{
     text-align: center;
     align-items: center;
 }
+#menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo {
+    height: 80px;
+    
 
-header nav a {
-    text-decoration: none;
-    color: #803919;
-    font-size: 32px;
-    font-weight: 600;
-    transition: color 0.3s ease;
 }
 
-header nav a:hover {
-    color: #F3E3C4;
+
+#icone{
+    font-size: 64px;
+    color: var(--cor-icone)
 }
-
-header .icons i {
-    margin-left: 50px;
-    cursor: pointer;
-
+#icone:hover{
+  color: var(--cor-destaque);
+  transition: 0.2s ease-out;
 }
 #carrinho{
     font-size: 40px;
+    color:var(--cor-carrinho);
+    padding-right: 40px;
+    justify-content: center;
+    
 }
-#icone{
-    font-size: 56px;
+#carrinho:hover{
+  color: var(--cor-destaque);
+  transition: 0.2s ease-out;
 }
 
-header #carrinho:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease-in-out;
+.icone2{
+  display: flex;
+  text-decoration: none;
 }
 
-header #icone:hover {
-    transform: scale(1.1);
-    transition: transform 0.2s ease-in-out;
+#userclaro{
+ align-items: center;
+    display: flex;
+    justify-content: center;
+}
+#userclaro:hover{
+ cursor: pointer;
+
+}
+.fa-regular fa-circle-user fa-2xl :hover{
+cursor: pointer;
+}
+.fa-regular fa-circle-user{
+width: 40px;
+height: 40px;
+}
+nav ul {
+    align-items: center;
+    text-align: center;
+    list-style: none;
+    margin-left: 40px;
+    display: flex;
+    gap: 20px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+}
+
+nav a {
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
+    color: var(--cor-icone);
+    font-weight: bold;
+    font-size: 32px;
+    transition: color 0.3s ease;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+}
+
+nav a:hover {
+    color: var(--cor-destaque);
 }
 
 .banner img {
@@ -180,7 +208,7 @@ header #icone:hover {
 }
 
 .perfil {
-    background: #f5f5f5;
+    background: var(--menu);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -193,6 +221,7 @@ header #icone:hover {
 .perfil-info {
     display: flex;
     align-items: center;
+    color: var(--perfilinfo);
     gap: 15px;
 }
 
@@ -214,13 +243,14 @@ header #icone:hover {
     display: flex;
     align-items: center;
     gap: 5px;
+    color: var(--cor-texto);
     font-weight: bold;
 }
 
 .menu-perfil {
     display: flex;
     justify-content: space-around;
-    background: #f5f5f5;
+    background: var(--menu);
     border: 1px solid #ccc;
     margin: 10px auto;
     width: 990px;
@@ -229,21 +259,23 @@ header #icone:hover {
 .menu-perfil a {
     padding: 10px;
     text-decoration: none;
-    color: black;
+    color: var(--cor-texto);
     flex: 1;
     text-align: center;
     border-right: 1px solid #ccc;
 }
 
 .menu-perfil a:hover {
-    border-bottom: 3px solid #46ce3b;
+    color: var(--cor-destaque2);
+    border-bottom: 3px solid var(--cor-destaque2);
 }
 
 .historico {
-    background: #f5f5f5;
+    background: var(--menu);
     width: 990px;
     margin: 0 auto 40px;
     border: 1px solid #ccc;
+    color: var(--hist);
     padding: 15px;
     flex: 1;
 }
@@ -251,6 +283,7 @@ header #icone:hover {
 .historico-header {
     display: flex;
     justify-content: space-between;
+    color: var(--histheader);
     align-items: center;
 }
 
@@ -288,7 +321,12 @@ header #icone:hover {
     justify-content: space-between;
     align-items: center;
 }
-
+.pedido-detalhes strong{
+    color: var(--pedidostrong);
+}
+.pedido-detalhes p{
+    color: var(--pedidop);
+}
 .pedido-content {
     display: flex;
     gap: 15px;
