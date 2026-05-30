@@ -93,7 +93,18 @@
             {% endif %}
         </div>
     </section>
-    
+    <div id="divlogout">
+
+    <button id="logout">
+    <a href="{{url_for('trocarsenha')}}" > <strong>Troque sua senha</strong></a>
+    </button>
+
+    <form action="{{url_for('logout')}} " Method = "POST">
+    <button id="logout" type="submit">
+        <strong>Logout</strong>
+    </button>
+    </form>
+    </div>
     
 </main>
 {% endblock %}

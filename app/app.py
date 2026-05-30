@@ -6,6 +6,7 @@ import json
 app = Flask(__name__)
 app.secret_key = "GloriaAJesus"
 
+
 def construtor_itens_cardapio(lista_pedidos):
     lista_obj = []
     for i in lista_pedidos:
@@ -20,11 +21,40 @@ def landingpage():
 
 @app.route('/cadastro')
 def cadastro():
+
+    #cara do bd.py q se vire aq
+    if 'usuario' in session:
+        return redirect(url_for('landingpage'))
+    
+    if request.method == 'POST':
+        #aq o cara do banco de dados vai usar essas infos para fazer a confirmação e integração com o bd.py
+        usuario = request.form.get('usuario')
+        email = request.form.get('email')
+        senha = request.form.get('senha')
+        c_senha = request.form.get('c_senha')
+
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+
+        cursor.execute("""
+            INSERT INTO users
+            (nome, email, password, type)
+            VALUES (?, ?, ?, ?)
+        
+        """,(usuario, email, c_senha, 'normal'))
+
+        conexao.commit()
+        conexao.close()
+
+        return redirect(url_for('login'))
+
+    
     return render_template('cadastro.html')
 
 @app.route('/cardapio', methods=['GET', 'POST'])
 def cardapio():
     if request.method == 'GET':
+
         conn = criar_conexao()
         itens_cuscuz, itens_sobremesa, itens_bebidas, itens_campeao_vendas = [], [], [], []
         itens_cuscuz = construtor_itens_cardapio(list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz'").fetchall()))
@@ -65,6 +95,9 @@ def cardapio():
 @app.route('/carrinho', methods = ['GET', 'POST'])
 def carrinho():
     user_id = session.get('user_id', 1)
+
+    if 'usuario' not in session:
+        return redirect(url_for('cadastro'))
 
     if request.method == 'GET':
         lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
@@ -126,6 +159,11 @@ def carrinho():
 
 @app.route('/happyhour')
 def happyhour():
+
+    #acaba nunca, avemaria
+    if 'usuario' not in session:
+        return redirect(url_for('cadastro'))
+    
     return render_template('happyhour.html')
 
 
@@ -140,24 +178,33 @@ def login():
    
     user_in_bank = conn.execute("SELECT id, email FROM users WHERE email = ? AND password == ?", (email_user, passw_user)).fetchone()
 
-    if not user_in_bank:
+    if  user_in_bank is None:
         conn.close()
         return redirect(url_for('login'))
 
     session['user_id'] = user_in_bank[0]
     conn.close()
-
+    # COLOCAR SESSÃO AQUI
+    session['usuario'] = {
+        
+        "email": email_user,
+        "senha": passw_user
+    }
     return redirect(url_for('landingpage'))
 
 
 @app.route('/perfil', methods=['GET'])
 def perfil():
     user_id = session.get('user_id', 1)
-
+    
+    if 'usuario' not in session:
+        return redirect(url_for('login'))
+    
     pedidos_agrupados = {}
     conn = criar_conexao()
     
-    
+   
+  
     query = conn.execute("""
         SELECT 
             pedido.id AS pedido_id,
@@ -190,7 +237,6 @@ def perfil():
             'preco': item_preco,
             'quantidade': item_quantidade
         })
-
     conn.close()
     lista_pedidos = list(pedidos_agrupados.values())
     return render_template('perfil.html', lista_pedidos=lista_pedidos)
@@ -227,6 +273,41 @@ def pedido_cancelar(id):
     conn.close()
     return redirect(url_for('perfil'))
 
+@app.route('/logout', methods=["POST"])
+def logout():
+    session.pop('usuario', None)
+    return redirect(url_for('landingpage'))
+
+@app.route('/trocarsenha', methods=['GET', 'POST'])
+def trocarsenha():
+    
+    if 'usuario' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        nova_senha = request.form.get('novasenha')
+        confirmar_senha = request.form.get('confirmarsenha')
+
+        if nova_senha != confirmar_senha:
+            return redirect(url_for('trocarsenha'))
+
+        email_usuario = session['usuario']['email']
+
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("""
+            UPDATE users 
+            SET password = ? 
+            WHERE email = ?
+        """, (nova_senha, email_usuario))
+        conexao.commit()
+        conexao.close()
+
+   
+        session['usuario']['senha'] = nova_senha
+        return redirect(url_for('perfil'))
+
+    return render_template('trocarsenha.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
