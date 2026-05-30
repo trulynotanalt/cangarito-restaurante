@@ -42,17 +42,25 @@ def cardapio():
     quantidade = request.form.get('quantidade_pedido').replace('R$', '')
     observacao = request.form.get('observacao').replace('R$', '')
 
+    lista_pedidos = request.cookies.get('pedidos', '[]')
     pedido = {
+        'id_carrinho' : 0,
         'nome' : nome_produto,
         'preco' : preco_produto,
         'quantidade' : quantidade,
         'observacao' : observacao,
     }
-    lista_pedidos = request.cookies.get('pedidos', '[]')
-
+    
     if lista_pedidos:
         lista_pedidos = json.loads(lista_pedidos)
+        pedido['id_carrinho'] = int(len(lista_pedidos))
+        
         lista_pedidos.append(pedido)
+        resp = redirect(url_for('cardapio'))
+        resp.set_cookie('pedidos', json.dumps(lista_pedidos))
+        return resp
+    
+    lista_pedidos.append(pedido)
 
     resp = redirect(url_for('cardapio'))
     resp.set_cookie('pedidos', json.dumps(lista_pedidos))
@@ -187,6 +195,23 @@ def pedido_cancelar(id):
     
     return render_template('perfil.html')
 
+@app.route('/carrinho/remove/<int:id>')
+def carrinho_remove(id):
+    lista_pedidos = request.cookies.get('pedidos', '[]')
+
+    if lista_pedidos:
+        lista_pedidos = json.loads(lista_pedidos)
+        for pedido in lista_pedidos:
+            if int(pedido['id_carrinho']) == int(id):
+                lista_pedidos.remove(pedido)
+                break
+    
+
+    resp = redirect(url_for('carrinho'))
+    resp.set_cookie('pedidos', json.dumps(lista_pedidos))
+
+    return resp
+    
 
 
 if __name__ == "__main__":

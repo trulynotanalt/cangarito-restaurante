@@ -6,6 +6,7 @@
 
 {% block estilos %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/carrinho-light.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
 {% endblock %}
 
 {% block conteudo %}
@@ -24,7 +25,7 @@
             alt="Carne de sol com acompanhamentos">
         </div>
 
-        <div class="info">
+      <div class="info">
             <span class="nome_food">
         {{ pedido.nome }}
       </span>
@@ -34,7 +35,6 @@
       <span class="nome_food">
         Quantidade: {{ pedido.quantidade }}
       </span>
-
       <br>
 
       <span class="nome_food">
@@ -45,9 +45,16 @@
         Preço: {{ pedido.preco }}
       </span>
         </div>
+        <a href="{{url_for('carrinho_remove', id=pedido.id_carrinho)}}">
+        <button class="remover_pedido" name="remover_pedido">
+          <span class="material-symbols-outlined">
+            delete
+          </span>
+        </button>
+      </a>
       </article>
 
-
+      
       {% endfor %}
     </div>
 
