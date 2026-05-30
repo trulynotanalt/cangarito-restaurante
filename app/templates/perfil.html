@@ -25,7 +25,7 @@
             <div class="perfil-texto">
                 <h3>Romerito do Cuscuz</h3>
                 <p>Romerito Maratona Flokis de’mi</p>
-                <small><i class="bi bi-geo-alt"></i> Insira seu endereço</small>
+               
             </div>
         </div>
         <div class="canga-points">
@@ -48,62 +48,52 @@
         </div>
 
         <div class="historico-lista">
-            <article class="pedido">
-                <div class="pedido-header">
-                    <h5>Verdadeiro Paulista</h5>
-                    <i class="bi bi-three-dots-vertical"></i>
-                </div>
-                <div class="pedido-content">
-                    <img src="{{url_for('static',filename='img/verdadeiro paulista.jpeg')}}" alt="Cuscuz">
-                    <div class="pedido-detalhes">
-                        <div class="estrelas">★★★★☆</div>
-                        <p><strong>Código do Pedido:</strong> FXI20930390400300</p>
-                        <p><strong>Data:</strong> 22/07/2025</p>
-                        <p><strong>Estado:</strong> Pendente</p>
-                        <p><strong>Entregue:</strong> Retirada</p>
-                        <p><strong>Preço Pago:</strong> R$ 80,00</p>
+            {% if lista_pedidos %}
+                {% for pedido in lista_pedidos %}
+                <article class="pedido">
+                    <div class="pedido-header">
+                        <h5>Pedido #{{ pedido.id_pedido }}</h5>
+                        <i class="bi bi-three-dots-vertical"></i>
                     </div>
-                    
-                </div>
-            </article>
-             <article class="pedido">
-                <div class="pedido-header">
-                    <h5>Verdadeiro Paulista</h5>
-                    <i class="bi bi-three-dots-vertical"></i>
-                </div>
-                <div class="pedido-content">
-                    <img src="{{url_for('static',filename='img/verdadeiro paulista.jpeg')}}" alt="Cuscuz">
-                    <div class="pedido-detalhes">
-                        <div class="estrelas">★★★★☆</div>
-                        <p><strong>Código do Pedido:</strong> FXI20930390400300</p>
-                        <p><strong>Data:</strong> 22/07/2025</p>
-                        <p><strong>Estado:</strong> Pendente</p>
-                        <p><strong>Entregue:</strong> Retirada</p>
-                        <p><strong>Preço Pago:</strong> R$ 80,00</p>
+                    <div class="pedido-content">
+                        <img src="{{url_for('static',filename='img/verdadeiro paulista.jpeg')}}" alt="Cuscuz">
+                        <div class="pedido-detalhes">
+                            <div class="estrelas">★★★★☆</div>
+                            <p><strong>Produtos:</strong></p>
+                            <ul class="listaped">
+                                {% for item in pedido.itens_comprados %}
+                                <li>{{ item.quantidade }}x {{ item.nome }} - R$ {{ item.preco }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% if pedido.observacao %}
+                            <p><strong>Obs:</strong> {{ pedido.observacao }}</p>
+                            {% endif %}
+                            <p><strong>Estado:</strong> 
+                                {% if pedido.ativo == 1 %}
+                                    <span class="pendente">Pendente</span>
+                                {% else %}
+                                    <span class="cancelado">Cancelado</span>
+                                {% endif %}
+                            </p>
+                            <p><strong>Preço Pago:</strong> R$ {{ "%.2f"|format(pedido.total) }}</p>
+                            
+                            {% if pedido.ativo == 1 %}
+                            <form action="{{ url_for('pedido_cancelar', id=pedido.id_pedido) }}" method="POST" style="margin-top: 10px;">
+                                <button type="submit" class="pedidocancelado">
+                                    Cancelar Pedido
+                                </button>
+                            </form>
+                            {% endif %}
+                        </div>
                     </div>
-                    
-                </div>
-            </article>
-             <article class="pedido">
-                <div class="pedido-header">
-                    <h5>Verdadeiro Paulista</h5>
-                    <i class="bi bi-three-dots-vertical"></i>
-                </div>
-                <div class="pedido-content">
-                    <img src="{{url_for('static',filename='img/verdadeiro paulista.jpeg')}}" alt="Cuscuz">
-                    <div class="pedido-detalhes">
-                        <div class="estrelas">★★★★☆</div>
-                        <p><strong>Código do Pedido:</strong> FXI20930390400300</p>
-                        <p><strong>Data:</strong> 22/07/2025</p>
-                        <p><strong>Estado:</strong> Pendente</p>
-                        <p><strong>Entregue:</strong> Retirada</p>
-                        <p><strong>Preço Pago:</strong> R$ 80,00</p>
-                    </div>
-                    
-                </div>
-            </article>
+                </article>
+                {% endfor %}
+            {% else %}
+                <p class="nenhumpedido">Nenhum pedido encontrado para o seu usuário.</p>
+            {% endif %}
         </div>
     </section>
+    
     
 </main>
 {% endblock %}
@@ -125,18 +115,5 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             setTheme(newTheme);
         });
-        function aplicarTema(theme) {
-                document.body.setAttribute('data-theme', theme);
-            }
-
-            const temaSalvo = localStorage.getItem('theme');
-
-            if (temaSalvo) {
-                aplicarTema(temaSalvo);
-            } else {
-                aplicarTema('light');
-            }
-        
     </script>
 {% endblock %}
-    <

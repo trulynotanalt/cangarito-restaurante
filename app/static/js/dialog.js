@@ -23,8 +23,8 @@ produtos.forEach(produto => {
     <div class="info-dialog">
       <div class="container-tags-produto">
         <div class="tags-produto"><p>300g</p></div>
-        <div class="tags-produto"><p>300g</p></div>
-        <div class="tags-produto"><p>300g</p></div>
+        <div class="tags-produto"><p>500g</p></div>
+        <div class="tags-produto"><p>700g</p></div>
       </div>
 
       <p class="desc-produto">${descProduto}</p>
@@ -55,7 +55,7 @@ produtos.forEach(produto => {
       id="preco_produto_input"
       type="hidden"
       name="preco_produto"
-      value="R$ ${preco}">
+      value="${preco}">
 
     <div class="footer-dialog">
 

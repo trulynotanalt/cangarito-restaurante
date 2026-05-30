@@ -230,6 +230,7 @@ h1 {
     box-shadow: 1px 1px 10px #8883;
     color: var(--pedido-cor);
   }
+ 
   .pedido  h2 {
     margin: 0 0 12px; 
     font-weight: 700;

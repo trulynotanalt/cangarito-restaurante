@@ -55,7 +55,7 @@ body[data-theme="dark"] #theme-moon {
     --pedidop: #000000;
     --cor-destaque:#F3E3C4;   
     --cor-destaque2:#9d4821;  
-    
+    --cor-status: #cc0000;
     
 
 }
@@ -75,7 +75,7 @@ body[data-theme="dark"] {
     --pedidop: #b4b4b4;
     --cor-destaque: #46CE3B;
     --cor-destaque2:#46CE3B;  
-   
+   --cor-status: #cc0000;
      
   }
 * {
@@ -342,4 +342,52 @@ nav a:hover {
 .estrelas {
     color: gold;
     margin-bottom: 5px;
+}
+#divlogout{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    gap:700px ;
+}
+
+
+#logout{
+    width: fit-content;
+    padding: 8px 16px;
+    color: #803919;
+    background-color: #d89c4a;
+    border-radius: 16px; 
+    font-size: 20px;
+}
+#logout:hover{
+    background-color: #F3E3C4;
+    color: #d89c4a;
+    transition: 0.5s ease-out;
+}
+#logout:hover a{
+    color: #d89c4a;
+    transition: 0.5s ease-out;
+}
+#logout a{
+    text-decoration: none;
+    color: #9d4821;
+}
+
+.cancelado{
+    color: var(--cor-status); 
+    font-weight: bold
+}
+.pedidocancelado{
+    background-color: #ff4d4d; 
+    color: white; 
+    border: none;
+     padding: 5px 10px; 
+     border-radius: 4px; 
+     cursor: pointer; 
+     font-weight: bold;
+}
+.nenhumpedido{
+    text-align: center; 
+    color: gray; 
+    padding: 20px;
 }

@@ -12,9 +12,12 @@ def criar_banco():
         );
                     
     CREATE TABLE IF NOT EXISTS pedido(
-        id INTEGER PRIMARY KEY  AUTOINCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         id_user INTEGER NOT NULL, 
         observacao TEXT,
+        subtotal NUMERIC,  -- ADICIONADO
+        imposto NUMERIC,   -- ADICIONADO
+        total NUMERIC,     -- ADICIONADO
         active BOOL NOT NULL DEFAULT true,
                           
         FOREIGN KEY (id_user) REFERENCES users(id)

@@ -57,7 +57,7 @@ def cardapio():
         lista_pedidos.append(pedido)
 
     resp = redirect(url_for('cardapio'))
-    resp.set_cookie('pedidos', json.dumps(lista_pedidos))
+    resp.set_cookie('pedidos', json.dumps(lista_pedidos), path = '/')
     return resp
    
 
@@ -78,7 +78,7 @@ def carrinho():
 
         return render_template('carrinho.html', pedidos=lista_pedidos, subtotal=subtotal, imposto=imposto, total=total)
     
-  
+   
     lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
     if not lista_pedidos:
         return redirect(url_for('cardapio'))
@@ -97,14 +97,19 @@ def carrinho():
     total = subtotal + imposto
     observacao_geral = "; ".join(observacoes)
 
-   
+    
     cursor.execute("INSERT INTO pedido (id_user, observacao, subtotal, imposto, total, active) VALUES (?, ?, ?, ?, ?, ?);", 
                    (user_id, observacao_geral, subtotal, imposto, total, 1))
     id_pedido_gerado = cursor.lastrowid
 
-    
+  
     for item in lista_pedidos:
-        resultado = cursor.execute('SELECT id FROM item_cardapio WHERE name == ? ', (item['nome'],)).fetchone()
+      
+        resultado = cursor.execute(
+            'SELECT id FROM item_cardapio WHERE LOWER(TRIM(name)) = LOWER(TRIM(?))', 
+            (item['nome'].strip(),)
+        ).fetchone()
+        
         if resultado:
             id_item_cardapio = resultado[0]
             cursor.execute("INSERT INTO item_cardapio_pedido (id_pedido, id_item_cardapio, quantidade) VALUES (?, ?, ?);", 
@@ -113,8 +118,9 @@ def carrinho():
     conn.commit()
     conn.close()
     
+
     resp = redirect(url_for('perfil'))
-    resp.set_cookie('pedidos', '[]')
+    resp.set_cookie('pedidos', '[]', path ='/')
     return resp
 
 
@@ -202,7 +208,7 @@ def carrinho_remove(id):
     
 
     resp = redirect(url_for('carrinho'))
-    resp.set_cookie('pedidos', json.dumps(lista_pedidos))
+    resp.set_cookie('pedidos', json.dumps(lista_pedidos), path = '/')
 
     return resp
 
