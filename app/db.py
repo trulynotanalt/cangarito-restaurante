@@ -72,4 +72,3 @@ def injecao():
     ('Cajuína', 12.00, 'Refrigerante típico do Seridó, com sabor doce e floral.', 'bebidas'),
     ('Água de Coco', 5.00, 'Água de coco natural, servida gelada direto no copo ou no coco.', 'bebidas');
     """)
-
