@@ -73,6 +73,3 @@ def injecao():
     ('Água de Coco', 5.00, 'Água de coco natural, servida gelada direto no copo ou no coco.', 'bebidas');
     """)
 
-
-criar_banco()
-injecao()
