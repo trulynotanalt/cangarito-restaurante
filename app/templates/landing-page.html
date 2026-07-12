@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
 {% endblock %}
 
-
-
 {% block conteudo %}
     
 
@@ -400,7 +398,7 @@ João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-
 
 
 
-    </main>
+    </main>fla
 {% endblock %}
 
 {% block scripts %}
@@ -408,22 +406,22 @@ João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-
 
     <script>
 
-        
         document.addEventListener('DOMContentLoaded', () => {
 
+                  function aplicarTema(theme) {
+                      document.body.setAttribute('data-theme', theme);
+                  }
 
+                  const temaSalvo = localStorage.getItem('theme');
 
-            function aplicarTema(theme) {
-                document.body.setAttribute('data-theme', theme);
-            }
+                  if (temaSalvo) {
+                      aplicarTema(temaSalvo);
+                  } else {
+                      aplicarTema('light');
+                  }
+              })
 
-            const temaSalvo = localStorage.getItem('theme');
-
-            if (temaSalvo) {
-                aplicarTema(temaSalvo);
-            } else {
-                aplicarTema('light');
-            }
+        document.addEventListener('DOMContentLoaded', () => {
             const slideInElements = document.querySelectorAll('.slide-in-element');
             const checkVisibility = () => {
                 slideInElements.forEach((element, index) => {
