@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
+from flask import Flask, render_template, request, redirect, url_for, session
+from flask_sqlalchemy import SQLAlchemy
 from db import *
 from item_cardapio import Item_Cardapio
 import json
@@ -6,8 +7,21 @@ import json
 app = Flask(__name__)
 app.secret_key = "GloriaAJesus"
 
+# Inicia e configura o SqlAlchemy
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+db = SQLAlchemy(app)
 
-# pega lista do banco e transforma em objetos
+# Importa as entidades
+from models.User import *
+from models.item_cardapio import *
+from models.pedido import *
+
+# Cria as tabelas usando o sqlalchemy
+with app.app_context():
+    db.create_all()
+
+
+# Pega a lista do banco e transforma em objetos
 def construtor_itens_cardapio(lista_pedidos):
     lista_obj = []
     for i in lista_pedidos:
@@ -23,13 +37,11 @@ def landingpage():
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
-
    
     if 'usuario' in session:
         return redirect(url_for('landingpage'))
     
     if request.method == 'POST':
-        
         usuario = request.form.get('usuario')
         email = request.form.get('email')
         senha = request.form.get('senha')
@@ -38,7 +50,7 @@ def cadastro():
         conexao = criar_conexao()
         cursor = conexao.cursor()
 
-        # salva usuário no banco
+        # Salva os dados dos usuários no banco
         cursor.execute("""
             INSERT INTO users
             (nome, email, password, type)
@@ -49,7 +61,6 @@ def cadastro():
         conexao.close()
 
         return redirect(url_for('login'))
-
     
     return render_template('cadastro.html')
 
@@ -58,7 +69,7 @@ def cadastro():
 def cardapio():
 
     if request.method == 'GET':
-        # busca itens do cardápio separados por categoria
+        # busca itens do cardápio separados por categoria 
         conn = criar_conexao()
 
         itens_cuscuz = construtor_itens_cardapio(
@@ -75,7 +86,6 @@ def cardapio():
         )
 
         conn.close()
-
         
         return render_template(
             'cardapio.html',
@@ -84,20 +94,16 @@ def cardapio():
             itens_campeao_vendas=itens_campeao_vendas,
             itens_bebidas=itens_bebidas
         )
-
     
     if 'usuario' not in session:
         return redirect(url_for('login'))
         
-    
     nome_produto = request.form.get('nome_produto').replace('R$', '')
     preco_produto = request.form.get('preco_produto').replace('R$', '')
     quantidade = request.form.get('quantidade_pedido').replace('R$', '')
     observacao = request.form.get('observacao').replace('R$', '')
-
     
     lista_pedidos = request.cookies.get('pedidos', '[]')
-
     
     pedido = {
         'id_carrinho': 0,
@@ -112,7 +118,6 @@ def cardapio():
         lista_pedidos = json.loads(lista_pedidos)
         pedido['id_carrinho'] = int(len(lista_pedidos))
         lista_pedidos.append(pedido)
-
    
     resp = redirect(url_for('cardapio'))
     resp.set_cookie('pedidos', json.dumps(lista_pedidos), path='/')
@@ -121,7 +126,6 @@ def cardapio():
 
 @app.route('/carrinho', methods=['GET', 'POST'])
 def carrinho():
-
     
     if 'usuario' not in session:
         return redirect(url_for('cadastro'))
@@ -129,11 +133,8 @@ def carrinho():
     user_id = session.get('user_id', 1)
 
     if request.method == 'GET':
-        
         lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
-
         subtotal = 0
-
         
         for pedido in lista_pedidos:
             subtotal += float(pedido['preco']) * int(pedido['quantidade'])
@@ -148,7 +149,6 @@ def carrinho():
             imposto=imposto,
             total=total
         )
-
     
     lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
 
@@ -170,7 +170,6 @@ def carrinho():
     imposto = subtotal * 0.02
     total = subtotal + imposto
     observacao_geral = "; ".join(observacoes)
-
     
     cursor.execute("""
         INSERT INTO pedido (id_user, observacao, subtotal, imposto, total, active)
@@ -179,9 +178,8 @@ def carrinho():
 
     id_pedido_gerado = cursor.lastrowid
 
-    # salva itens do pedido
+    # salva itens do pedido 
     for item in lista_pedidos:
-
         resultado = cursor.execute(
             'SELECT id FROM item_cardapio WHERE LOWER(TRIM(name)) = LOWER(TRIM(?))',
             (item['nome'].strip(),)
@@ -196,7 +194,6 @@ def carrinho():
 
     conn.commit()
     conn.close()
-
     
     resp = redirect(url_for('perfil'))
     resp.set_cookie('pedidos', '[]', path='/')
@@ -205,8 +202,6 @@ def carrinho():
 
 @app.route('/happyhour')
 def happyhour():
-
-    
     if 'usuario' not in session:
         return redirect(url_for('cadastro'))
     
@@ -224,7 +219,6 @@ def login():
     nome_user = request.form.get('nome')
     email_user = request.form.get('email')
     passw_user = request.form.get('senha')
-
     
     user_in_bank = conn.execute("""
         SELECT id, nome, email FROM users
@@ -234,7 +228,6 @@ def login():
     if user_in_bank is None:
         conn.close()
         return redirect(url_for('login'))
-
     
     session['user_id'] = user_in_bank[0]
     conn.close()
@@ -250,16 +243,13 @@ def login():
 
 @app.route('/perfil', methods=['GET'])
 def perfil():
-
     
     if 'usuario' not in session:
         return redirect(url_for('login'))
 
     user_id = session.get('user_id', 1)
-
     pedidos_agrupados = {}
     conn = criar_conexao()
-
    
     query = conn.execute("""
         SELECT 
@@ -298,7 +288,6 @@ def perfil():
     conn.close()
 
     lista_pedidos = list(pedidos_agrupados.values())
-
     return render_template('perfil.html', lista_pedidos=lista_pedidos)
 
 
@@ -318,7 +307,6 @@ def carrinho_remove(id):
 
     resp = redirect(url_for('carrinho'))
     resp.set_cookie('pedidos', json.dumps(lista_pedidos), path='/')
-
     return resp
 
 
@@ -326,7 +314,6 @@ def carrinho_remove(id):
 def pedido_cancelar(id):
 
     user_id = session.get('user_id', 1)
-
     conn = criar_conexao()
 
     # desativa pedido no banco
@@ -344,10 +331,8 @@ def pedido_cancelar(id):
 
 @app.route('/logout', methods=["POST"])
 def logout():
-
-    
     session.pop('usuario', None)
-
+    session.pop('user_id', None)
     return redirect(url_for('landingpage'))
 
 
@@ -359,11 +344,9 @@ def trocarsenha():
         return redirect(url_for('login'))
 
     if request.method == 'POST':
-
         # pega nova senha
         nova_senha = request.form.get('novasenha')
         confirmar_senha = request.form.get('confirmarsenha')
-
         
         if nova_senha != confirmar_senha:
             return redirect(url_for('trocarsenha'))
@@ -373,7 +356,7 @@ def trocarsenha():
         conexao = criar_conexao()
         cursor = conexao.cursor()
 
-        # atualiza senha no banco
+        # atualiza senha no banco 
         cursor.execute("""
             UPDATE users 
             SET password = ? 
@@ -384,7 +367,6 @@ def trocarsenha():
         conexao.close()
 
         session['usuario']['senha'] = nova_senha
-
         return redirect(url_for('perfil'))
 
     return render_template('trocarsenha.html')
