@@ -45,6 +45,7 @@ def criar_banco():
 
 def criar_conexao():
     conexao = s.connect('database.db')
+    conexao.row_factory = s.Row
     return conexao
 
 def injecao():
