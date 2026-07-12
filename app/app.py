@@ -1,38 +1,28 @@
-from flask import Flask, render_template, request, redirect, url_for, session
-from flask_sqlalchemy import SQLAlchemy
-from db import *
-from item_cardapio import Item_Cardapio
 import json
+from flask import Flask, render_template, request, redirect, url_for, session
+from database import db
+from db import alimentar_banco 
 
 app = Flask(__name__)
 app.secret_key = "GloriaAJesus"
 
-# Inicia e configura o SqlAlchemy
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-db = SQLAlchemy(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Importa as entidades
-from models.User import *
-from models.item_cardapio import *
-from models.pedido import *
+db.init_app(app) 
 
-# Cria as tabelas usando o sqlalchemy
-with app.app_context():
-    db.create_all()
+from modelos.User import *
+from modelos.item_cardapio import *
+from modelos.pedido import *
 
-
-# Pega a lista do banco e transforma em objetos
-def construtor_itens_cardapio(lista_pedidos):
-    lista_obj = []
-    for i in lista_pedidos:
-        obj = Item_Cardapio(i[1], i[2], i[3])  # monta objeto
-        lista_obj.append(obj)
-    return lista_obj
+# cria e injeta os itens ao cardapio
+alimentar_banco(app)
 
 
 @app.route('/')
 def landingpage():
-    return render_template('landing-page.html') 
+    return render_template('landing-page.html')
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])
@@ -47,18 +37,10 @@ def cadastro():
         senha = request.form.get('senha')
         c_senha = request.form.get('c_senha')
 
-        conexao = criar_conexao()
-        cursor = conexao.cursor()
-
-        # Salva os dados dos usuários no banco
-        cursor.execute("""
-            INSERT INTO users
-            (nome, email, password, type)
-            VALUES (?, ?, ?, ?)
-        """,(usuario, email, c_senha, 'normal'))
-
-        conexao.commit()
-        conexao.close()
+        # salva o usuario
+        novo_usuario = User(nome=usuario, email=email, senha=c_senha, type='normal')
+        db.session.add(novo_usuario)
+        db.session.commit()
 
         return redirect(url_for('login'))
     
@@ -69,23 +51,11 @@ def cadastro():
 def cardapio():
 
     if request.method == 'GET':
-        # busca itens do cardápio separados por categoria 
-        conn = criar_conexao()
-
-        itens_cuscuz = construtor_itens_cardapio(
-            list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz'").fetchall())
-        )
-        itens_sobremesa = construtor_itens_cardapio(
-            list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'sobremesa'").fetchall())
-        )
-        itens_campeao_vendas = construtor_itens_cardapio(
-            list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'campeao_vendas'").fetchall())
-        )
-        itens_bebidas = construtor_itens_cardapio(
-            list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'bebidas'").fetchall())
-        )
-
-        conn.close()
+        # busca itens pela categoria
+        itens_cuscuz = ItemCardapio.query.filter_by(classificacao='cuscuz').all()
+        itens_sobremesa = ItemCardapio.query.filter_by(classificacao='sobremesa').all()
+        itens_campeao_vendas = ItemCardapio.query.filter_by(classificacao='campeao_vendas').all()
+        itens_bebidas = ItemCardapio.query.filter_by(classificacao='bebidas').all()
         
         return render_template(
             'cardapio.html',
@@ -155,9 +125,6 @@ def carrinho():
     if not lista_pedidos:
         return redirect(url_for('cardapio'))
 
-    conn = criar_conexao()
-    cursor = conn.cursor()
-
     subtotal = 0
     observacoes = []
 
@@ -171,29 +138,24 @@ def carrinho():
     total = subtotal + imposto
     observacao_geral = "; ".join(observacoes)
     
-    cursor.execute("""
-        INSERT INTO pedido (id_user, observacao, subtotal, imposto, total, active)
-        VALUES (?, ?, ?, ?, ?, ?);
-    """, (user_id, observacao_geral, subtotal, imposto, total, 1))
-
-    id_pedido_gerado = cursor.lastrowid
+    # salva pedido
+    novo_pedido = Pedido(id_user=user_id, observacao=observacao_geral, subtotal=subtotal, imposto=imposto, total=total, active=1)
+    db.session.add(novo_pedido)
+    db.session.flush()
+    id_pedido_gerado = novo_pedido.id
 
     # salva itens do pedido 
     for item in lista_pedidos:
-        resultado = cursor.execute(
-            'SELECT id FROM item_cardapio WHERE LOWER(TRIM(name)) = LOWER(TRIM(?))',
-            (item['nome'].strip(),)
-        ).fetchone()
+        # busca o produto correto
+        item_db = ItemCardapio.query.filter_by(name=item['nome']).first()
 
-        if resultado:
-            id_item_cardapio = resultado[0]
-            cursor.execute("""
-                INSERT INTO item_cardapio_pedido (id_pedido, id_item_cardapio, quantidade)
-                VALUES (?, ?, ?);
-            """, (id_pedido_gerado, id_item_cardapio, item['quantidade']))
+        if item_db:
+            id_item_cardapio = item_db.id
+            # cria pedido
+            novo_item_pedido = ItemCardapioPedido(id_pedido=id_pedido_gerado, id_item_cardapio=id_item_cardapio, quantidade=item['quantidade'])
+            db.session.add(novo_item_pedido)
 
-    conn.commit()
-    conn.close()
+    db.session.commit()
     
     resp = redirect(url_for('perfil'))
     resp.set_cookie('pedidos', '[]', path='/')
@@ -214,28 +176,22 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
 
-    conn = criar_conexao()
-
-    nome_user = request.form.get('nome')
-    email_user = request.form.get('email')
-    passw_user = request.form.get('senha')
+    nome = request.form.get('nome')
+    email = request.form.get('email')
+    senha = request.form.get('senha')
     
-    user_in_bank = conn.execute("""
-        SELECT id, nome, email FROM users
-        WHERE nome = ? AND email = ? AND password = ?
-    """, (nome_user, email_user, passw_user)).fetchone()
+    # busca usuario no banco
+    eu_existo = User.query.filter_by(nome=nome, email=email, senha=senha).first()
 
-    if user_in_bank is None:
-        conn.close()
+    if eu_existo is None:
         return redirect(url_for('login'))
     
-    session['user_id'] = user_in_bank[0]
-    conn.close()
+    session['user_id'] = eu_existo.id
 
     session['usuario'] = {
-        "nome": nome_user,
-        "email": email_user,
-        "senha": passw_user
+        "nome": nome,
+        "email": email,
+        "senha": senha
     }
 
     return redirect(url_for('landingpage'))
@@ -249,24 +205,23 @@ def perfil():
 
     user_id = session.get('user_id', 1)
     pedidos_agrupados = {}
-    conn = criar_conexao()
    
-    query = conn.execute("""
-        SELECT 
-            pedido.id,
-            pedido.total,
-            pedido.active,
-            item_cardapio.name,
-            item_cardapio.price,
-            item_cardapio_pedido.quantidade,
-            pedido.observacao
-        FROM pedido
-        INNER JOIN item_cardapio_pedido ON pedido.id = item_cardapio_pedido.id_pedido
-        INNER JOIN item_cardapio ON item_cardapio_pedido.id_item_cardapio = item_cardapio.id
-        WHERE pedido.id_user = ? ORDER BY pedido.id ASC;
-    """, (user_id,)).fetchall()
+    # faz o join entre as tabelas do sqlalchemy
+    query = db.session.query(
+        Pedido.id,
+        Pedido.total,
+        Pedido.active,
+        ItemCardapio.name,
+        ItemCardapio.preco,
+        ItemCardapioPedido.quantidade,
+        Pedido.observacao
+    ).join(ItemCardapioPedido, Pedido.id == ItemCardapioPedido.id_pedido)\
+     .join(ItemCardapio, ItemCardapioPedido.id_item_cardapio == ItemCardapio.id)\
+     .filter(Pedido.id_user == user_id)\
+     .order_by(Pedido.id.asc())\
+     .all()
 
-    # organiza pedidos por ID
+    # organiza pedidos por ID 
     for i in query:
         pedido_id, pedido_total, pedido_ativo, item_nome, item_preco, item_quantidade, item_observacao = i
 
@@ -285,8 +240,6 @@ def perfil():
             'quantidade': item_quantidade
         })
 
-    conn.close()
-
     lista_pedidos = list(pedidos_agrupados.values())
     return render_template('perfil.html', lista_pedidos=lista_pedidos)
 
@@ -294,7 +247,7 @@ def perfil():
 @app.route('/carrinho/remove/<int:id>')
 def carrinho_remove(id):
 
-    # remove item do cookie do carrinho
+    # remove item do cookie do carrinho 
     lista_pedidos = request.cookies.get('pedidos', '[]')
 
     if lista_pedidos:
@@ -314,17 +267,12 @@ def carrinho_remove(id):
 def pedido_cancelar(id):
 
     user_id = session.get('user_id', 1)
-    conn = criar_conexao()
 
-    # desativa pedido no banco
-    conn.execute("""
-        UPDATE pedido 
-        SET active = 0
-        WHERE id = ? AND id_user = ?;
-    """, (id, user_id))
-
-    conn.commit()
-    conn.close()
+    # atualiza o status do pedido
+    pedido = Pedido.query.filter_by(id=id, id_user=user_id).first()
+    if pedido:
+        pedido.active = 0
+        db.session.commit()
 
     return redirect(url_for('perfil'))
 
@@ -353,18 +301,11 @@ def trocarsenha():
 
         email_usuario = session['usuario']['email']
 
-        conexao = criar_conexao()
-        cursor = conexao.cursor()
-
-        # atualiza senha no banco 
-        cursor.execute("""
-            UPDATE users 
-            SET password = ? 
-            WHERE email = ?
-        """, (nova_senha, email_usuario))
-
-        conexao.commit()
-        conexao.close()
+        # atualiza a senha do usuario
+        usuario_db = User.query.filter_by(email=email_usuario).first()
+        if usuario_db:
+            usuario_db.senha = nova_senha
+            db.session.commit()
 
         session['usuario']['senha'] = nova_senha
         return redirect(url_for('perfil'))

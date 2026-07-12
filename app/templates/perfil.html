@@ -62,7 +62,7 @@
                             <p><strong>Produtos:</strong></p>
                             <ul class="listaped">
                                 {% for item in pedido.itens_comprados %}
-                                <li>{{ item.quantidade }}x {{ item.nome }} - R$ {{ item.preco }}</li>
+                                <p>{{ item.quantidade }}x {{ item.nome }} - <strong> R$ {{ item.preco }}</strong> </p>
                                 {% endfor %}
                             </ul>
                             {% if pedido.observacao %}
@@ -75,7 +75,7 @@
                                     <span class="cancelado">Cancelado</span>
                                 {% endif %}
                             </p>
-                            <p><strong>Preço Pago:</strong> R$ {{ "%.2f"|format(pedido.total) }}</p>
+                            <p><strong>Preço Pago: R$  {{ "%.2f"|format(pedido.total) }} </strong>  </p>
                             
                             {% if pedido.ativo == 1 %}
                             <form action="{{ url_for('pedido_cancelar', id=pedido.id_pedido) }}" method="POST" style="margin-top: 10px;">
