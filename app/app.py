@@ -1,10 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from db import *
 from item_cardapio import Item_Cardapio
 import json
+from models.user import User
+
+login_manager = LoginManager()
 
 app = Flask(__name__)
 app.secret_key = "GloriaAJesus"
+login_manager.init_app(app)
+login_manager.login_view = "cadastro"
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.buscar_id(criar_conexao(), user_id)
 
 
 # pega lista do banco e transforma em objetos
@@ -24,37 +34,23 @@ def landingpage():
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
 
-   
-    if 'usuario' in session:
-        return redirect(url_for('landingpage'))
     
     if request.method == 'POST':
-        
-        usuario = request.form.get('usuario')
-        email = request.form.get('email')
-        senha = request.form.get('senha')
-        c_senha = request.form.get('c_senha')
-
-        conexao = criar_conexao()
-        cursor = conexao.cursor()
-
-        # salva usuário no banco
-        cursor.execute("""
-            INSERT INTO users
-            (nome, email, password, type)
-            VALUES (?, ?, ?, ?)
-        """,(usuario, email, c_senha, 'normal'))
-
-        conexao.commit()
-        conexao.close()
-
-        return redirect(url_for('login'))
+        user = User(
+            nome = request.form['usuario'],
+            email = request.form['email'],
+            senha = request.form['senha'],
+        )
+        with criar_conexao() as conexao:
+            user.save(conexao)
+            return redirect(url_for('login'))
 
     
     return render_template('cadastro.html')
 
 
 @app.route('/cardapio', methods=['GET', 'POST'])
+@login_required
 def cardapio():
 
     if request.method == 'GET':
@@ -86,8 +82,6 @@ def cardapio():
         )
 
     
-    if 'usuario' not in session:
-        return redirect(url_for('login'))
         
     
     nome_produto = request.form.get('nome_produto').replace('R$', '')
@@ -120,13 +114,8 @@ def cardapio():
 
 
 @app.route('/carrinho', methods=['GET', 'POST'])
+@login_required
 def carrinho():
-
-    
-    if 'usuario' not in session:
-        return redirect(url_for('cadastro'))
-    
-    user_id = session.get('user_id', 1)
 
     if request.method == 'GET':
         
@@ -175,7 +164,7 @@ def carrinho():
     cursor.execute("""
         INSERT INTO pedido (id_user, observacao, subtotal, imposto, total, active)
         VALUES (?, ?, ?, ?, ?, ?);
-    """, (user_id, observacao_geral, subtotal, imposto, total, 1))
+    """, (current_user.id, observacao_geral, subtotal, imposto, total, 1))
 
     id_pedido_gerado = cursor.lastrowid
 
@@ -204,11 +193,8 @@ def carrinho():
 
 
 @app.route('/happyhour')
+@login_required
 def happyhour():
-
-    
-    if 'usuario' not in session:
-        return redirect(url_for('cadastro'))
     
     return render_template('happyhour.html')
 
@@ -216,36 +202,20 @@ def happyhour():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    if request.method == 'GET':
-        return render_template('login.html')
+    if request.method == 'POST':
+        nome_user = request.form['nome']
+        email_user = request.form['email']
+        passw_user = request.form['senha']
+        with criar_conexao() as conexao:
+            user = User.buscar_email(conexao, email_user)
 
-    conn = criar_conexao()
-
-    nome_user = request.form.get('nome')
-    email_user = request.form.get('email')
-    passw_user = request.form.get('senha')
-
+        if user is None or user.nome != nome_user or not user.validar_senha(passw_user):
+            return redirect(url_for('login'))
+        
+        login_user(user)
+        return redirect(url_for('landingpage'))
     
-    user_in_bank = conn.execute("""
-        SELECT id, nome, email FROM users
-        WHERE nome = ? AND email = ? AND password = ?
-    """, (nome_user, email_user, passw_user)).fetchone()
-
-    if user_in_bank is None:
-        conn.close()
-        return redirect(url_for('login'))
-
-    
-    session['user_id'] = user_in_bank[0]
-    conn.close()
-
-    session['usuario'] = {
-        "nome": nome_user,
-        "email": email_user,
-        "senha": passw_user
-    }
-
-    return redirect(url_for('landingpage'))
+    return render_template('login.html')
 
 @app.route("/pesquisar-itens")
 def pesquisar_itens():
@@ -282,13 +252,8 @@ def pesquisar_itens():
 
 
 @app.route('/perfil', methods=['GET'])
+@login_required
 def perfil():
-
-    
-    if 'usuario' not in session:
-        return redirect(url_for('login'))
-
-    user_id = session.get('user_id', 1)
 
     pedidos_agrupados = {}
     conn = criar_conexao()
@@ -307,7 +272,7 @@ def perfil():
         INNER JOIN item_cardapio_pedido ON pedido.id = item_cardapio_pedido.id_pedido
         INNER JOIN item_cardapio ON item_cardapio_pedido.id_item_cardapio = item_cardapio.id
         WHERE pedido.id_user = ? ORDER BY pedido.id ASC;
-    """, (user_id,)).fetchall()
+    """, (current_user.id,)).fetchall()
 
     # organiza pedidos por ID
     for i in query:
@@ -358,8 +323,6 @@ def carrinho_remove(id):
 @app.route('/pedido/cancelar/<int:id>', methods=['GET', 'POST'])
 def pedido_cancelar(id):
 
-    user_id = session.get('user_id', 1)
-
     conn = criar_conexao()
 
     # desativa pedido no banco
@@ -367,7 +330,7 @@ def pedido_cancelar(id):
         UPDATE pedido 
         SET active = 0
         WHERE id = ? AND id_user = ?;
-    """, (id, user_id))
+    """, (id, current_user.id))
 
     conn.commit()
     conn.close()
@@ -378,18 +341,15 @@ def pedido_cancelar(id):
 @app.route('/logout', methods=["POST"])
 def logout():
 
-    
-    session.pop('usuario', None)
+    logout_user()
 
     return redirect(url_for('landingpage'))
 
 
 @app.route('/trocarsenha', methods=['GET', 'POST'])
+# bloqueia se não estiver logado
+@login_required
 def trocarsenha():
-
-    # bloqueia se não estiver logado
-    if 'usuario' not in session:
-        return redirect(url_for('login'))
 
     if request.method == 'POST':
 
