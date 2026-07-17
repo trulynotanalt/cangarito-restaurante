@@ -83,7 +83,12 @@ filename='js/main.js') }}">
             </div>
           </div>
 
-            <div id="barra-pesquisa"><i class="bi bi-search"></i><input type="search" placeholder="Pesquisar.."></div>
+            <form action="{{url_for('pesquisar_itens')}}" method="GET">
+              
+              <div id="barra-pesquisa"><input name="input" type="search" placeholder="Pesquisar.."><button type="submit"><i class="bi bi-search"></i></button></div>
+
+            </form>
+            
 
         </section>
         

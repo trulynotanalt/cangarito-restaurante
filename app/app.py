@@ -247,6 +247,39 @@ def login():
 
     return redirect(url_for('landingpage'))
 
+@app.route("/pesquisar-itens")
+def pesquisar_itens():
+    input = request.args.get("input").lower().strip()
+    
+    conn = criar_conexao()
+
+    itens_cuscuz = construtor_itens_cardapio(
+        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz' AND name LIKE ?", (f"%{input}%",)).fetchall())
+    )
+    itens_sobremesa = construtor_itens_cardapio(
+        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'sobremesa' AND name LIKE ?", (f"%{input}%",)).fetchall())
+    )
+    itens_campeao_vendas = construtor_itens_cardapio(
+        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'campeao_vendas' AND name LIKE ?", (f"%{input}%",)).fetchall())
+    )
+    itens_bebidas = construtor_itens_cardapio(
+        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'bebidas' AND name LIKE ?", (f"%{input}%",)).fetchall())
+    )
+
+    conn.close()
+
+        
+    return render_template(
+        'cardapio.html',
+        itens_sobremesa=itens_sobremesa,
+        itens_cuscuz=itens_cuscuz,
+        itens_campeao_vendas=itens_campeao_vendas,
+        itens_bebidas=itens_bebidas
+    )
+
+
+
+
 
 @app.route('/perfil', methods=['GET'])
 def perfil():
