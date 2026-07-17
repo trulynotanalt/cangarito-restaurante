@@ -1,14 +1,23 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
+from app import db
 
-class User(UserMixin):
-    def __init__(self, nome, email, senha,type='normal', id=None, senha_hash=False):
+class User(db.Model, UserMixin):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
+    senha = db.Column(db.String)
+    type = db.Column(db.String)
+
+    def __init__(self, nome, email, senha, type='normal', id=None, senha_hash=False):
         self.id = id
         self.nome = nome
         self.email = email
         self.type = type
         self.senha = senha if senha_hash else generate_password_hash(senha)
-        
+
     def save(self, conexao):
         with conexao:
             cursor = conexao.execute(

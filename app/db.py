@@ -1,5 +1,5 @@
 from database import db
-from modelos.item_cardapio import ItemCardapio
+from models.item_cardapio import ItemCardapio
 
 def alimentar_banco(app):
     with app.app_context():

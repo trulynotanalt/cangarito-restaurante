@@ -3,7 +3,8 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_login import login_manager, login_required, login_user
 from database import db
 from db import alimentar_banco, criar_conexao
-from item_cardapio import Item_Cardapio
+from models import item_cardapio
+from models import User
 import json
 
 app = Flask(__name__)
@@ -19,7 +20,7 @@ def load_user(user_id):
 def construtor_itens_cardapio(lista_pedidos):
     lista_obj = []
     for i in lista_pedidos:
-        obj = Item_Cardapio(i[1], i[2], i[3])  # monta objeto
+        obj = item_cardapio.ItemCardapio(i[1], i[2], i[3])  # monta objeto
         lista_obj.append(obj)
     return lista_obj
 
@@ -28,9 +29,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app) 
 
-from modelos.User import *
-from modelos.item_cardapio import *
-from modelos.pedido import *
+from models.User import *
+from models.item_cardapio import *
+from models.pedido import *
 
 # cria e injeta os itens ao cardapio
 alimentar_banco(app)
@@ -69,10 +70,10 @@ def cardapio():
 
     if request.method == 'GET':
         # busca itens pela categoria
-        itens_cuscuz = ItemCardapio.query.filter_by(classificacao='cuscuz').all()
-        itens_sobremesa = ItemCardapio.query.filter_by(classificacao='sobremesa').all()
-        itens_campeao_vendas = ItemCardapio.query.filter_by(classificacao='campeao_vendas').all()
-        itens_bebidas = ItemCardapio.query.filter_by(classificacao='bebidas').all()
+        itens_cuscuz = item_cardapio.ItemCardapio.query.filter_by(classificacao='cuscuz').all()
+        itens_sobremesa = item_cardapio.ItemCardapio.query.filter_by(classificacao='sobremesa').all()
+        itens_campeao_vendas = item_cardapio.ItemCardapio.query.filter_by(classificacao='campeao_vendas').all()
+        itens_bebidas = item_cardapio.ItemCardapio.query.filter_by(classificacao='bebidas').all()
         
         return render_template(
             'cardapio.html',
@@ -163,7 +164,7 @@ def carrinho():
     # salva itens do pedido 
     for item in lista_pedidos:
         # busca o produto correto
-        item_db = ItemCardapio.query.filter_by(name=item['nome']).first()
+        item_db = item_cardapio.ItemCardapio.query.filter_by(name=item['nome']).first()
 
         if item_db:
             id_item_cardapio = item_db.id
@@ -254,12 +255,12 @@ def perfil():
         Pedido.id,
         Pedido.total,
         Pedido.active,
-        ItemCardapio.name,
-        ItemCardapio.preco,
+        item_cardapio.ItemCardapio.name,
+        item_cardapio.ItemCardapio.preco,
         ItemCardapioPedido.quantidade,
         Pedido.observacao
     ).join(ItemCardapioPedido, Pedido.id == ItemCardapioPedido.id_pedido)\
-     .join(ItemCardapio, ItemCardapioPedido.id_item_cardapio == ItemCardapio.id)\
+     .join(item_cardapio.ItemCardapio, ItemCardapioPedido.id_item_cardapio == item_cardapio.ItemCardapio.id)\
      .filter(Pedido.id_user == user_id)\
      .order_by(Pedido.id.asc())\
      .all()
