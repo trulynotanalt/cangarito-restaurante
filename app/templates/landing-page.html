@@ -398,13 +398,29 @@ João Florêncio, 401, Bairro Paraíba, Caicó - Rio Grande do Norte CEP: 59300-
 
 
 
-    </main>
+    </main>fla
 {% endblock %}
 
 {% block scripts %}
     
 
     <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+                  function aplicarTema(theme) {
+                      document.body.setAttribute('data-theme', theme);
+                  }
+
+                  const temaSalvo = localStorage.getItem('theme');
+
+                  if (temaSalvo) {
+                      aplicarTema(temaSalvo);
+                  } else {
+                      aplicarTema('light');
+                  }
+              })
+
         document.addEventListener('DOMContentLoaded', () => {
             const slideInElements = document.querySelectorAll('.slide-in-element');
             const checkVisibility = () => {

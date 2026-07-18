@@ -1,17 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
 from db import *
+from database import db
 from item_cardapio import Item_Cardapio
 import json
 
 app = Flask(__name__)
 app.secret_key = "GloriaAJesus"
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
+db.init_app(app)
 # pega lista do banco e transforma em objetos
 def construtor_itens_cardapio(lista_pedidos):
     lista_obj = []
     for i in lista_pedidos:
-        obj = Item_Cardapio(i[1], i[2], i[3])  # monta objeto
+        obj = Item_Cardapio(name=i[1], price=i[2], desc=i[3])  # monta objeto
         lista_obj.append(obj)
     return lista_obj
 
@@ -246,6 +249,45 @@ def login():
     }
 
     return redirect(url_for('landingpage'))
+
+@app.route("/pesquisar-itens")
+def pesquisar_itens():
+    
+    busca_itens = request.args.get("input","").strip()
+    
+    
+
+    itens_cuscuz = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "cuscuz",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
+        
+    itens_sobremesa = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "sobremesa",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
+
+    itens_campeao_vendas = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "campeao_vendas",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
+    
+    itens_bebidas = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "bebidas",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
+
+        
+    return render_template(
+        'cardapio.html',
+        itens_sobremesa=itens_sobremesa,
+        itens_cuscuz=itens_cuscuz,
+        itens_campeao_vendas=itens_campeao_vendas,
+        itens_bebidas=itens_bebidas
+    )
+
+
+
 
 
 @app.route('/perfil', methods=['GET'])
