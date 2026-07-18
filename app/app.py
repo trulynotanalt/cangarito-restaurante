@@ -1,79 +1,84 @@
-import json
-from flask import Flask, render_template, request, redirect, url_for, session
-from flask_login import login_manager, login_required, login_user
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
+from db import *
 from database import db
-from db import alimentar_banco, criar_conexao
-from models import item_cardapio
-from models import User
+from item_cardapio import Item_Cardapio
 import json
 
 app = Flask(__name__)
 app.secret_key = "GloriaAJesus"
-login_manager.init_app(app)
-login_manager.login_view = "cadastro"
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.buscar_id(criar_conexao(), user_id)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
+db.init_app(app)
 # pega lista do banco e transforma em objetos
 def construtor_itens_cardapio(lista_pedidos):
     lista_obj = []
     for i in lista_pedidos:
-        obj = item_cardapio.ItemCardapio(i[1], i[2], i[3])  # monta objeto
+        obj = Item_Cardapio(name=i[1], price=i[2], desc=i[3])  # monta objeto
         lista_obj.append(obj)
     return lista_obj
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db.init_app(app) 
-
-from models.User import *
-from models.item_cardapio import *
-from models.pedido import *
-
-# cria e injeta os itens ao cardapio
-alimentar_banco(app)
 
 
 @app.route('/')
 def landingpage():
-    return render_template('landing-page.html')
+    return render_template('landing-page.html') 
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
+
    
     if 'usuario' in session:
         return redirect(url_for('landingpage'))
     
     if request.method == 'POST':
+        
         usuario = request.form.get('usuario')
         email = request.form.get('email')
         senha = request.form.get('senha')
         c_senha = request.form.get('c_senha')
 
-        # salva o usuario
-        novo_usuario = User(nome=usuario, email=email, senha=c_senha, type='normal')
-        db.session.add(novo_usuario)
-        db.session.commit()
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+
+        # salva usuário no banco
+        cursor.execute("""
+            INSERT INTO users
+            (nome, email, password, type)
+            VALUES (?, ?, ?, ?)
+        """,(usuario, email, c_senha, 'normal'))
+
+        conexao.commit()
+        conexao.close()
 
         return redirect(url_for('login'))
+
     
     return render_template('cadastro.html')
 
 
 @app.route('/cardapio', methods=['GET', 'POST'])
-@login_required
 def cardapio():
 
     if request.method == 'GET':
-        # busca itens pela categoria
-        itens_cuscuz = item_cardapio.ItemCardapio.query.filter_by(classificacao='cuscuz').all()
-        itens_sobremesa = item_cardapio.ItemCardapio.query.filter_by(classificacao='sobremesa').all()
-        itens_campeao_vendas = item_cardapio.ItemCardapio.query.filter_by(classificacao='campeao_vendas').all()
-        itens_bebidas = item_cardapio.ItemCardapio.query.filter_by(classificacao='bebidas').all()
+        # busca itens do cardápio separados por categoria
+        conn = criar_conexao()
+
+        itens_cuscuz = construtor_itens_cardapio(
+            list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz'").fetchall())
+        )
+        itens_sobremesa = construtor_itens_cardapio(
+            list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'sobremesa'").fetchall())
+        )
+        itens_campeao_vendas = construtor_itens_cardapio(
+            list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'campeao_vendas'").fetchall())
+        )
+        itens_bebidas = construtor_itens_cardapio(
+            list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'bebidas'").fetchall())
+        )
+
+        conn.close()
+
         
         return render_template(
             'cardapio.html',
@@ -82,14 +87,20 @@ def cardapio():
             itens_campeao_vendas=itens_campeao_vendas,
             itens_bebidas=itens_bebidas
         )
+
     
+    if 'usuario' not in session:
+        return redirect(url_for('login'))
         
+    
     nome_produto = request.form.get('nome_produto').replace('R$', '')
     preco_produto = request.form.get('preco_produto').replace('R$', '')
     quantidade = request.form.get('quantidade_pedido').replace('R$', '')
     observacao = request.form.get('observacao').replace('R$', '')
+
     
     lista_pedidos = request.cookies.get('pedidos', '[]')
+
     
     pedido = {
         'id_carrinho': 0,
@@ -104,6 +115,7 @@ def cardapio():
         lista_pedidos = json.loads(lista_pedidos)
         pedido['id_carrinho'] = int(len(lista_pedidos))
         lista_pedidos.append(pedido)
+
    
     resp = redirect(url_for('cardapio'))
     resp.set_cookie('pedidos', json.dumps(lista_pedidos), path='/')
@@ -111,8 +123,8 @@ def cardapio():
 
 
 @app.route('/carrinho', methods=['GET', 'POST'])
-@login_required
 def carrinho():
+
     
     if 'usuario' not in session:
         return redirect(url_for('cadastro'))
@@ -120,8 +132,11 @@ def carrinho():
     user_id = session.get('user_id', 1)
 
     if request.method == 'GET':
+        
         lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
+
         subtotal = 0
+
         
         for pedido in lista_pedidos:
             subtotal += float(pedido['preco']) * int(pedido['quantidade'])
@@ -136,11 +151,15 @@ def carrinho():
             imposto=imposto,
             total=total
         )
+
     
     lista_pedidos = json.loads(request.cookies.get('pedidos', '[]'))
 
     if not lista_pedidos:
         return redirect(url_for('cardapio'))
+
+    conn = criar_conexao()
+    cursor = conn.cursor()
 
     subtotal = 0
     observacoes = []
@@ -154,25 +173,33 @@ def carrinho():
     imposto = subtotal * 0.02
     total = subtotal + imposto
     observacao_geral = "; ".join(observacoes)
+
     
-    # salva pedido
-    novo_pedido = Pedido(id_user=user_id, observacao=observacao_geral, subtotal=subtotal, imposto=imposto, total=total, active=1)
-    db.session.add(novo_pedido)
-    db.session.flush()
-    id_pedido_gerado = novo_pedido.id
+    cursor.execute("""
+        INSERT INTO pedido (id_user, observacao, subtotal, imposto, total, active)
+        VALUES (?, ?, ?, ?, ?, ?);
+    """, (user_id, observacao_geral, subtotal, imposto, total, 1))
 
-    # salva itens do pedido 
+    id_pedido_gerado = cursor.lastrowid
+
+    # salva itens do pedido
     for item in lista_pedidos:
-        # busca o produto correto
-        item_db = item_cardapio.ItemCardapio.query.filter_by(name=item['nome']).first()
 
-        if item_db:
-            id_item_cardapio = item_db.id
-            # cria pedido
-            novo_item_pedido = ItemCardapioPedido(id_pedido=id_pedido_gerado, id_item_cardapio=id_item_cardapio, quantidade=item['quantidade'])
-            db.session.add(novo_item_pedido)
+        resultado = cursor.execute(
+            'SELECT id FROM item_cardapio WHERE LOWER(TRIM(name)) = LOWER(TRIM(?))',
+            (item['nome'].strip(),)
+        ).fetchone()
 
-    db.session.commit()
+        if resultado:
+            id_item_cardapio = resultado[0]
+            cursor.execute("""
+                INSERT INTO item_cardapio_pedido (id_pedido, id_item_cardapio, quantidade)
+                VALUES (?, ?, ?);
+            """, (id_pedido_gerado, id_item_cardapio, item['quantidade']))
+
+    conn.commit()
+    conn.close()
+
     
     resp = redirect(url_for('perfil'))
     resp.set_cookie('pedidos', '[]', path='/')
@@ -180,8 +207,9 @@ def carrinho():
 
 
 @app.route('/happyhour')
-@login_required
 def happyhour():
+
+    
     if 'usuario' not in session:
         return redirect(url_for('cadastro'))
     
@@ -191,41 +219,63 @@ def happyhour():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    if request.method == 'POST':
-        nome_user = request.form['nome']
-        email_user = request.form['email']
-        passw_user = request.form['senha']
-        with criar_conexao() as conexao:
-            user = User.buscar_email(conexao, email_user)
+    if request.method == 'GET':
+        return render_template('login.html')
 
-        if user is None or user.nome != nome_user or not user.validar_senha(passw_user):
-            return redirect(url_for('login'))
-        
-        login_user(user)
-        return redirect(url_for('landingpage'))
+    conn = criar_conexao()
+
+    nome_user = request.form.get('nome')
+    email_user = request.form.get('email')
+    passw_user = request.form.get('senha')
+
     
-    return render_template('login.html')
+    user_in_bank = conn.execute("""
+        SELECT id, nome, email FROM users
+        WHERE nome = ? AND email = ? AND password = ?
+    """, (nome_user, email_user, passw_user)).fetchone()
+
+    if user_in_bank is None:
+        conn.close()
+        return redirect(url_for('login'))
+
+    
+    session['user_id'] = user_in_bank[0]
+    conn.close()
+
+    session['usuario'] = {
+        "nome": nome_user,
+        "email": email_user,
+        "senha": passw_user
+    }
+
+    return redirect(url_for('landingpage'))
 
 @app.route("/pesquisar-itens")
 def pesquisar_itens():
-    input = request.args.get("input").lower().strip()
     
-    conn = criar_conexao()
+    busca_itens = request.args.get("input","").strip()
+    
+    
 
-    itens_cuscuz = construtor_itens_cardapio(
-        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz' AND name LIKE ?", (f"%{input}%",)).fetchall())
-    )
-    itens_sobremesa = construtor_itens_cardapio(
-        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'sobremesa' AND name LIKE ?", (f"%{input}%",)).fetchall())
-    )
-    itens_campeao_vendas = construtor_itens_cardapio(
-        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'campeao_vendas' AND name LIKE ?", (f"%{input}%",)).fetchall())
-    )
-    itens_bebidas = construtor_itens_cardapio(
-        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'bebidas' AND name LIKE ?", (f"%{input}%",)).fetchall())
-    )
+    itens_cuscuz = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "cuscuz",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
+        
+    itens_sobremesa = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "sobremesa",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
 
-    conn.close()
+    itens_campeao_vendas = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "campeao_vendas",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
+    
+    itens_bebidas = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "bebidas",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
 
         
     return render_template(
@@ -241,31 +291,34 @@ def pesquisar_itens():
 
 
 @app.route('/perfil', methods=['GET'])
-@login_required
 def perfil():
+
     
     if 'usuario' not in session:
         return redirect(url_for('login'))
 
     user_id = session.get('user_id', 1)
-    pedidos_agrupados = {}
-   
-    # faz o join entre as tabelas do sqlalchemy
-    query = db.session.query(
-        Pedido.id,
-        Pedido.total,
-        Pedido.active,
-        item_cardapio.ItemCardapio.name,
-        item_cardapio.ItemCardapio.preco,
-        ItemCardapioPedido.quantidade,
-        Pedido.observacao
-    ).join(ItemCardapioPedido, Pedido.id == ItemCardapioPedido.id_pedido)\
-     .join(item_cardapio.ItemCardapio, ItemCardapioPedido.id_item_cardapio == item_cardapio.ItemCardapio.id)\
-     .filter(Pedido.id_user == user_id)\
-     .order_by(Pedido.id.asc())\
-     .all()
 
-    # organiza pedidos por ID 
+    pedidos_agrupados = {}
+    conn = criar_conexao()
+
+   
+    query = conn.execute("""
+        SELECT 
+            pedido.id,
+            pedido.total,
+            pedido.active,
+            item_cardapio.name,
+            item_cardapio.price,
+            item_cardapio_pedido.quantidade,
+            pedido.observacao
+        FROM pedido
+        INNER JOIN item_cardapio_pedido ON pedido.id = item_cardapio_pedido.id_pedido
+        INNER JOIN item_cardapio ON item_cardapio_pedido.id_item_cardapio = item_cardapio.id
+        WHERE pedido.id_user = ? ORDER BY pedido.id ASC;
+    """, (user_id,)).fetchall()
+
+    # organiza pedidos por ID
     for i in query:
         pedido_id, pedido_total, pedido_ativo, item_nome, item_preco, item_quantidade, item_observacao = i
 
@@ -284,14 +337,17 @@ def perfil():
             'quantidade': item_quantidade
         })
 
+    conn.close()
+
     lista_pedidos = list(pedidos_agrupados.values())
+
     return render_template('perfil.html', lista_pedidos=lista_pedidos)
 
 
 @app.route('/carrinho/remove/<int:id>')
 def carrinho_remove(id):
 
-    # remove item do cookie do carrinho 
+    # remove item do cookie do carrinho
     lista_pedidos = request.cookies.get('pedidos', '[]')
 
     if lista_pedidos:
@@ -304,6 +360,7 @@ def carrinho_remove(id):
 
     resp = redirect(url_for('carrinho'))
     resp.set_cookie('pedidos', json.dumps(lista_pedidos), path='/')
+
     return resp
 
 
@@ -312,44 +369,64 @@ def pedido_cancelar(id):
 
     user_id = session.get('user_id', 1)
 
-    # atualiza o status do pedido
-    pedido = Pedido.query.filter_by(id=id, id_user=user_id).first()
-    if pedido:
-        pedido.active = 0
-        db.session.commit()
+    conn = criar_conexao()
+
+    # desativa pedido no banco
+    conn.execute("""
+        UPDATE pedido 
+        SET active = 0
+        WHERE id = ? AND id_user = ?;
+    """, (id, user_id))
+
+    conn.commit()
+    conn.close()
 
     return redirect(url_for('perfil'))
 
 
 @app.route('/logout', methods=["POST"])
 def logout():
+
+    
     session.pop('usuario', None)
-    session.pop('user_id', None)
+
     return redirect(url_for('landingpage'))
 
 
 @app.route('/trocarsenha', methods=['GET', 'POST'])
-# bloqueia se não estiver logado
-@login_required
 def trocarsenha():
 
+    # bloqueia se não estiver logado
+    if 'usuario' not in session:
+        return redirect(url_for('login'))
+
     if request.method == 'POST':
+
         # pega nova senha
         nova_senha = request.form.get('novasenha')
         confirmar_senha = request.form.get('confirmarsenha')
+
         
         if nova_senha != confirmar_senha:
             return redirect(url_for('trocarsenha'))
 
         email_usuario = session['usuario']['email']
 
-        # atualiza a senha do usuario
-        usuario_db = User.query.filter_by(email=email_usuario).first()
-        if usuario_db:
-            usuario_db.senha = nova_senha
-            db.session.commit()
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+
+        # atualiza senha no banco
+        cursor.execute("""
+            UPDATE users 
+            SET password = ? 
+            WHERE email = ?
+        """, (nova_senha, email_usuario))
+
+        conexao.commit()
+        conexao.close()
 
         session['usuario']['senha'] = nova_senha
+
         return redirect(url_for('perfil'))
 
     return render_template('trocarsenha.html')
