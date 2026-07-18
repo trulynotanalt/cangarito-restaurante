@@ -1,17 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response, session
 from db import *
+from database import db
 from item_cardapio import Item_Cardapio
 import json
 
 app = Flask(__name__)
 app.secret_key = "GloriaAJesus"
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
+db.init_app(app)
 # pega lista do banco e transforma em objetos
 def construtor_itens_cardapio(lista_pedidos):
     lista_obj = []
     for i in lista_pedidos:
-        obj = Item_Cardapio(i[1], i[2], i[3])  # monta objeto
+        obj = Item_Cardapio(name=i[1], price=i[2], desc=i[3])  # monta objeto
         lista_obj.append(obj)
     return lista_obj
 
@@ -249,24 +252,30 @@ def login():
 
 @app.route("/pesquisar-itens")
 def pesquisar_itens():
-    input = request.args.get("input").lower().strip()
     
-    conn = criar_conexao()
+    busca_itens = request.args.get("input","").strip()
+    
+    
 
-    itens_cuscuz = construtor_itens_cardapio(
-        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'cuscuz' AND name LIKE ?", (f"%{input}%",)).fetchall())
-    )
-    itens_sobremesa = construtor_itens_cardapio(
-        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'sobremesa' AND name LIKE ?", (f"%{input}%",)).fetchall())
-    )
-    itens_campeao_vendas = construtor_itens_cardapio(
-        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'campeao_vendas' AND name LIKE ?", (f"%{input}%",)).fetchall())
-    )
-    itens_bebidas = construtor_itens_cardapio(
-        list(conn.execute("SELECT * FROM item_cardapio WHERE classificacao = 'bebidas' AND name LIKE ?", (f"%{input}%",)).fetchall())
-    )
+    itens_cuscuz = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "cuscuz",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
+        
+    itens_sobremesa = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "sobremesa",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
 
-    conn.close()
+    itens_campeao_vendas = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "campeao_vendas",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
+    
+    itens_bebidas = db.session.query(Item_Cardapio).filter(
+        Item_Cardapio.classificacao == "bebidas",
+        Item_Cardapio.name.ilike(f"%{busca_itens}%")
+    ).all()
 
         
     return render_template(
